@@ -42,14 +42,12 @@
     flex-wrap: wrap;
   }
 
-  .logo {
-    font-family: 'Instrument Serif', serif;
-    font-size: 20px;
-    letter-spacing: -0.01em;
-    color: var(--text);
+  .logo img {
+    height: 24px;
+    width: auto;
+    display: block;
+    opacity: 0.4;
   }
-
-  .logo span { font-style: italic; }
 
   header p {
     font-size: 13px;
@@ -87,10 +85,10 @@
   main {
     padding: 48px 48px 0;
     display: grid;
-    grid-template-columns: 1fr 320px;
+    grid-template-columns: 1fr 380px;
     gap: 32px;
     align-items: start;
-    max-width: 1100px;
+    max-width: 1200px;
   }
 
   .sliders-panel { display: flex; flex-direction: column; gap: 0; max-width: 680px; }
@@ -382,7 +380,7 @@
   }
 
   .hint-text {
-    font-size: 12px;
+    font-size: 14px;
     color: var(--text);
   }
 
@@ -404,6 +402,23 @@
     100% { content: '...'; }
   }
 
+  .btn-reset {
+    width: 100%;
+    margin-top: 12px;
+    padding: 8px 14px;
+    background: transparent;
+    color: var(--muted);
+    border: 0.5px solid var(--border);
+    border-radius: 8px;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 12px;
+    cursor: pointer;
+    transition: color 0.15s, border-color 0.15s;
+    text-align: center;
+  }
+
+  .btn-reset:hover { color: var(--text); border-color: rgba(26,25,22,0.3); }
+
   @media (max-width: 800px) {
     header { padding: 32px 24px 24px; }
     header p { text-align: left; }
@@ -418,8 +433,8 @@
 <body>
 
 <header>
-  <div class="logo">Lunte <span>Studio</span></div>
-  <p>Move the sliders to define your brand's position. There are no wrong answers — only clearer directions.</p>
+  <div class="logo"><img src="https://cdn.prod.website-files.com/64694fa65443350ff591221a/6490c4036a4c7a992e1610e0_Full%20logo-p-500.png" alt="Lunte Studio"></div>
+  <p>Brand Personality Survey</p>
 </header>
 
 <div class="intro">
@@ -584,6 +599,7 @@
         <span class="empty-hint">Move the sliders…</span>
       </div>
       <div id="summary-body" style="display:none;"></div>
+      <button class="btn-reset" onclick="resetSliders()">Reset sliders</button>
     </div>
 
     <div class="card" id="refs-card" style="display:none;">
@@ -908,6 +924,26 @@ function downloadPDF() {
 
   btn.disabled = false;
   btn.textContent = 'Download PDF';
+}
+
+function resetSliders() {
+  sliders.forEach(sl => {
+    const input = getEl(sl.id);
+    input.value = 50;
+    moved.delete(sl.id);
+    getEl('l-' + sl.id).classList.remove('active');
+    getEl('r-' + sl.id).classList.remove('active');
+    const trackW = input.offsetWidth - 16;
+    getEl('b-' + sl.id).style.left = (8 + 0.5 * trackW) + 'px';
+    getEl('b-' + sl.id).textContent = 50;
+  });
+  getEl('summary-body').style.display = 'none';
+  getEl('summary-body').innerHTML = '';
+  getEl('refs-card').style.display = 'none';
+  getEl('visual-card').style.display = 'none';
+  getEl('viewSummaryBtn').textContent = 'View summary';
+  getEl('viewSummaryBtn').disabled = false;
+  updateAll();
 }
 
 updateAll();

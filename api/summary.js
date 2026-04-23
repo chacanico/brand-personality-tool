@@ -1,3 +1,5 @@
+export const config = { runtime: 'nodejs' };
+
 module.exports = async function (req, res) {
   res.setHeader('Access-Control-Allow-Origin', '*');
   res.setHeader('Access-Control-Allow-Methods', 'POST, OPTIONS');

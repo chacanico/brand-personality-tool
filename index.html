@@ -310,14 +310,21 @@ sliders.forEach(sl => {
     bubble.style.left = (8 + pct * trackW) + 'px';
     bubble.textContent = getIntensityForValue(v);
 
-    // Label color gradient
-    const muted = 138, dark = 26;
-    const lc = Math.round(muted + (dark - muted) * (1 - pct));
-    const rc = Math.round(muted + (dark - muted) * pct);
-    labelL.style.color = `rgb(${lc},${lc},${Math.round(lc*0.97)})`;
-    labelR.style.color = `rgb(${rc},${rc},${Math.round(rc*0.97)})`;
-    labelL.style.fontWeight = v <= 40 ? '500' : '400';
-    labelR.style.fontWeight = v >= 60 ? '500' : '400';
+    // Labels: color interpolates from muted (#8A8780) to black (#1A1916) as slider approaches
+    const distL = Math.max(0, (50 - v) / 50); // 0 at center/right → 1 at far left
+    const distR = Math.max(0, (v - 50) / 50); // 0 at center/left → 1 at far right
+    const muted = [138, 135, 128]; // #8A8780
+    const dark  = [26,  25,  22];  // #1A1916
+    const lR = Math.round(muted[0] + (dark[0] - muted[0]) * distL);
+    const lG = Math.round(muted[1] + (dark[1] - muted[1]) * distL);
+    const lB = Math.round(muted[2] + (dark[2] - muted[2]) * distL);
+    const rR = Math.round(muted[0] + (dark[0] - muted[0]) * distR);
+    const rG = Math.round(muted[1] + (dark[1] - muted[1]) * distR);
+    const rB = Math.round(muted[2] + (dark[2] - muted[2]) * distR);
+    labelL.style.color = `rgb(${lR},${lG},${lB})`;
+    labelR.style.color = `rgb(${rR},${rG},${rB})`;
+    labelL.style.fontWeight = Math.round(300 + distL * 400);
+    labelR.style.fontWeight = Math.round(300 + distR * 400);
 
     updateAll();
   });

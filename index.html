@@ -3,590 +3,220 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Brand Attributes — Lunte Studio</title>
+<title>Brand Personality Survey — Lunte Studio</title>
 <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;1,9..40,300&display=swap" rel="stylesheet">
 <style>
   *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-
   :root {
-    --bg: #F7F5F0;
-    --surface: #FFFFFF;
-    --text: #1A1916;
-    --muted: #8A8780;
-    --border: rgba(26,25,22,0.12);
-    --accent: #1A1916;
-    --tag-bg: #EEEDFE;
-    --tag-color: #3C3489;
-    --tag-border: #AFA9EC;
-    --track: rgba(26,25,22,0.15);
-    --thumb: #1A1916;
+    --bg: #F7F5F0; --surface: #FFFFFF; --text: #1A1916; --muted: #8A8780;
+    --border: rgba(26,25,22,0.12); --tag-bg: #EEEDFE; --tag-color: #3C3489;
+    --tag-border: #AFA9EC; --track: rgba(26,25,22,0.15);
   }
-
-  body {
-    background: var(--bg);
-    color: var(--text);
-    font-family: 'DM Sans', sans-serif;
-    font-size: 15px;
-    line-height: 1.6;
-    min-height: 100vh;
-    padding: 0 0 80px;
-  }
-
-  header {
-    padding: 48px 48px 32px;
-    border-bottom: 0.5px solid var(--border);
-    display: flex;
-    justify-content: space-between;
-    align-items: flex-end;
-    gap: 24px;
-    flex-wrap: wrap;
-  }
-
-  .logo img {
-    height: 24px;
-    width: auto;
-    display: block;
-    opacity: 0.4;
-  }
-
-  header p {
-    font-size: 13px;
-    color: var(--muted);
-    max-width: 360px;
-    text-align: right;
-    line-height: 1.5;
-  }
-
-  .intro {
-    padding: 48px 48px 0;
-    max-width: 640px;
-  }
-
-  .intro h1 {
-    font-family: 'Instrument Serif', serif;
-    font-size: 36px;
-    font-weight: 400;
-    line-height: 1.15;
-    letter-spacing: -0.02em;
-    margin-bottom: 12px;
-  }
-
-  .intro h1 em {
-    font-style: italic;
-    color: var(--muted);
-  }
-
-  .intro p {
-    font-size: 14px;
-    color: var(--muted);
-    line-height: 1.7;
-  }
-
-  main {
-    padding: 48px 48px 0;
-    display: grid;
-    grid-template-columns: 1fr 380px;
-    gap: 32px;
-    align-items: start;
-    max-width: 1200px;
-  }
-
+  body { background: var(--bg); color: var(--text); font-family: 'DM Sans', sans-serif; font-size: 15px; line-height: 1.6; min-height: 100vh; padding: 0 0 80px; }
+  header { padding: 48px 48px 32px; border-bottom: 0.5px solid var(--border); display: flex; justify-content: space-between; align-items: flex-end; gap: 24px; flex-wrap: wrap; }
+  .logo img { height: 17px; width: auto; display: block; opacity: 0.4; }
+  header p { font-size: 13px; color: var(--muted); max-width: 360px; text-align: right; line-height: 1.5; font-weight: 500; letter-spacing: 0.01em; }
+  .intro { padding: 48px 48px 0; max-width: 640px; }
+  .intro h1 { font-family: 'Instrument Serif', serif; font-size: 36px; font-weight: 400; line-height: 1.15; letter-spacing: -0.02em; margin-bottom: 12px; }
+  .intro h1 em { font-style: italic; color: var(--muted); }
+  main { padding: 48px 48px 0; display: grid; grid-template-columns: 1fr 380px; gap: 32px; align-items: start; max-width: 1200px; }
   .sliders-panel { display: flex; flex-direction: column; gap: 0; max-width: 680px; }
-
-  .section-label {
-    font-size: 10px;
-    font-weight: 500;
-    letter-spacing: 0.12em;
-    text-transform: uppercase;
-    color: var(--muted);
-    margin: 36px 0 20px;
-    padding-bottom: 8px;
-    border-bottom: 0.5px solid var(--border);
-  }
-
+  .section-label { font-size: 10px; font-weight: 500; letter-spacing: 0.12em; text-transform: uppercase; color: var(--muted); margin: 36px 0 20px; padding-bottom: 8px; border-bottom: 0.5px solid var(--border); }
   .section-label:first-child { margin-top: 0; }
-
-  .slider-row {
-    display: grid;
-    grid-template-columns: 140px 1fr 140px;
-    align-items: center;
-    gap: 16px;
-    margin-bottom: 22px;
-  }
-
-  .label-l {
-    font-size: 13px;
-    color: var(--muted);
-    text-align: right;
-    line-height: 1.3;
-    transition: color 0.2s;
-  }
-
-  .label-r {
-    font-size: 13px;
-    color: var(--muted);
-    text-align: left;
-    line-height: 1.3;
-    transition: color 0.2s;
-  }
-
-  .label-l.active, .label-r.active {
-    color: var(--text);
-    font-weight: 500;
-  }
-
+  .slider-row { display: grid; grid-template-columns: 130px 1fr 130px; align-items: center; gap: 16px; margin-bottom: 22px; }
+  .label-l { font-size: 16px; color: var(--muted); text-align: right; line-height: 1.3; transition: color 0.2s; position: relative; cursor: default; }
+  .label-r { font-size: 16px; color: var(--muted); text-align: left; line-height: 1.3; transition: color 0.2s; position: relative; cursor: default; }
+  .label-l.active, .label-r.active { color: var(--text); font-weight: 500; }
+  .label-l:hover .slider-tooltip, .label-r:hover .slider-tooltip { display: block; }
   .slider-wrap { position: relative; }
-
-  input[type=range] {
-    -webkit-appearance: none;
-    appearance: none;
-    width: 100%;
-    height: 1px;
-    background: var(--track);
-    outline: none;
-    cursor: pointer;
-    display: block;
-  }
-
-  input[type=range]::-webkit-slider-thumb {
-    -webkit-appearance: none;
-    appearance: none;
-    width: 16px;
-    height: 16px;
-    border-radius: 50%;
-    background: var(--surface);
-    border: 1.5px solid var(--text);
-    cursor: pointer;
-    transition: transform 0.15s, background 0.15s;
-  }
-
-  input[type=range]::-webkit-slider-thumb:hover {
-    background: var(--text);
-    transform: scale(1.2);
-  }
-
-  input[type=range]::-moz-range-thumb {
-    width: 16px;
-    height: 16px;
-    border-radius: 50%;
-    background: var(--surface);
-    border: 1.5px solid var(--text);
-    cursor: pointer;
-  }
-
-  .val-bubble {
-    position: absolute;
-    top: -26px;
-    font-size: 10px;
-    color: var(--muted);
-    transform: translateX(-50%);
-    pointer-events: none;
-    transition: opacity 0.2s;
-    opacity: 0;
-    white-space: nowrap;
-  }
-
-  .slider-wrap:hover .val-bubble,
-  .slider-wrap:focus-within .val-bubble { opacity: 1; }
-
+  .val-bubble { position: absolute; top: -26px; font-size: 10px; color: var(--muted); transform: translateX(-50%); pointer-events: none; transition: opacity 0.2s; opacity: 0; white-space: nowrap; }
+  .slider-wrap:hover .val-bubble, .slider-wrap:focus-within .val-bubble { opacity: 1; }
+  input[type=range] { -webkit-appearance: none; appearance: none; width: 100%; height: 1px; background: var(--track); outline: none; cursor: pointer; display: block; }
+  input[type=range]::-webkit-slider-thumb { -webkit-appearance: none; appearance: none; width: 16px; height: 16px; border-radius: 50%; background: var(--surface); border: 1.5px solid var(--text); cursor: pointer; transition: transform 0.15s, background 0.15s; }
+  input[type=range]::-webkit-slider-thumb:hover { background: var(--text); transform: scale(1.2); }
+  input[type=range]::-moz-range-thumb { width: 16px; height: 16px; border-radius: 50%; background: var(--surface); border: 1.5px solid var(--text); cursor: pointer; }
+  .slider-tooltip { display: none; position: absolute; bottom: calc(100% + 12px); left: 50%; transform: translateX(-50%); background: var(--text); color: var(--surface); font-size: 12px; line-height: 1.55; padding: 10px 14px; border-radius: 8px; width: 260px; z-index: 10; pointer-events: none; }
+  .slider-tooltip::after { content: ''; position: absolute; top: 100%; left: 50%; transform: translateX(-50%); border: 5px solid transparent; border-top-color: var(--text); }
+  .tooltip-title { font-weight: 500; font-size: 11px; letter-spacing: 0.05em; text-transform: uppercase; opacity: 0.6; display: block; margin-bottom: 4px; }
   /* Sidebar */
-  .sidebar {
-    position: sticky;
-    top: 32px;
-  }
-
-  .card {
-    background: var(--surface);
-    border: 0.5px solid var(--border);
-    border-radius: 16px;
-    padding: 24px;
-    margin-bottom: 16px;
-  }
-
-  .card-title {
-    font-size: 10px;
-    font-weight: 500;
-    letter-spacing: 0.12em;
-    text-transform: uppercase;
-    color: var(--muted);
-    margin-bottom: 16px;
-  }
-
+  .sidebar { position: sticky; top: 32px; }
+  .card { background: var(--surface); border: 0.5px solid var(--border); border-radius: 16px; padding: 24px; margin-bottom: 16px; }
+  .card-title { font-size: 10px; font-weight: 500; letter-spacing: 0.12em; text-transform: uppercase; color: var(--muted); margin-bottom: 16px; }
   .tag-cloud { display: flex; flex-wrap: wrap; gap: 6px; min-height: 48px; }
-
-  .tag {
-    font-size: 12px;
-    height: 26px;
-    padding: 0 10px;
-    border-radius: 100px;
-    background: var(--tag-bg);
-    color: var(--tag-color);
-    border: 0.5px solid var(--tag-border);
-    animation: tagIn 0.2s ease;
-    display: inline-flex;
-    align-items: center;
-  }
-
-  .tag.neutral {
-    background: #F1EFE8;
-    color: #5F5E5A;
-    border-color: #D3D1C7;
-  }
-
-  @keyframes tagIn {
-    from { opacity: 0; transform: scale(0.9); }
-    to { opacity: 1; transform: scale(1); }
-  }
-
-  .empty-hint {
-    font-size: 13px;
-    color: var(--muted);
-    font-style: italic;
-  }
-
-  .btn-primary {
-    width: 100%;
-    padding: 12px 20px;
-    background: var(--text);
-    color: var(--surface);
-    border: none;
-    border-radius: 10px;
-    font-family: 'DM Sans', sans-serif;
-    font-size: 13px;
-    font-weight: 500;
-    cursor: pointer;
-    transition: opacity 0.2s, transform 0.1s;
-    letter-spacing: 0.01em;
-  }
-
-  .btn-primary:hover { opacity: 0.85; }
-  .btn-primary:active { transform: scale(0.98); }
-  .btn-primary:disabled { opacity: 0.35; cursor: not-allowed; }
-
-  .btn-secondary {
-    width: 100%;
-    padding: 11px 20px;
-    background: transparent;
-    color: var(--text);
-    border: 0.5px solid rgba(26,25,22,0.2);
-    border-radius: 10px;
-    font-family: 'DM Sans', sans-serif;
-    font-size: 13px;
-    cursor: pointer;
-    transition: background 0.15s;
-    margin-top: 8px;
-  }
-
+  .tag { font-size: 12px; height: 26px; padding: 0 10px; border-radius: 100px; background: var(--tag-bg); color: var(--tag-color); border: 0.5px solid var(--tag-border); animation: tagIn 0.2s ease; display: inline-flex; align-items: center; }
+  .tag.neutral { background: #F1EFE8; color: #5F5E5A; border-color: #D3D1C7; }
+  @keyframes tagIn { from { opacity: 0; transform: scale(0.9); } to { opacity: 1; transform: scale(1); } }
+  .empty-hint { font-size: 13px; color: var(--muted); font-style: italic; }
+  .btn-primary { width: 100%; padding: 12px 20px; background: var(--text); color: var(--surface); border: none; border-radius: 10px; font-family: 'DM Sans', sans-serif; font-size: 13px; font-weight: 500; cursor: pointer; transition: opacity 0.2s, transform 0.1s; letter-spacing: 0.01em; }
+  .btn-primary:hover { opacity: 0.85; } .btn-primary:active { transform: scale(0.98); } .btn-primary:disabled { opacity: 0.35; cursor: not-allowed; }
+  .btn-secondary { width: 100%; padding: 11px 20px; background: transparent; color: var(--text); border: 0.5px solid rgba(26,25,22,0.2); border-radius: 10px; font-family: 'DM Sans', sans-serif; font-size: 13px; cursor: pointer; transition: background 0.15s; margin-top: 8px; }
   .btn-secondary:hover { background: rgba(26,25,22,0.05); }
-
-  .saved-notice {
-    font-size: 12px;
-    color: #3C3489;
-    text-align: center;
-    margin-top: 8px;
-    opacity: 0;
-    transition: opacity 0.3s;
-    min-height: 18px;
-  }
-
-  .saved-notice.show { opacity: 1; }
-
-  .summary-text {
-    font-size: 16px;
-    color: var(--text);
-    line-height: 1.7;
-    margin-bottom: 14px;
-  }
-
-  .summary-refs {
-    font-size: 11px;
-    color: var(--muted);
-    font-style: italic;
-    margin-bottom: 14px;
-    line-height: 1.6;
-  }
-
-  .refs-list {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 10px;
-    align-items: center;
-  }
-
-  .ref-item {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 6px;
-    animation: tagIn 0.2s ease;
-  }
-
-  .ref-logo {
-    width: 80px;
-    height: 80px;
-    border-radius: 12px;
-    background: var(--bg);
-    border: 0.5px solid var(--border);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    overflow: hidden;
-  }
-
-  .ref-logo img {
-    width: 52px;
-    height: 52px;
-    object-fit: contain;
-    filter: grayscale(1);
-    opacity: 0.7;
-  }
-
-  .ref-name {
-    font-size: 14px;
-    color: var(--muted);
-    text-align: center;
-    white-space: nowrap;
-  }
-
-  .summary-visual-hints { display: flex; flex-direction: column; gap: 10px; }
-
-  .hint-row {
-    background: var(--bg);
-    border-radius: 10px;
-    padding: 12px 14px;
-    line-height: 1.5;
-    display: flex;
-    gap: 10px;
-    align-items: flex-start;
-  }
-
-  .hint-icon {
-    font-size: 16px;
-    flex-shrink: 0;
-    margin-top: 1px;
-    line-height: 1;
-  }
-
-  .hint-content { flex: 1; }
-
-  .hint-label {
-    font-size: 10px;
-    font-weight: 500;
-    letter-spacing: 0.08em;
-    text-transform: uppercase;
-    color: var(--muted);
-    display: block;
-    margin-bottom: 4px;
-  }
-
-  .hint-text {
-    font-size: 14px;
-    color: var(--text);
-  }
-
-  .summary-loading {
-    font-size: 13px;
-    color: var(--muted);
-    font-style: italic;
-  }
-
-  .summary-loading::after {
-    content: '';
-    animation: dots 1.2s infinite;
-  }
-
-  @keyframes dots {
-    0%   { content: ''; }
-    33%  { content: '.'; }
-    66%  { content: '..'; }
-    100% { content: '...'; }
-  }
-
-  .btn-reset {
-    width: 100%;
-    margin-top: 12px;
-    padding: 8px 14px;
-    background: transparent;
-    color: var(--muted);
-    border: 0.5px solid var(--border);
-    border-radius: 8px;
-    font-family: 'DM Sans', sans-serif;
-    font-size: 12px;
-    cursor: pointer;
-    transition: color 0.15s, border-color 0.15s;
-    text-align: center;
-  }
-
+  .btn-reset { width: 100%; margin-top: 12px; padding: 8px 14px; background: transparent; color: var(--muted); border: 0.5px solid var(--border); border-radius: 8px; font-family: 'DM Sans', sans-serif; font-size: 12px; cursor: pointer; transition: color 0.15s, border-color 0.15s; text-align: center; }
   .btn-reset:hover { color: var(--text); border-color: rgba(26,25,22,0.3); }
-
+  .saved-notice { font-size: 12px; color: #3C3489; text-align: center; margin-top: 8px; opacity: 0; transition: opacity 0.3s; min-height: 18px; }
+  .saved-notice.show { opacity: 1; }
+  .summary-text { font-size: 16px; color: var(--text); line-height: 1.7; margin-bottom: 14px; }
+  .refs-list { display: flex; flex-wrap: wrap; gap: 10px; align-items: center; }
+  .ref-item { display: flex; flex-direction: column; align-items: center; gap: 6px; animation: tagIn 0.2s ease; }
+  .ref-logo { width: 80px; height: 80px; border-radius: 12px; background: var(--bg); border: 0.5px solid var(--border); display: flex; align-items: center; justify-content: center; overflow: hidden; }
+  .ref-name { font-size: 14px; color: var(--muted); text-align: center; white-space: nowrap; }
+  .summary-visual-hints { display: flex; flex-direction: column; gap: 10px; }
+  .hint-row { background: var(--bg); border-radius: 10px; padding: 12px 14px; line-height: 1.5; display: flex; gap: 10px; align-items: flex-start; }
+  .hint-icon { font-size: 16px; flex-shrink: 0; margin-top: 1px; line-height: 1; }
+  .hint-content { flex: 1; }
+  .hint-label { font-size: 10px; font-weight: 500; letter-spacing: 0.08em; text-transform: uppercase; color: var(--muted); display: block; margin-bottom: 4px; }
+  .hint-text { font-size: 14px; color: var(--text); }
+  .summary-loading { font-size: 13px; color: var(--muted); font-style: italic; }
+  .summary-loading::after { content: ''; animation: dots 1.2s infinite; }
+  @keyframes dots { 0%{content:''} 33%{content:'.'} 66%{content:'..'} 100%{content:'...'} }
   @media (max-width: 800px) {
-    header { padding: 32px 24px 24px; }
-    header p { text-align: left; }
+    header { padding: 32px 24px 24px; } header p { text-align: left; }
     .intro { padding: 32px 24px 0; }
     main { padding: 32px 24px 0; grid-template-columns: 1fr; }
     .sidebar { position: static; }
     .slider-row { grid-template-columns: 100px 1fr 100px; gap: 10px; }
-    .label-l, .label-r { font-size: 12px; }
+    .label-l, .label-r { font-size: 13px; }
   }
 </style>
 </head>
 <body>
-
 <header>
   <div class="logo"><img src="https://cdn.prod.website-files.com/64694fa65443350ff591221a/6490c4036a4c7a992e1610e0_Full%20logo-p-500.png" alt="Lunte Studio"></div>
   <p>Brand Personality Survey</p>
 </header>
-
 <div class="intro">
   <h1>Where do you want your<br><em>brand to go?</em></h1>
 </div>
-
 <main>
   <div class="sliders-panel" id="sliders">
-
     <p class="section-label">Tone & personality</p>
-
     <div class="slider-row">
-      <div class="label-l" id="l-r1">Casual</div>
+      <div class="label-l" id="l-r1">Casual<div class="slider-tooltip"><span class="tooltip-title">Casual ←→ Formal</span>Casual brands feel approachable and conversational — like a friend. Formal brands project structure and authority. Leaning formal signals trustworthiness and expertise; leaning casual builds warmth and relatability.</div></div>
       <div class="slider-wrap">
-        <div class="val-bubble" id="b-r1">50</div>
+        <div class="val-bubble" id="b-r1"></div>
         <input type="range" min="0" max="100" value="50" step="10" id="r1" data-left="Casual" data-right="Formal">
       </div>
-      <div class="label-r" id="r-r1">Formal</div>
+      <div class="label-r" id="r-r1"><div class="slider-tooltip"><span class="tooltip-title">Casual ←→ Formal</span>Casual brands feel approachable and conversational — like a friend. Formal brands project structure and authority. Leaning formal signals trustworthiness and expertise; leaning casual builds warmth and relatability.</div>Formal</div>
     </div>
-
     <div class="slider-row">
-      <div class="label-l" id="l-r2">Playful</div>
+      <div class="label-l" id="l-r2">Playful<div class="slider-tooltip"><span class="tooltip-title">Playful ←→ Serious</span>Playful brands embrace humor, surprise, and fun. Serious brands focus on substance and credibility. Being playful invites engagement and memorability; being serious signals depth and commitment.</div></div>
       <div class="slider-wrap">
-        <div class="val-bubble" id="b-r2">50</div>
+        <div class="val-bubble" id="b-r2"></div>
         <input type="range" min="0" max="100" value="50" step="10" id="r2" data-left="Playful" data-right="Serious">
       </div>
-      <div class="label-r" id="r-r2">Serious</div>
+      <div class="label-r" id="r-r2"><div class="slider-tooltip"><span class="tooltip-title">Playful ←→ Serious</span>Playful brands embrace humor, surprise, and fun. Serious brands focus on substance and credibility. Being playful invites engagement and memorability; being serious signals depth and commitment.</div>Serious</div>
     </div>
-
     <div class="slider-row">
-      <div class="label-l" id="l-r3">Warm</div>
+      <div class="label-l" id="l-r3">Warm<div class="slider-tooltip"><span class="tooltip-title">Warm ←→ Cool / Distant</span>Warm brands feel human, emotionally present, and caring. Cool/distant brands feel polished and independent. Warmth builds loyalty; distance can signal exclusivity and confidence.</div></div>
       <div class="slider-wrap">
-        <div class="val-bubble" id="b-r3">50</div>
+        <div class="val-bubble" id="b-r3"></div>
         <input type="range" min="0" max="100" value="50" step="10" id="r3" data-left="Warm" data-right="Cool / Distant">
       </div>
-      <div class="label-r" id="r-r3">Cool / Distant</div>
+      <div class="label-r" id="r-r3"><div class="slider-tooltip"><span class="tooltip-title">Warm ←→ Cool / Distant</span>Warm brands feel human, emotionally present, and caring. Cool/distant brands feel polished and independent. Warmth builds loyalty; distance can signal exclusivity and confidence.</div>Cool / Distant</div>
     </div>
-
     <div class="slider-row">
-      <div class="label-l" id="l-r4">Irreverent</div>
+      <div class="label-l" id="l-r4">Irreverent<div class="slider-tooltip"><span class="tooltip-title">Irreverent ←→ Conservative</span>Irreverent brands break rules and provoke. Conservative brands respect convention and predictability. Irreverence creates cultural relevance; conservatism builds long-term trust.</div></div>
       <div class="slider-wrap">
-        <div class="val-bubble" id="b-r4">50</div>
+        <div class="val-bubble" id="b-r4"></div>
         <input type="range" min="0" max="100" value="50" step="10" id="r4" data-left="Irreverent" data-right="Conservative">
       </div>
-      <div class="label-r" id="r-r4">Conservative</div>
+      <div class="label-r" id="r-r4"><div class="slider-tooltip"><span class="tooltip-title">Irreverent ←→ Conservative</span>Irreverent brands break rules and provoke. Conservative brands respect convention and predictability. Irreverence creates cultural relevance; conservatism builds long-term trust.</div>Conservative</div>
     </div>
 
     <p class="section-label">Market positioning</p>
-
     <div class="slider-row">
-      <div class="label-l" id="l-r5">Accessible</div>
+      <div class="label-l" id="l-r5">Accessible<div class="slider-tooltip"><span class="tooltip-title">Accessible ←→ Luxury</span>Accessible brands make themselves available to everyone — low barriers, open doors. Luxury brands are selective and aspirational by design. Accessibility drives volume; luxury drives desire.</div></div>
       <div class="slider-wrap">
-        <div class="val-bubble" id="b-r5">50</div>
+        <div class="val-bubble" id="b-r5"></div>
         <input type="range" min="0" max="100" value="50" step="10" id="r5" data-left="Accessible" data-right="Luxury">
       </div>
-      <div class="label-r" id="r-r5">Luxury</div>
+      <div class="label-r" id="r-r5"><div class="slider-tooltip"><span class="tooltip-title">Accessible ←→ Luxury</span>Accessible brands make themselves available to everyone — low barriers, open doors. Luxury brands are selective and aspirational by design. Accessibility drives volume; luxury drives desire.</div>Luxury</div>
     </div>
-
     <div class="slider-row">
-      <div class="label-l" id="l-r6">Mass market</div>
+      <div class="label-l" id="l-r6">Mass market<div class="slider-tooltip"><span class="tooltip-title">Mass market ←→ Niche</span>Mass market brands speak to everyone broadly. Niche brands go deep for a specific audience. Mass market maximizes reach; niche builds intense community and loyalty.</div></div>
       <div class="slider-wrap">
-        <div class="val-bubble" id="b-r6">50</div>
+        <div class="val-bubble" id="b-r6"></div>
         <input type="range" min="0" max="100" value="50" step="10" id="r6" data-left="Mass market" data-right="Niche">
       </div>
-      <div class="label-r" id="r-r6">Niche</div>
+      <div class="label-r" id="r-r6"><div class="slider-tooltip"><span class="tooltip-title">Mass market ←→ Niche</span>Mass market brands speak to everyone broadly. Niche brands go deep for a specific audience. Mass market maximizes reach; niche builds intense community and loyalty.</div>Niche</div>
     </div>
-
     <div class="slider-row">
-      <div class="label-l" id="l-r7">Affordable</div>
+      <div class="label-l" id="l-r7">Affordable<div class="slider-tooltip"><span class="tooltip-title">Affordable ←→ Premium</span>Affordable brands compete on value and remove financial friction. Premium brands charge more and signal superiority. Affordability builds adoption; premium builds perceived status.</div></div>
       <div class="slider-wrap">
-        <div class="val-bubble" id="b-r7">50</div>
+        <div class="val-bubble" id="b-r7"></div>
         <input type="range" min="0" max="100" value="50" step="10" id="r7" data-left="Affordable" data-right="Premium">
       </div>
-      <div class="label-r" id="r-r7">Premium</div>
+      <div class="label-r" id="r-r7"><div class="slider-tooltip"><span class="tooltip-title">Affordable ←→ Premium</span>Affordable brands compete on value and remove financial friction. Premium brands charge more and signal superiority. Affordability builds adoption; premium builds perceived status.</div>Premium</div>
     </div>
 
     <p class="section-label">Value proposition</p>
-
     <div class="slider-row">
-      <div class="label-l" id="l-r8">Functional</div>
+      <div class="label-l" id="l-r8">Functional<div class="slider-tooltip"><span class="tooltip-title">Functional ←→ Aspirational</span>Functional brands lead with utility — what they do and how well. Aspirational brands lead with identity — what it means to use them. Functional builds trust; aspirational builds desire.</div></div>
       <div class="slider-wrap">
-        <div class="val-bubble" id="b-r8">50</div>
+        <div class="val-bubble" id="b-r8"></div>
         <input type="range" min="0" max="100" value="50" step="10" id="r8" data-left="Functional" data-right="Aspirational">
       </div>
-      <div class="label-r" id="r-r8">Aspirational</div>
+      <div class="label-r" id="r-r8"><div class="slider-tooltip"><span class="tooltip-title">Functional ←→ Aspirational</span>Functional brands lead with utility — what they do and how well. Aspirational brands lead with identity — what it means to use them. Functional builds trust; aspirational builds desire.</div>Aspirational</div>
     </div>
-
     <div class="slider-row">
-      <div class="label-l" id="l-r9">Simple</div>
+      <div class="label-l" id="l-r9">Simple<div class="slider-tooltip"><span class="tooltip-title">Simple ←→ Sophisticated</span>Simple brands are easy to understand and navigate — no noise. Sophisticated brands reward attention with depth and nuance. Simplicity reduces friction; sophistication signals taste.</div></div>
       <div class="slider-wrap">
-        <div class="val-bubble" id="b-r9">50</div>
+        <div class="val-bubble" id="b-r9"></div>
         <input type="range" min="0" max="100" value="50" step="10" id="r9" data-left="Simple" data-right="Sophisticated">
       </div>
-      <div class="label-r" id="r-r9">Sophisticated</div>
+      <div class="label-r" id="r-r9"><div class="slider-tooltip"><span class="tooltip-title">Simple ←→ Sophisticated</span>Simple brands are easy to understand and navigate — no noise. Sophisticated brands reward attention with depth and nuance. Simplicity reduces friction; sophistication signals taste.</div>Sophisticated</div>
     </div>
-
     <div class="slider-row">
-      <div class="label-l" id="l-r10">Safe / Timeless</div>
+      <div class="label-l" id="l-r10">Safe / Timeless<div class="slider-tooltip"><span class="tooltip-title">Safe / Timeless ←→ Bold / Disruptive</span>Safe/timeless brands avoid risk — they look and feel reliable across decades. Bold/disruptive brands court attention and challenge the status quo. Safety builds longevity; disruption builds momentum.</div></div>
       <div class="slider-wrap">
-        <div class="val-bubble" id="b-r10">50</div>
+        <div class="val-bubble" id="b-r10"></div>
         <input type="range" min="0" max="100" value="50" step="10" id="r10" data-left="Safe / Timeless" data-right="Bold / Disruptive">
       </div>
-      <div class="label-r" id="r-r10">Bold / Disruptive</div>
+      <div class="label-r" id="r-r10"><div class="slider-tooltip"><span class="tooltip-title">Safe / Timeless ←→ Bold / Disruptive</span>Safe/timeless brands avoid risk — they look and feel reliable across decades. Bold/disruptive brands court attention and challenge the status quo. Safety builds longevity; disruption builds momentum.</div>Bold / Disruptive</div>
     </div>
 
     <p class="section-label">Energy & pace</p>
-
     <div class="slider-row">
-      <div class="label-l" id="l-r11">Calm</div>
+      <div class="label-l" id="l-r11">Calm<div class="slider-tooltip"><span class="tooltip-title">Calm ←→ Energetic</span>Calm brands feel measured, still, and reassuring. Energetic brands feel urgent, dynamic, and exciting. Calm signals focus; energy signals drive and momentum.</div></div>
       <div class="slider-wrap">
-        <div class="val-bubble" id="b-r11">50</div>
+        <div class="val-bubble" id="b-r11"></div>
         <input type="range" min="0" max="100" value="50" step="10" id="r11" data-left="Calm" data-right="Energetic">
       </div>
-      <div class="label-r" id="r-r11">Energetic</div>
+      <div class="label-r" id="r-r11"><div class="slider-tooltip"><span class="tooltip-title">Calm ←→ Energetic</span>Calm brands feel measured, still, and reassuring. Energetic brands feel urgent, dynamic, and exciting. Calm signals focus; energy signals drive and momentum.</div>Energetic</div>
     </div>
-
     <div class="slider-row">
-      <div class="label-l" id="l-r12">Minimalist</div>
+      <div class="label-l" id="l-r12">Minimalist<div class="slider-tooltip"><span class="tooltip-title">Minimalist ←→ Maximalist</span>Minimalist brands use restraint — fewer elements, more impact. Maximalist brands embrace abundance — richness, texture, and detail. Minimalism signals confidence; maximalism signals personality.</div></div>
       <div class="slider-wrap">
-        <div class="val-bubble" id="b-r12">50</div>
+        <div class="val-bubble" id="b-r12"></div>
         <input type="range" min="0" max="100" value="50" step="10" id="r12" data-left="Minimalist" data-right="Maximalist">
       </div>
-      <div class="label-r" id="r-r12">Maximalist</div>
+      <div class="label-r" id="r-r12"><div class="slider-tooltip"><span class="tooltip-title">Minimalist ←→ Maximalist</span>Minimalist brands use restraint — fewer elements, more impact. Maximalist brands embrace abundance — richness, texture, and detail. Minimalism signals confidence; maximalism signals personality.</div>Maximalist</div>
     </div>
 
     <p class="section-label">Client relationship</p>
-
     <div class="slider-row">
-      <div class="label-l" id="l-r13">Empathetic</div>
+      <div class="label-l" id="l-r13">Empathetic<div class="slider-tooltip"><span class="tooltip-title">Empathetic ←→ Authoritative</span>Empathetic brands center the customer's feelings and journey. Authoritative brands lead from expertise and conviction. Empathy builds trust; authority builds respect.</div></div>
       <div class="slider-wrap">
-        <div class="val-bubble" id="b-r13">50</div>
+        <div class="val-bubble" id="b-r13"></div>
         <input type="range" min="0" max="100" value="50" step="10" id="r13" data-left="Empathetic" data-right="Authoritative">
       </div>
-      <div class="label-r" id="r-r13">Authoritative</div>
+      <div class="label-r" id="r-r13"><div class="slider-tooltip"><span class="tooltip-title">Empathetic ←→ Authoritative</span>Empathetic brands center the customer's feelings and journey. Authoritative brands lead from expertise and conviction. Empathy builds trust; authority builds respect.</div>Authoritative</div>
     </div>
-
     <div class="slider-row">
-      <div class="label-l" id="l-r14">Collaborative</div>
+      <div class="label-l" id="l-r14">Collaborative<div class="slider-tooltip"><span class="tooltip-title">Collaborative ←→ Expert / Guide</span>Collaborative brands position themselves as a partner — working with you. Expert/guide brands position themselves as the one who knows the way. Collaboration builds partnership; expertise builds credibility.</div></div>
       <div class="slider-wrap">
-        <div class="val-bubble" id="b-r14">50</div>
+        <div class="val-bubble" id="b-r14"></div>
         <input type="range" min="0" max="100" value="50" step="10" id="r14" data-left="Collaborative" data-right="Expert / Guide">
       </div>
-      <div class="label-r" id="r-r14">Expert / Guide</div>
+      <div class="label-r" id="r-r14"><div class="slider-tooltip"><span class="tooltip-title">Collaborative ←→ Expert / Guide</span>Collaborative brands position themselves as a partner — working with you. Expert/guide brands position themselves as the one who knows the way. Collaboration builds partnership; expertise builds credibility.</div>Expert / Guide</div>
     </div>
-
     <div class="slider-row">
-      <div class="label-l" id="l-r15">Local / Intimate</div>
+      <div class="label-l" id="l-r15">Local / Intimate<div class="slider-tooltip"><span class="tooltip-title">Local / Intimate ←→ Global / Universal</span>Local/intimate brands feel rooted in a specific place or community. Global/universal brands speak to shared human experiences across cultures. Local builds authenticity; global builds scale.</div></div>
       <div class="slider-wrap">
-        <div class="val-bubble" id="b-r15">50</div>
+        <div class="val-bubble" id="b-r15"></div>
         <input type="range" min="0" max="100" value="50" step="10" id="r15" data-left="Local / Intimate" data-right="Global / Universal">
       </div>
-      <div class="label-r" id="r-r15">Global / Universal</div>
+      <div class="label-r" id="r-r15"><div class="slider-tooltip"><span class="tooltip-title">Local / Intimate ←→ Global / Universal</span>Local/intimate brands feel rooted in a specific place or community. Global/universal brands speak to shared human experiences across cultures. Local builds authenticity; global builds scale.</div>Global / Universal</div>
     </div>
 
   </div>
@@ -601,23 +231,19 @@
       <div id="summary-body" style="display:none;"></div>
       <button class="btn-reset" onclick="resetSliders()">Reset sliders</button>
     </div>
-
     <div class="card" id="refs-card" style="display:none;">
       <p class="card-title">Similar brands</p>
       <div id="refs-body" class="refs-list"></div>
     </div>
-
     <div class="card" id="visual-card" style="display:none;">
       <p class="card-title">Possible visual resources</p>
       <div id="visual-body" class="summary-visual-hints"></div>
     </div>
-
     <button class="btn-primary" id="viewSummaryBtn" onclick="requestSummary()">View summary</button>
     <button class="btn-secondary" id="pdfBtn" onclick="downloadPDF()">Download PDF</button>
     <p class="saved-notice" id="saved-notice"></p>
   </div>
 </main>
-
 
 <script>
 const sliders = [
@@ -639,17 +265,15 @@ const sliders = [
 ];
 
 const moved = new Set();
-
 function getEl(id) { return document.getElementById(id); }
 
-function getIntensityLabel(v) {
-  if (v === 0)  return 'Not at all';
-  if (v <= 20)  return 'Barely';
-  if (v <= 40)  return 'Somewhat';
+function getIntensityForValue(v) {
   if (v === 50) return 'Balanced';
-  if (v <= 60)  return 'Moderately';
-  if (v <= 80)  return 'Very';
-  if (v < 100)  return 'Strongly';
+  const dist = v < 50 ? 50 - v : v - 50;
+  if (dist === 10) return 'Slightly';
+  if (dist === 20) return 'A bit';
+  if (dist === 30) return 'Moderately';
+  if (dist === 40) return 'Very';
   return 'Totally';
 }
 
@@ -657,102 +281,17 @@ function getLabel(sl) {
   const v = parseInt(getEl(sl.id).value);
   const left = getEl(sl.id).dataset.left;
   const right = getEl(sl.id).dataset.right;
-  if (v > 60) return { label: right, emoji: sl.emojiR, intensity: getIntensityLabel(v), strong: v >= 90 };
-  if (v < 40) return { label: left,  emoji: sl.emojiL, intensity: getIntensityLabel(100 - v), strong: v <= 10 };
+  if (v > 50) return { label: right, emoji: sl.emojiR, intensity: getIntensityForValue(v), strong: v >= 90 };
+  if (v < 50) return { label: left,  emoji: sl.emojiL, intensity: getIntensityForValue(v), strong: v <= 10 };
   return null;
-}
-
-function getChosenLabel(sl) {
-  const v = parseInt(getEl(sl.id).value);
-  const left = getEl(sl.id).dataset.left;
-  const right = getEl(sl.id).dataset.right;
-  if (v <= 45) return left;
-  if (v >= 55) return right;
-  return 'Balanced';
-}
-
-// Curated inline SVG logos — guaranteed to render, no external deps
-const brandLogos = {
-  'Apple': `<svg viewBox="0 0 24 24" fill="currentColor"><path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.3.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.8-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11z"/></svg>`,
-  'Google': `<svg viewBox="0 0 24 24"><path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/><path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/><path fill="#FBBC05" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z"/><path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z"/></svg>`,
-  'Nike': `<svg viewBox="0 0 24 24" fill="currentColor"><path d="M21 8.7L6.43 14.92c-1.49.63-3.07-.5-2.99-2.12.05-1.1.87-2.02 1.96-2.2l1.04-.17L21 8.7z"/></svg>`,
-  'Airbnb': `<svg viewBox="0 0 24 24" fill="#FF5A5F"><path d="M12.006 2.896c-1.655 0-2.993 1.338-2.993 2.99 0 1.655 1.338 2.993 2.993 2.993S15 7.54 15 5.886c0-1.652-1.338-2.99-2.994-2.99zm0 4.986c-1.1 0-1.993-.893-1.993-1.993S10.905 3.9 12.006 3.9 14 4.793 14 5.893s-.895 1.989-1.994 1.989zM6 14.1c0-2.1 1.236-4.026 3.105-4.93-.432-.302-.765-.74-.937-1.25C5.733 8.99 4 11.4 4 14.1c0 1.667.618 3.2 1.637 4.37L7.5 20.22C8.5 21.5 9.94 22 12 22c2.06 0 3.5-.5 4.5-1.78l1.863-1.75C19.382 17.3 20 15.767 20 14.1c0-2.7-1.733-5.11-4.168-6.18-.172.51-.505.948-.937 1.25C16.764 10.074 18 12 18 14.1c0 1.248-.464 2.394-1.226 3.268L15 19.1c-.8 1.05-1.867 1.6-3 1.6s-2.2-.55-3-1.6l-1.774-1.732C6.464 16.494 6 15.348 6 14.1z"/></svg>`,
-  'Spotify': `<svg viewBox="0 0 24 24" fill="#1DB954"><path d="M12 2C6.477 2 2 6.477 2 12s4.477 10 10 10 10-4.477 10-10S17.523 2 12 2zm4.586 14.424a.623.623 0 01-.857.207c-2.348-1.435-5.304-1.76-8.785-.964a.623.623 0 11-.277-1.215c3.809-.87 7.077-.496 9.712 1.115a.623.623 0 01.207.857zm1.223-2.722a.78.78 0 01-1.072.257c-2.687-1.652-6.785-2.131-9.965-1.166a.78.78 0 01-.973-.519.781.781 0 01.519-.972c3.632-1.102 8.147-.568 11.234 1.328a.78.78 0 01.257 1.072zm.105-2.835C14.692 8.95 9.375 8.775 6.297 9.71a.937.937 0 11-.543-1.794c3.532-1.072 9.404-.865 13.115 1.338a.937.937 0 01-.955 1.613z"/></svg>`,
-  'Netflix': `<svg viewBox="0 0 24 24" fill="#E50914"><path d="M5.398 0v.006c3.028 8.556 5.37 15.175 8.348 23.596 2.344.058 4.85.398 4.854.398-2.8-7.924-5.923-16.747-8.487-24zm8.489 0v9.63L18.6 24c-.717-.19-3.104-.515-4.385-.729L10.5 13.752c-.023 3.4-.015 6.88.015 10.25-1.135-.07-2.26-.095-3.375-.135V0zm-6.128 0H5.134v23.737c1.088.022 2.234.095 3.764.188-.012-8-.005-16.05.015-23.925z"/></svg>`,
-  'Notion': `<svg viewBox="0 0 24 24" fill="currentColor"><path d="M4.459 4.208c.746.606 1.026.56 2.428.466l13.215-.793c.28 0 .047-.28-.046-.326L17.86 1.968c-.42-.326-.981-.7-2.055-.607L3.01 2.295c-.466.046-.56.28-.374.466zm.793 3.08v13.904c0 .747.373 1.027 1.214.98l14.523-.84c.841-.046.935-.56.935-1.167V6.354c0-.606-.233-.933-.748-.887l-15.177.887c-.56.047-.747.327-.747.933zm14.337.745c.093.42 0 .84-.42.888l-.7.14v10.264c-.608.327-1.168.514-1.635.514-.748 0-.935-.234-1.495-.933l-4.577-7.186v6.952L12.21 19s0 .84-1.168.84l-3.222.186c-.093-.186 0-.653.327-.746l.84-.233V9.854L7.822 9.76c-.094-.42.14-1.026.793-1.073l3.456-.233 4.764 7.279v-6.44l-1.215-.14c-.093-.514.28-.887.747-.933zM1.936 1.035l13.31-.98c1.634-.14 2.055-.047 3.082.7l4.249 2.986c.7.513.934.653.934 1.213v16.378c0 1.026-.373 1.634-1.68 1.726l-15.458.934c-.98.047-1.448-.093-1.962-.747l-3.129-4.06c-.56-.747-.793-1.306-.793-1.96V2.667c0-.839.374-1.54 1.447-1.632z"/></svg>`,
-  'Figma': `<svg viewBox="0 0 24 24"><path fill="#F24E1E" d="M8 24c2.208 0 4-1.792 4-4v-4H8c-2.208 0-4 1.792-4 4s1.792 4 4 4z"/><path fill="#FF7262" d="M4 12c0-2.208 1.792-4 4-4h4v8H8c-2.208 0-4-1.792-4-4z"/><path fill="#A259FF" d="M4 4c0-2.208 1.792-4 4-4h4v8H8C5.792 8 4 6.208 4 4z"/><path fill="#1ABCFE" d="M12 0h4c2.208 0 4 1.792 4 4s-1.792 4-4 4h-4V0z"/><path fill="#0ACF83" d="M20 12c0 2.208-1.792 4-4 4s-4-1.792-4-4 1.792-4 4-4 4 1.792 4 4z"/></svg>`,
-  'Stripe': `<svg viewBox="0 0 24 24" fill="#635BFF"><path d="M13.976 9.15c-2.172-.806-3.356-1.426-3.356-2.409 0-.831.683-1.305 1.901-1.305 2.227 0 4.515.858 6.09 1.631l.89-5.494C18.252.975 15.697 0 12.165 0 9.667 0 7.589.654 6.104 1.872 4.56 3.147 3.757 4.992 3.757 7.218c0 4.039 2.467 5.76 6.476 7.219 2.585.92 3.445 1.574 3.445 2.583 0 .98-.84 1.545-2.354 1.545-1.875 0-4.965-.921-6.99-2.109l-.9 5.555C5.175 22.99 8.385 24 11.714 24c2.641 0 4.843-.624 6.328-1.813 1.664-1.305 2.525-3.236 2.525-5.732 0-4.128-2.524-5.851-6.594-7.305h.003z"/></svg>`,
-  'Slack': `<svg viewBox="0 0 24 24"><path fill="#E01E5A" d="M5.042 15.165a2.528 2.528 0 01-2.52 2.523A2.528 2.528 0 010 15.165a2.527 2.527 0 012.522-2.52h2.52v2.52zM6.313 15.165a2.527 2.527 0 012.521-2.52 2.527 2.527 0 012.521 2.52v6.313A2.528 2.528 0 018.834 24a2.528 2.528 0 01-2.521-2.522v-6.313z"/><path fill="#36C5F0" d="M8.834 5.042a2.528 2.528 0 01-2.521-2.52A2.528 2.528 0 018.834 0a2.528 2.528 0 012.521 2.522v2.52H8.834zM8.834 6.313a2.528 2.528 0 012.521 2.521 2.528 2.528 0 01-2.521 2.521H2.522A2.528 2.528 0 010 8.834a2.528 2.528 0 012.522-2.521h6.312z"/><path fill="#2EB67D" d="M18.956 8.834a2.528 2.528 0 012.522-2.521A2.528 2.528 0 0124 8.834a2.528 2.528 0 01-2.522 2.521h-2.522V8.834zM17.688 8.834a2.528 2.528 0 01-2.523 2.521 2.527 2.527 0 01-2.52-2.521V2.522A2.527 2.527 0 0115.165 0a2.528 2.528 0 012.523 2.522v6.312z"/><path fill="#ECB22E" d="M15.165 18.956a2.528 2.528 0 012.523 2.522A2.528 2.528 0 0115.165 24a2.527 2.527 0 01-2.52-2.522v-2.522h2.52zM15.165 17.688a2.527 2.527 0 01-2.52-2.523 2.526 2.526 0 012.52-2.52h6.313A2.527 2.527 0 0124 15.165a2.528 2.528 0 01-2.522 2.523h-6.313z"/></svg>`,
-  'Linear': `<svg viewBox="0 0 24 24" fill="currentColor"><path d="M0 14.25L9.75 24l.563-.563-9.75-9.75zm.324-3.396L14.073 24.75l.563-.563L.887 10.29zm1.96-1.96L15.969 22.79l.562-.562L2.847 8.33zm2.054-1.79L17.764 21.5l.562-.562L5.462 6.54zm2.054-1.79L19.558 20.21l.563-.563L7.518 4.75zm2.054-1.79L21.352 18.92l.562-.563L9.573 3zm2.054-1.79L23.145 17.63l.563-.563L11.628 1.252zm2.054-1.79L24 16.343v-.803L13.683.001l-.563.562zm2.054 10.45L24 14.248v-1.127L13.683 2.814l-1.127-.563zm2.054-1.127L24 11.95V10.82L13.683 4.608l-1.127-.563zm2.054-1.127L24 9.65V8.522L13.683 6.4l-1.127-.563zm2.054-1.127L24 7.35V6.222L13.683 8.192l-1.127-.563zm.563.563L24 5.049V3.922L14.246 9.88l-.563-.563z"/></svg>`,
-  'Duolingo': `<svg viewBox="0 0 24 24" fill="#58CC02"><path d="M19.647 3.96L17.5 1.5A4.5 4.5 0 0014.086.048L8.577.026A4.5 4.5 0 005.14 1.427L2.894 3.627A4.5 4.5 0 001.5 6.75v6.75a4.5 4.5 0 001.355 3.182L5.04 18.96A4.5 4.5 0 008.286 20.4h7.428a4.5 4.5 0 003.246-1.44l2.146-2.28A4.5 4.5 0 0022.5 13.5V7.2a4.5 4.5 0 00-.853-2.646zM12 16.5a4.5 4.5 0 110-9 4.5 4.5 0 010 9z"/></svg>`,
-  'Canva': `<svg viewBox="0 0 24 24" fill="#00C4CC"><path d="M12 0C5.373 0 0 5.373 0 12s5.373 12 12 12 12-5.373 12-12S18.627 0 12 0zm4.5 14.4c-.6 1.8-2.1 3-3.9 3.3-2.7.45-5.25-1.35-5.7-4.05-.45-2.7 1.35-5.25 4.05-5.7.9-.15 1.8-.03 2.55.33.75.36 1.35.9 1.8 1.59.15.24.12.54-.09.72a.512.512 0 01-.72-.09 2.96 2.96 0 00-1.38-1.17c-.576-.27-1.23-.36-1.884-.24-2.04.345-3.42 2.295-3.075 4.335.345 2.04 2.295 3.42 4.335 3.075 1.35-.225 2.475-1.17 2.94-2.46.105-.285.42-.435.705-.33a.527.527 0 01.33.705z"/></svg>`,
-  'Mailchimp': `<svg viewBox="0 0 24 24" fill="#FFE01B"><path d="M21.315 13.088c-.16-.048-.333-.066-.497-.038-.04-.124-.096-.243-.176-.352-.27-.363-.72-.481-1.14-.39-.132-1.142-.496-2.17-1.056-2.965 1.354-.879 2.22-2.228 2.22-3.736C20.666 2.966 17.918.5 14.334.5c-2.116 0-4.003.868-5.293 2.244C8.644 2.592 8.226 2.5 7.8 2.5c-1.92 0-3.466 1.466-3.466 3.276a3.01 3.01 0 001.28 2.44C4.85 9.22 4.5 10.388 4.5 11.64c0 3.93 3.46 7.116 7.745 7.116.968 0 1.896-.167 2.75-.47.22.223.5.39.823.454a1.79 1.79 0 001.485-.283c.203.126.42.218.647.264.71.14 1.42-.147 1.85-.692.578.186 1.205.118 1.706-.22.644-.434.95-1.22.81-1.72z"/></svg>`,
-  'IKEA': `<svg viewBox="0 0 24 24"><rect width="24" height="24" rx="3" fill="#003087"/><text x="12" y="16.5" text-anchor="middle" font-family="Arial" font-weight="900" font-size="8.5" fill="#FFDA1A">IKEA</text></svg>`,
-  'Tesla': `<svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2.5C6.477 2.5 2 6.977 2 12.5S6.477 22.5 12 22.5 22 18.023 22 12.5 17.523 2.5 12 2.5zm0 1.875c2.407 0 4.607.876 6.29 2.316-1.05.29-2.27.456-3.58.456-1.08 0-2.097-.115-3.01-.326L12 9.906l-.7-3.085c-.913.211-1.93.326-3.01.326-1.31 0-2.53-.166-3.58-.456A9.358 9.358 0 0112 4.375zm-4.23 3.3c1.01.185 2.09.285 3.23.285.46 0 .91-.017 1.35-.05l-2.35 10.453L12 7.91l2 10.453-2.35-10.453c.44.033.89.05 1.35.05 1.14 0 2.22-.1 3.23-.285A9.35 9.35 0 0121.06 12.5c0 5.134-4.186 9.303-9.339 9.303-5.153 0-9.339-4.169-9.339-9.303a9.35 9.35 0 015.388-8.825z"/></svg>`,
-  'Patagonia': `<svg viewBox="0 0 24 24" fill="#4A9B6F"><path d="M12 2C6.477 2 2 6.477 2 12s4.477 10 10 10 10-4.477 10-10S17.523 2 12 2zm0 18c-4.411 0-8-3.589-8-8s3.589-8 8-8 8 3.589 8 8-3.589 8-8 8zm-2-6h4v2h-4zm0-4h4v2h-4z"/></svg>`,
-  'Shopify': `<svg viewBox="0 0 24 24" fill="#96BF48"><path d="M15.337 23.979l5.729-1.242s-2.066-13.979-2.08-14.073a.344.344 0 00-.338-.294c-.14-.006-2.984-.055-2.984-.055s-1.764-1.71-1.964-1.906v17.57zm-2.374.021L12.9 0s-.058.003-.155.01c-.294.02-.875.1-1.662.477-1.15.56-2.3 1.615-3.224 3.422-.89 1.748-1.26 3.907-1.36 5.403L4.3 9.63s-.91.28-2.425.756C.867 10.672 0 11.37 0 11.37L2.02 24h10.943zm-4.45-8.022c.072-2.53 1.708-3.748 1.708-3.748s1.086 1.405 1.04 3.51c-.044 2.045-1.69 3.24-1.69 3.24s-1.13-1.008-1.058-2.997v-.005zm6.824-11.948c-.01-.055-.059-.08-.115-.072-.054.008-1.216.24-1.216.24s-.81-.78-1.125-1.08c-.315-.302-.885-.21-1.114-.14L12.6.962s2.736 15.016 2.737 15.07z"/></svg>`,
-  'Squarespace': `<svg viewBox="0 0 24 24" fill="#000"><path d="M19.394 6.552a3.344 3.344 0 010 4.732L9.737 20.94a3.344 3.344 0 01-4.732-4.731l9.658-9.657a3.344 3.344 0 014.731 0zm-1.493 3.24L8.244 19.449a1.344 1.344 0 001.9 1.9l9.656-9.657a1.344 1.344 0 00-1.899-1.9zm-4.235-4.234L4.01 15.214a1.344 1.344 0 001.9 1.9l9.656-9.657a1.344 1.344 0 00-1.9-1.9zm4.235 0a3.344 3.344 0 00-4.731 0L3.513 15.214a3.344 3.344 0 004.731 4.731l9.657-9.656a3.344 3.344 0 000-4.731z"/></svg>`,
-  'Lego': `<svg viewBox="0 0 24 24" fill="#FFD700"><circle cx="12" cy="12" r="10" fill="#E3000B"/><text x="12" y="15.5" text-anchor="middle" font-family="Arial" font-weight="900" font-size="6" fill="#FFD700">LEGO</text></svg>`,
-  'Red Bull': `<svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10" fill="#CC1E1C"/><text x="12" y="13.5" text-anchor="middle" font-family="Arial" font-weight="900" font-size="4.5" fill="#FFFFFF">RED BULL</text></svg>`,
-  'Gucci': `<svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10" fill="#1A1A1A"/><text x="12" y="13.5" text-anchor="middle" font-family="serif" font-size="5.5" fill="#C8A96E" letter-spacing="1">GUCCI</text></svg>`,
-  'Rolex': `<svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10" fill="#006039"/><text x="12" y="13.5" text-anchor="middle" font-family="serif" font-size="4.5" fill="#B8A96E" letter-spacing="1">ROLEX</text></svg>`,
-  'Oatly': `<svg viewBox="0 0 24 24" fill="#EEE5D3"><rect width="24" height="24" rx="12" fill="#1A1A1A"/><text x="12" y="14" text-anchor="middle" font-family="Arial" font-weight="900" font-size="6.5" fill="#EEE5D3">oatly</text></svg>`,
-  'Glossier': `<svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10" fill="#FEE4E2"/><text x="12" y="13.5" text-anchor="middle" font-family="serif" font-size="4" fill="#1A1A1A" letter-spacing="0.5">glossier</text></svg>`,
-  'Allbirds': `<svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10" fill="#F2EEE5"/><text x="12" y="13.5" text-anchor="middle" font-family="Arial" font-size="3.5" fill="#1A1A1A">allbirds</text></svg>`,
-  'Warby Parker': `<svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10" fill="#002E5D"/><text x="12" y="13.5" text-anchor="middle" font-family="Arial" font-weight="700" font-size="3.5" fill="#FFFFFF">WARBY</text></svg>`,
-  'Headspace': `<svg viewBox="0 0 24 24" fill="#FF6951"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="10" r="3.5" fill="white"/><path d="M6 17.5c0-3.314 2.686-5.5 6-5.5s6 2.186 6 5.5" stroke="white" stroke-width="1.5" fill="none" stroke-linecap="round"/></svg>`,
-  'Calm': `<svg viewBox="0 0 24 24"><defs><linearGradient id="cg" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="#4FB6D6"/><stop offset="100%" stop-color="#1E88C6"/></linearGradient></defs><circle cx="12" cy="12" r="10" fill="url(#cg)"/><text x="12" y="13.5" text-anchor="middle" font-family="serif" font-size="5" fill="white">calm</text></svg>`,
-  'Dropbox': `<svg viewBox="0 0 24 24" fill="#0061FF"><path d="M6 2L1 5.5 6 9l5-3.5zm12 0l-5 3.5 5 3.5 5-3.5zM1 12.5L6 16l5-3.5-5-3.5zm17 0l-5 3.5 5 3.5 5-3.5zM6 17.5l5 3.5 5-3.5-5-3.5z"/></svg>`,
-  'Uber': `<svg viewBox="0 0 24 24" fill="#000"><path d="M12 0C5.373 0 0 5.373 0 12s5.373 12 12 12 12-5.373 12-12S18.627 0 12 0zm0 19.5c-4.136 0-7.5-3.364-7.5-7.5S7.864 4.5 12 4.5s7.5 3.364 7.5 7.5-3.364 7.5-7.5 7.5zm0-13.5c-3.31 0-6 2.69-6 6s2.69 6 6 6 6-2.69 6-6-2.69-6-6-6zm0 10c-2.21 0-4-1.79-4-4s1.79-4 4-4 4 1.79 4 4-1.79 4-4 4z"/></svg>`,
-  'Twitter': `<svg viewBox="0 0 24 24" fill="#1DA1F2"><path d="M23.953 4.57a10 10 0 01-2.825.775 4.958 4.958 0 002.163-2.723c-.951.555-2.005.959-3.127 1.184a4.92 4.92 0 00-8.384 4.482C7.69 8.095 4.067 6.13 1.64 3.162a4.822 4.822 0 00-.666 2.475c0 1.71.87 3.213 2.188 4.096a4.904 4.904 0 01-2.228-.616v.06a4.923 4.923 0 003.946 4.827 4.996 4.996 0 01-2.212.085 4.936 4.936 0 004.604 3.417 9.867 9.867 0 01-6.102 2.105c-.39 0-.779-.023-1.17-.067a13.995 13.995 0 007.557 2.209c9.053 0 13.998-7.496 13.998-13.985 0-.21 0-.42-.015-.63A9.935 9.935 0 0024 4.59z"/></svg>`,
-  'LinkedIn': `<svg viewBox="0 0 24 24" fill="#0A66C2"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>`,
-  'Adobe': `<svg viewBox="0 0 24 24" fill="#FF0000"><path d="M13.966 22.624l-1.69-4.281H8.122l3.892-9.144 5.662 13.425zM.828 22.624L7.116 7.332 13.403 22.624zM.828 1.376h10.575l-10.575 21.248z"/></svg>`,
-  'Vercel': `<svg viewBox="0 0 24 24" fill="currentColor"><path d="M24 22.525H0l12-21.05z"/></svg>`,
-  'HubSpot': `<svg viewBox="0 0 24 24" fill="#FF7A59"><path d="M22.175 11.28a6.19 6.19 0 00-4.103-5.798V3.654a1.96 1.96 0 00.96-1.69 1.962 1.962 0 00-3.925 0c0 .712.383 1.332.96 1.69v1.825A6.184 6.184 0 0013.2 6.554l-7.58-5.9a2.278 2.278 0 00-2.844-.14A2.278 2.278 0 002.14 3.09c.135 1.197 1.14 2.089 2.36 2.089h.001l8.196 6.374a6.168 6.168 0 00-.955 3.307c0 3.417 2.773 6.19 6.191 6.19 3.417 0 6.19-2.773 6.19-6.19a6.16 6.16 0 00-.948-3.58zm-6.242 5.87a2.965 2.965 0 110-5.93 2.965 2.965 0 010 5.93z"/></svg>`,
-  'Intercom': `<svg viewBox="0 0 24 24" fill="#1F8DED"><path d="M12 0C5.373 0 0 5.373 0 12s5.373 12 12 12 12-5.373 12-12S18.627 0 12 0zm5.5 14.5c-.1.9-.9 1.6-1.9 1.6H8.4c-1 0-1.8-.7-1.9-1.6l-.5-6c0-.6.2-1.1.6-1.5.4-.4.9-.6 1.5-.6h7.8c.6 0 1.1.2 1.5.6.4.4.6.9.6 1.5l-.5 6z"/></svg>`,
-  'Asana': `<svg viewBox="0 0 24 24"><circle cx="12" cy="6" r="3.5" fill="#FC636B"/><circle cx="6" cy="15" r="3.5" fill="#FC636B"/><circle cx="18" cy="15" r="3.5" fill="#FC636B"/></svg>`,
-};
-
-function getBrandSVG(brandName) {
-  const key = Object.keys(brandLogos).find(k => k.toLowerCase() === brandName.toLowerCase());
-  return key ? brandLogos[key] : null;
-}
-
-// Icon map for visual hint categories
-const hintIconMap = {
-  'typography': '🔤', 'type': '🔤', 'font': '🔤', 'typeface': '🔤',
-  'color': '🎨', 'colour': '🎨', 'palette': '🎨',
-  'layout': '⬛', 'spacing': '⬛', 'whitespace': '⬛', 'grid': '⬛',
-  'imagery': '🖼', 'photography': '🖼', 'illustration': '🖼',
-  'motion': '⚡', 'animation': '⚡',
-  'texture': '🌀', 'pattern': '🌀',
-  'shape': '◯', 'form': '◯', 'geometry': '◯',
-  'iconography': '✳️', 'icons': '✳️',
-  'branding': '🏷', 'identity': '🏷', 'logo': '🏷',
-  'voice': '💬', 'tone': '💬', 'copy': '💬',
-};
-
-function getHintIcon(attribute) {
-  const lower = attribute.toLowerCase();
-  for (const [key, icon] of Object.entries(hintIconMap)) {
-    if (lower.includes(key)) return icon;
-  }
-  return '→';
 }
 
 function updateAll() {
   const cloud = getEl('tags');
   const items = sliders.map(s => getLabel(s)).filter(Boolean);
-  if (items.length === 0) {
-    cloud.innerHTML = '<span class="empty-hint">Move the sliders to see keywords…</span>';
-  } else {
-    cloud.innerHTML = items.map(i =>
-      `<span class="tag${i.strong ? '' : ' neutral'}">${i.emoji} <strong style="font-weight:500">${i.intensity}</strong>&nbsp;${i.label}</span>`
-    ).join('');
-  }
-
-  const count = moved.size;
-  const pct = Math.round((count / 15) * 100);
+  cloud.innerHTML = items.length === 0
+    ? '<span class="empty-hint">Move the sliders…</span>'
+    : items.map(i => `<span class="tag${i.strong ? '' : ' neutral'}">${i.emoji} <strong style="font-weight:500">${i.intensity}</strong>&nbsp;${i.label}</span>`).join('');
 }
 
 sliders.forEach(sl => {
@@ -764,186 +303,172 @@ sliders.forEach(sl => {
   input.addEventListener('input', () => {
     const v = parseInt(input.value);
     moved.add(sl.id);
+
+    // Bubble — exact original logic
     const pct = v / 100;
     const trackW = input.offsetWidth - 16;
     bubble.style.left = (8 + pct * trackW) + 'px';
-    bubble.textContent = v;
-    labelL.classList.toggle('active', v < 45);
-    labelR.classList.toggle('active', v > 55);
+    bubble.textContent = getIntensityForValue(v);
+
+    // Label color gradient
+    const muted = 138, dark = 26;
+    const lc = Math.round(muted + (dark - muted) * (1 - pct));
+    const rc = Math.round(muted + (dark - muted) * pct);
+    labelL.style.color = `rgb(${lc},${lc},${Math.round(lc*0.97)})`;
+    labelR.style.color = `rgb(${rc},${rc},${Math.round(rc*0.97)})`;
+    labelL.style.fontWeight = v <= 40 ? '500' : '400';
+    labelR.style.fontWeight = v >= 60 ? '500' : '400';
+
     updateAll();
   });
 
+  // Init bubble position — exact original
   const v = parseInt(input.value);
+  const pct = v / 100;
   setTimeout(() => {
     const trackW = input.offsetWidth - 16;
-    bubble.style.left = (8 + (v / 100) * trackW) + 'px';
+    bubble.style.left = (8 + pct * trackW) + 'px';
   }, 50);
 });
 
+const brandLogos = {
+  'Apple': `<svg viewBox="0 0 24 24" fill="currentColor"><path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.3.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.8-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11z"/></svg>`,
+  'Google': `<svg viewBox="0 0 24 24"><path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/><path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/><path fill="#FBBC05" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z"/><path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z"/></svg>`,
+  'Nike': `<svg viewBox="0 0 24 24" fill="currentColor"><path d="M21 8.7L6.43 14.92c-1.49.63-3.07-.5-2.99-2.12.05-1.1.87-2.02 1.96-2.2l1.04-.17L21 8.7z"/></svg>`,
+  'Airbnb': `<svg viewBox="0 0 24 24" fill="#FF5A5F"><path d="M12.006 2.896c-1.655 0-2.993 1.338-2.993 2.99 0 1.655 1.338 2.993 2.993 2.993S15 7.54 15 5.886c0-1.652-1.338-2.99-2.994-2.99zm0 4.986c-1.1 0-1.993-.893-1.993-1.993S10.905 3.9 12.006 3.9 14 4.793 14 5.893s-.895 1.989-1.994 1.989zM6 14.1c0-2.1 1.236-4.026 3.105-4.93-.432-.302-.765-.74-.937-1.25C5.733 8.99 4 11.4 4 14.1c0 1.667.618 3.2 1.637 4.37L7.5 20.22C8.5 21.5 9.94 22 12 22c2.06 0 3.5-.5 4.5-1.78l1.863-1.75C19.382 17.3 20 15.767 20 14.1c0-2.7-1.733-5.11-4.168-6.18-.172.51-.505.948-.937 1.25C16.764 10.074 18 12 18 14.1c0 1.248-.464 2.394-1.226 3.268L15 19.1c-.8 1.05-1.867 1.6-3 1.6s-2.2-.55-3-1.6l-1.774-1.732C6.464 16.494 6 15.348 6 14.1z"/></svg>`,
+  'Spotify': `<svg viewBox="0 0 24 24" fill="#1DB954"><path d="M12 2C6.477 2 2 6.477 2 12s4.477 10 10 10 10-4.477 10-10S17.523 2 12 2zm4.586 14.424a.623.623 0 01-.857.207c-2.348-1.435-5.304-1.76-8.785-.964a.623.623 0 11-.277-1.215c3.809-.87 7.077-.496 9.712 1.115a.623.623 0 01.207.857zm1.223-2.722a.78.78 0 01-1.072.257c-2.687-1.652-6.785-2.131-9.965-1.166a.78.78 0 01-.973-.519.781.781 0 01.519-.972c3.632-1.102 8.147-.568 11.234 1.328a.78.78 0 01.257 1.072zm.105-2.835C14.692 8.95 9.375 8.775 6.297 9.71a.937.937 0 11-.543-1.794c3.532-1.072 9.404-.865 13.115 1.338a.937.937 0 01-.955 1.613z"/></svg>`,
+  'Netflix': `<svg viewBox="0 0 24 24" fill="#E50914"><path d="M5.398 0v.006c3.028 8.556 5.37 15.175 8.348 23.596 2.344.058 4.85.398 4.854.398-2.8-7.924-5.923-16.747-8.487-24zm8.489 0v9.63L18.6 24c-.717-.19-3.104-.515-4.385-.729L10.5 13.752c-.023 3.4-.015 6.88.015 10.25-1.135-.07-2.26-.095-3.375-.135V0zm-6.128 0H5.134v23.737c1.088.022 2.234.095 3.764.188-.012-8-.005-16.05.015-23.925z"/></svg>`,
+  'Notion': `<svg viewBox="0 0 24 24" fill="currentColor"><path d="M4.459 4.208c.746.606 1.026.56 2.428.466l13.215-.793c.28 0 .047-.28-.046-.326L17.86 1.968c-.42-.326-.981-.7-2.055-.607L3.01 2.295c-.466.046-.56.28-.374.466zm.793 3.08v13.904c0 .747.373 1.027 1.214.98l14.523-.84c.841-.046.935-.56.935-1.167V6.354c0-.606-.233-.933-.748-.887l-15.177.887c-.56.047-.747.327-.747.933zm14.337.745c.093.42 0 .84-.42.888l-.7.14v10.264c-.608.327-1.168.514-1.635.514-.748 0-.935-.234-1.495-.933l-4.577-7.186v6.952L12.21 19s0 .84-1.168.84l-3.222.186c-.093-.186 0-.653.327-.746l.84-.233V9.854L7.822 9.76c-.094-.42.14-1.026.793-1.073l3.456-.233 4.764 7.279v-6.44l-1.215-.14c-.093-.514.28-.887.747-.933zM1.936 1.035l13.31-.98c1.634-.14 2.055-.047 3.082.7l4.249 2.986c.7.513.934.653.934 1.213v16.378c0 1.026-.373 1.634-1.68 1.726l-15.458.934c-.98.047-1.448-.093-1.962-.747l-3.129-4.06c-.56-.747-.793-1.306-.793-1.96V2.667c0-.839.374-1.54 1.447-1.632z"/></svg>`,
+  'Figma': `<svg viewBox="0 0 24 24"><path fill="#F24E1E" d="M8 24c2.208 0 4-1.792 4-4v-4H8c-2.208 0-4 1.792-4 4s1.792 4 4 4z"/><path fill="#FF7262" d="M4 12c0-2.208 1.792-4 4-4h4v8H8c-2.208 0-4-1.792-4-4z"/><path fill="#A259FF" d="M4 4c0-2.208 1.792-4 4-4h4v8H8C5.792 8 4 6.208 4 4z"/><path fill="#1ABCFE" d="M12 0h4c2.208 0 4 1.792 4 4s-1.792 4-4 4h-4V0z"/><path fill="#0ACF83" d="M20 12c0 2.208-1.792 4-4 4s-4-1.792-4-4 1.792-4 4-4 4 1.792 4 4z"/></svg>`,
+  'Stripe': `<svg viewBox="0 0 24 24" fill="#635BFF"><path d="M13.976 9.15c-2.172-.806-3.356-1.426-3.356-2.409 0-.831.683-1.305 1.901-1.305 2.227 0 4.515.858 6.09 1.631l.89-5.494C18.252.975 15.697 0 12.165 0 9.667 0 7.589.654 6.104 1.872 4.56 3.147 3.757 4.992 3.757 7.218c0 4.039 2.467 5.76 6.476 7.219 2.585.92 3.445 1.574 3.445 2.583 0 .98-.84 1.545-2.354 1.545-1.875 0-4.965-.921-6.99-2.109l-.9 5.555C5.175 22.99 8.385 24 11.714 24c2.641 0 4.843-.624 6.328-1.813 1.664-1.305 2.525-3.236 2.525-5.732 0-4.128-2.524-5.851-6.594-7.305h.003z"/></svg>`,
+  'Slack': `<svg viewBox="0 0 24 24"><path fill="#E01E5A" d="M5.042 15.165a2.528 2.528 0 01-2.52 2.523A2.528 2.528 0 010 15.165a2.527 2.527 0 012.522-2.52h2.52v2.52zM6.313 15.165a2.527 2.527 0 012.521-2.52 2.527 2.527 0 012.521 2.52v6.313A2.528 2.528 0 018.834 24a2.528 2.528 0 01-2.521-2.522v-6.313z"/><path fill="#36C5F0" d="M8.834 5.042a2.528 2.528 0 01-2.521-2.52A2.528 2.528 0 018.834 0a2.528 2.528 0 012.521 2.522v2.52H8.834zM8.834 6.313a2.528 2.528 0 012.521 2.521 2.528 2.528 0 01-2.521 2.521H2.522A2.528 2.528 0 010 8.834a2.528 2.528 0 012.522-2.521h6.312z"/><path fill="#2EB67D" d="M18.956 8.834a2.528 2.528 0 012.522-2.521A2.528 2.528 0 0124 8.834a2.528 2.528 0 01-2.522 2.521h-2.522V8.834zM17.688 8.834a2.528 2.528 0 01-2.523 2.521 2.527 2.527 0 01-2.52-2.521V2.522A2.527 2.527 0 0115.165 0a2.528 2.528 0 012.523 2.522v6.312z"/><path fill="#ECB22E" d="M15.165 18.956a2.528 2.528 0 012.523 2.522A2.528 2.528 0 0115.165 24a2.527 2.527 0 01-2.52-2.522v-2.522h2.52zM15.165 17.688a2.527 2.527 0 01-2.52-2.523 2.526 2.526 0 012.52-2.52h6.313A2.527 2.527 0 0124 15.165a2.528 2.528 0 01-2.522 2.523h-6.313z"/></svg>`,
+  'Duolingo': `<svg viewBox="0 0 24 24" fill="#58CC02"><path d="M19.647 3.96L17.5 1.5A4.5 4.5 0 0014.086.048L8.577.026A4.5 4.5 0 005.14 1.427L2.894 3.627A4.5 4.5 0 001.5 6.75v6.75a4.5 4.5 0 001.355 3.182L5.04 18.96A4.5 4.5 0 008.286 20.4h7.428a4.5 4.5 0 003.246-1.44l2.146-2.28A4.5 4.5 0 0022.5 13.5V7.2a4.5 4.5 0 00-.853-2.646zM12 16.5a4.5 4.5 0 110-9 4.5 4.5 0 010 9z"/></svg>`,
+  'Canva': `<svg viewBox="0 0 24 24" fill="#00C4CC"><path d="M12 0C5.373 0 0 5.373 0 12s5.373 12 12 12 12-5.373 12-12S18.627 0 12 0zm4.5 14.4c-.6 1.8-2.1 3-3.9 3.3-2.7.45-5.25-1.35-5.7-4.05-.45-2.7 1.35-5.25 4.05-5.7.9-.15 1.8-.03 2.55.33.75.36 1.35.9 1.8 1.59.15.24.12.54-.09.72a.512.512 0 01-.72-.09 2.96 2.96 0 00-1.38-1.17c-.576-.27-1.23-.36-1.884-.24-2.04.345-3.42 2.295-3.075 4.335.345 2.04 2.295 3.42 4.335 3.075 1.35-.225 2.475-1.17 2.94-2.46.105-.285.42-.435.705-.33a.527.527 0 01.33.705z"/></svg>`,
+  'Tesla': `<svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2.5C6.477 2.5 2 6.977 2 12.5S6.477 22.5 12 22.5 22 18.023 22 12.5 17.523 2.5 12 2.5zm0 1.875c2.407 0 4.607.876 6.29 2.316-1.05.29-2.27.456-3.58.456-1.08 0-2.097-.115-3.01-.326L12 9.906l-.7-3.085c-.913.211-1.93.326-3.01.326-1.31 0-2.53-.166-3.58-.456A9.358 9.358 0 0112 4.375zm-4.23 3.3c1.01.185 2.09.285 3.23.285.46 0 .91-.017 1.35-.05l-2.35 10.453L12 7.91l2 10.453-2.35-10.453c.44.033.89.05 1.35.05 1.14 0 2.22-.1 3.23-.285A9.35 9.35 0 0121.06 12.5c0 5.134-4.186 9.303-9.339 9.303-5.153 0-9.339-4.169-9.339-9.303a9.35 9.35 0 015.388-8.825z"/></svg>`,
+  'Patagonia': `<svg viewBox="0 0 24 24" fill="#4A9B6F"><path d="M12 2C6.477 2 2 6.477 2 12s4.477 10 10 10 10-4.477 10-10S17.523 2 12 2zm0 18c-4.411 0-8-3.589-8-8s3.589-8 8-8 8 3.589 8 8-3.589 8-8 8zm-2-6h4v2h-4zm0-4h4v2h-4z"/></svg>`,
+  'IKEA': `<svg viewBox="0 0 24 24"><rect width="24" height="24" rx="3" fill="#003087"/><text x="12" y="16.5" text-anchor="middle" font-family="Arial" font-weight="900" font-size="8.5" fill="#FFDA1A">IKEA</text></svg>`,
+  'Shopify': `<svg viewBox="0 0 24 24" fill="#96BF48"><path d="M15.337 23.979l5.729-1.242s-2.066-13.979-2.08-14.073a.344.344 0 00-.338-.294c-.14-.006-2.984-.055-2.984-.055s-1.764-1.71-1.964-1.906v17.57zm-2.374.021L12.9 0s-.058.003-.155.01c-.294.02-.875.1-1.662.477-1.15.56-2.3 1.615-3.224 3.422-.89 1.748-1.26 3.907-1.36 5.403L4.3 9.63s-.91.28-2.425.756C.867 10.672 0 11.37 0 11.37L2.02 24h10.943zm-4.45-8.022c.072-2.53 1.708-3.748 1.708-3.748s1.086 1.405 1.04 3.51c-.044 2.045-1.69 3.24-1.69 3.24s-1.13-1.008-1.058-2.997v-.005zm6.824-11.948c-.01-.055-.059-.08-.115-.072-.054.008-1.216.24-1.216.24s-.81-.78-1.125-1.08c-.315-.302-.885-.21-1.114-.14L12.6.962s2.736 15.016 2.737 15.07z"/></svg>`,
+  'Lego': `<svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10" fill="#E3000B"/><text x="12" y="15.5" text-anchor="middle" font-family="Arial" font-weight="900" font-size="6" fill="#FFD700">LEGO</text></svg>`,
+  'Gucci': `<svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10" fill="#1A1A1A"/><text x="12" y="13.5" text-anchor="middle" font-family="serif" font-size="5.5" fill="#C8A96E" letter-spacing="1">GUCCI</text></svg>`,
+  'Rolex': `<svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10" fill="#006039"/><text x="12" y="13.5" text-anchor="middle" font-family="serif" font-size="4.5" fill="#B8A96E" letter-spacing="1">ROLEX</text></svg>`,
+  'Oatly': `<svg viewBox="0 0 24 24"><rect width="24" height="24" rx="12" fill="#1A1A1A"/><text x="12" y="14" text-anchor="middle" font-family="Arial" font-weight="900" font-size="6.5" fill="#EEE5D3">oatly</text></svg>`,
+  'Glossier': `<svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10" fill="#FEE4E2"/><text x="12" y="13.5" text-anchor="middle" font-family="serif" font-size="4" fill="#1A1A1A" letter-spacing="0.5">glossier</text></svg>`,
+  'Allbirds': `<svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10" fill="#F2EEE5"/><text x="12" y="13.5" text-anchor="middle" font-family="Arial" font-size="3.5" fill="#1A1A1A">allbirds</text></svg>`,
+  'Headspace': `<svg viewBox="0 0 24 24" fill="#FF6951"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="10" r="3.5" fill="white"/><path d="M6 17.5c0-3.314 2.686-5.5 6-5.5s6 2.186 6 5.5" stroke="white" stroke-width="1.5" fill="none" stroke-linecap="round"/></svg>`,
+  'Calm': `<svg viewBox="0 0 24 24"><defs><linearGradient id="cg" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="#4FB6D6"/><stop offset="100%" stop-color="#1E88C6"/></linearGradient></defs><circle cx="12" cy="12" r="10" fill="url(#cg)"/><text x="12" y="13.5" text-anchor="middle" font-family="serif" font-size="5" fill="white">calm</text></svg>`,
+  'Dropbox': `<svg viewBox="0 0 24 24" fill="#0061FF"><path d="M6 2L1 5.5 6 9l5-3.5zm12 0l-5 3.5 5 3.5 5-3.5zM1 12.5L6 16l5-3.5-5-3.5zm17 0l-5 3.5 5 3.5 5-3.5zM6 17.5l5 3.5 5-3.5-5-3.5z"/></svg>`,
+  'Uber': `<svg viewBox="0 0 24 24" fill="#000"><path d="M12 0C5.373 0 0 5.373 0 12s5.373 12 12 12 12-5.373 12-12S18.627 0 12 0zm0 19.5c-4.136 0-7.5-3.364-7.5-7.5S7.864 4.5 12 4.5s7.5 3.364 7.5 7.5-3.364 7.5-7.5 7.5zm0-13.5c-3.31 0-6 2.69-6 6s2.69 6 6 6 6-2.69 6-6-2.69-6-6-6zm0 10c-2.21 0-4-1.79-4-4s1.79-4 4-4 4 1.79 4 4-1.79 4-4 4z"/></svg>`,
+  'LinkedIn': `<svg viewBox="0 0 24 24" fill="#0A66C2"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>`,
+  'Adobe': `<svg viewBox="0 0 24 24" fill="#FF0000"><path d="M13.966 22.624l-1.69-4.281H8.122l3.892-9.144 5.662 13.425zM.828 22.624L7.116 7.332 13.403 22.624zM.828 1.376h10.575l-10.575 21.248z"/></svg>`,
+  'Vercel': `<svg viewBox="0 0 24 24" fill="currentColor"><path d="M24 22.525H0l12-21.05z"/></svg>`,
+  'HubSpot': `<svg viewBox="0 0 24 24" fill="#FF7A59"><path d="M22.175 11.28a6.19 6.19 0 00-4.103-5.798V3.654a1.96 1.96 0 00.96-1.69 1.962 1.962 0 00-3.925 0c0 .712.383 1.332.96 1.69v1.825A6.184 6.184 0 0013.2 6.554l-7.58-5.9a2.278 2.278 0 00-2.844-.14A2.278 2.278 0 002.14 3.09c.135 1.197 1.14 2.089 2.36 2.089h.001l8.196 6.374a6.168 6.168 0 00-.955 3.307c0 3.417 2.773 6.19 6.191 6.19 3.417 0 6.19-2.773 6.19-6.19a6.16 6.16 0 00-.948-3.58zm-6.242 5.87a2.965 2.965 0 110-5.93 2.965 2.965 0 010 5.93z"/></svg>`,
+  'Intercom': `<svg viewBox="0 0 24 24" fill="#1F8DED"><path d="M12 0C5.373 0 0 5.373 0 12s5.373 12 12 12 12-5.373 12-12S18.627 0 12 0zm5.5 14.5c-.1.9-.9 1.6-1.9 1.6H8.4c-1 0-1.8-.7-1.9-1.6l-.5-6c0-.6.2-1.1.6-1.5.4-.4.9-.6 1.5-.6h7.8c.6 0 1.1.2 1.5.6.4.4.6.9.6 1.5l-.5 6z"/></svg>`,
+  'Asana': `<svg viewBox="0 0 24 24"><circle cx="12" cy="6" r="3.5" fill="#FC636B"/><circle cx="6" cy="15" r="3.5" fill="#FC636B"/><circle cx="18" cy="15" r="3.5" fill="#FC636B"/></svg>`,
+  'Mailchimp': `<svg viewBox="0 0 24 24" fill="#FFE01B"><path d="M21.315 13.088c-.16-.048-.333-.066-.497-.038-.04-.124-.096-.243-.176-.352-.27-.363-.72-.481-1.14-.39-.132-1.142-.496-2.17-1.056-2.965 1.354-.879 2.22-2.228 2.22-3.736C20.666 2.966 17.918.5 14.334.5c-2.116 0-4.003.868-5.293 2.244C8.644 2.592 8.226 2.5 7.8 2.5c-1.92 0-3.466 1.466-3.466 3.276a3.01 3.01 0 001.28 2.44C4.85 9.22 4.5 10.388 4.5 11.64c0 3.93 3.46 7.116 7.745 7.116.968 0 1.896-.167 2.75-.47.22.223.5.39.823.454a1.79 1.79 0 001.485-.283c.203.126.42.218.647.264.71.14 1.42-.147 1.85-.692.578.186 1.205.118 1.706-.22.644-.434.95-1.22.81-1.72z"/></svg>`,
+  'Red Bull': `<svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10" fill="#CC1E1C"/><text x="12" y="13.5" text-anchor="middle" font-family="Arial" font-weight="900" font-size="4.5" fill="#FFFFFF">RED BULL</text></svg>`,
+  'Warby Parker': `<svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10" fill="#002E5D"/><text x="12" y="13.5" text-anchor="middle" font-family="Arial" font-weight="700" font-size="3.5" fill="#FFFFFF">WARBY</text></svg>`,
+  'Squarespace': `<svg viewBox="0 0 24 24" fill="#000"><path d="M19.394 6.552a3.344 3.344 0 010 4.732L9.737 20.94a3.344 3.344 0 01-4.732-4.731l9.658-9.657a3.344 3.344 0 014.731 0zm-1.493 3.24L8.244 19.449a1.344 1.344 0 001.9 1.9l9.656-9.657a1.344 1.344 0 00-1.899-1.9zm-4.235-4.234L4.01 15.214a1.344 1.344 0 001.9 1.9l9.656-9.657a1.344 1.344 0 00-1.9-1.9zm4.235 0a3.344 3.344 0 00-4.731 0L3.513 15.214a3.344 3.344 0 004.731 4.731l9.657-9.656a3.344 3.344 0 000-4.731z"/></svg>`,
+};
+
+function getBrandSVG(n) {
+  const k = Object.keys(brandLogos).find(k => k.toLowerCase() === n.toLowerCase());
+  return k ? brandLogos[k] : null;
+}
+
+const hintIconMap = { 'typography':'🔤','type':'🔤','font':'🔤','color':'🎨','colour':'🎨','palette':'🎨','layout':'⬛','spacing':'⬛','whitespace':'⬛','imagery':'🖼','photography':'🖼','illustration':'🖼','motion':'⚡','animation':'⚡','texture':'🌀','pattern':'🌀','shape':'◯','form':'◯','voice':'💬','tone':'💬' };
+function getHintIcon(a) { const l=a.toLowerCase(); for(const [k,i] of Object.entries(hintIconMap)){if(l.includes(k))return i;} return '→'; }
+
 async function requestSummary() {
   const btn = getEl('viewSummaryBtn');
-  btn.disabled = true;
-  btn.textContent = 'Generating…';
-
-  const summaryBody = getEl('summary-body');
-  summaryBody.style.display = 'block';
-  summaryBody.innerHTML = '<p class="summary-loading">Crafting brand personality</p>';
-
+  btn.disabled = true; btn.textContent = 'Generating…';
+  const sb = getEl('summary-body');
+  sb.style.display = 'block';
+  sb.innerHTML = '<p class="summary-loading">Crafting brand personality</p>';
   const profile = sliders.map(sl => {
     const v = parseInt(getEl(sl.id).value);
-    const left = getEl(sl.id).dataset.left;
-    const right = getEl(sl.id).dataset.right;
-    const label = v <= 50 ? left : right;
-    const intensity = v <= 50 ? getIntensityLabel(100 - v) : getIntensityLabel(v);
-    return `${intensity} ${label}`;
+    const left = getEl(sl.id).dataset.left, right = getEl(sl.id).dataset.right;
+    return `${getIntensityForValue(v)} ${v <= 50 ? left : right}`;
   }).join(', ');
-
   try {
     const res = await fetch('/api/summary', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
+      method: 'POST', headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
-        model: 'claude-sonnet-4-6',
-        max_tokens: 1000,
-        system: `You are a brand strategist. Respond ONLY with a valid JSON object — no markdown, no backticks, no extra text — in this exact shape:
-{
-  "paragraph": "2-3 sentence brand personality description. Plain, direct language, no jargon.",
-  "references": ["Brand1", "Brand2", "Brand3", "Brand4"],
-  "visual_hints": [
-    {"attribute": "Typography", "hint": "specific actionable direction"},
-    {"attribute": "Color", "hint": "specific actionable direction"},
-    {"attribute": "Layout", "hint": "specific actionable direction"},
-    {"attribute": "Imagery", "hint": "specific actionable direction"}
-  ]
-}
-Use these exact attribute categories: Typography, Color, Layout, Imagery. Visual hints must be concrete (e.g. 'Generous whitespace, minimal body copy density').
-IMPORTANT: References must be chosen ONLY from this list: Apple, Google, Nike, Airbnb, Spotify, Netflix, Tesla, Patagonia, Rolex, Gucci, IKEA, Mailchimp, Notion, Figma, Stripe, Linear, Slack, Duolingo, Canva, Headspace, Calm, Dropbox, Uber, Twitter, LinkedIn, Adobe, Shopify, Squarespace, Lego, Red Bull, Oatly, Glossier, Allbirds, Warby Parker, Vercel, HubSpot, Intercom, Asana. Pick the 4 most fitting ones from this list only.`,
+        model: 'claude-sonnet-4-6', max_tokens: 1000,
+        system: `You are a brand strategist. Respond ONLY with a valid JSON object — no markdown, no backticks — in this shape:
+{"paragraph":"2-3 sentence brand personality. Plain language.","references":["Brand1","Brand2","Brand3","Brand4"],"visual_hints":[{"attribute":"Typography","hint":"direction"},{"attribute":"Color","hint":"direction"},{"attribute":"Layout","hint":"direction"},{"attribute":"Imagery","hint":"direction"}]}
+References ONLY from: Apple,Google,Nike,Airbnb,Spotify,Netflix,Tesla,Patagonia,Rolex,Gucci,IKEA,Mailchimp,Notion,Figma,Stripe,Slack,Duolingo,Canva,Headspace,Calm,Dropbox,Uber,LinkedIn,Adobe,Shopify,Squarespace,Lego,Red Bull,Oatly,Glossier,Allbirds,Warby Parker,Vercel,HubSpot,Intercom,Asana. Pick 4.`,
         messages: [{ role: 'user', content: `Brand profile: ${profile}` }]
       })
     });
-
     const data = await res.json();
-    const raw = (data.content || []).filter(b => b.type === 'text').map(b => b.text).join('');
-    const result = JSON.parse(raw.replace(/```json|```/g, '').trim());
-
-    summaryBody.innerHTML = `<p class="summary-text">${result.paragraph}</p>`;
-
-    // Refs card with logos
-    const refsCard = getEl('refs-card');
-    refsCard.style.display = 'block';
+    const raw = (data.content||[]).filter(b=>b.type==='text').map(b=>b.text).join('');
+    const result = JSON.parse(raw.replace(/```json|```/g,'').trim());
+    sb.innerHTML = `<p class="summary-text">${result.paragraph}</p>`;
+    getEl('refs-card').style.display = 'block';
     getEl('refs-body').innerHTML = result.references.map(brand => {
       const svg = getBrandSVG(brand);
-      const initials = brand.split(' ').map(w => w[0]).join('').slice(0,2).toUpperCase();
-      const inner = svg
-        ? `<div style="width:44px;height:44px;display:flex;align-items:center;justify-content:center">${svg}</div>`
-        : `<span style="font-size:14px;font-weight:600;color:var(--muted)">${initials}</span>`;
-      return `<div class="ref-item">
-        <div class="ref-logo">${inner}</div>
-        <span class="ref-name">${brand}</span>
-      </div>`;
+      const initials = brand.split(' ').map(w=>w[0]).join('').slice(0,2).toUpperCase();
+      const inner = svg ? `<div style="width:44px;height:44px;display:flex;align-items:center;justify-content:center">${svg}</div>` : `<span style="font-size:14px;font-weight:600;color:var(--muted)">${initials}</span>`;
+      return `<div class="ref-item"><div class="ref-logo">${inner}</div><span class="ref-name">${brand}</span></div>`;
     }).join('');
-
-    // Visual hints card
-    const visualCard = getEl('visual-card');
-    visualCard.style.display = 'block';
-    getEl('visual-body').innerHTML = result.visual_hints.map(h => `
-      <div class="hint-row">
-        <div class="hint-icon">${getHintIcon(h.attribute)}</div>
-        <div class="hint-content">
-          <span class="hint-label">${h.attribute}</span>
-          <span class="hint-text">${h.hint}</span>
-        </div>
-      </div>`).join('');
-
-    btn.textContent = 'Regenerate ↺';
-    btn.disabled = false;
-
+    getEl('visual-card').style.display = 'block';
+    getEl('visual-body').innerHTML = result.visual_hints.map(h => `<div class="hint-row"><div class="hint-icon">${getHintIcon(h.attribute)}</div><div class="hint-content"><span class="hint-label">${h.attribute}</span><span class="hint-text">${h.hint}</span></div></div>`).join('');
+    btn.textContent = 'Regenerate ↺'; btn.disabled = false;
   } catch(e) {
-    summaryBody.innerHTML = '<span class="empty-hint">Could not generate summary. Try again.</span>';
-    btn.textContent = 'View summary';
-    btn.disabled = false;
+    sb.innerHTML = '<span class="empty-hint">Could not generate. Try again.</span>';
+    btn.textContent = 'View summary'; btn.disabled = false;
   }
-}
-
-function downloadPDF() {
-  const btn = getEl('pdfBtn');
-  btn.disabled = true;
-  btn.textContent = 'Preparing…';
-
-  const date = new Date().toLocaleDateString('en-US', { year:'numeric', month:'long', day:'numeric' });
-  const summaryEl = getEl('summary-body');
-  const visualEl = getEl('visual-body');
-  const refsEl = getEl('refs-body');
-
-  let sliderRows = '';
-  let currentSection = '';
-  sliders.forEach(sl => {
-    if (sl.section !== currentSection) {
-      currentSection = sl.section;
-      sliderRows += '<tr><td colspan="2" style="padding:12px 0 4px;font-size:10px;letter-spacing:0.1em;text-transform:uppercase;color:#8A8780;font-weight:500;border-bottom:0.5px solid #e0ddd8">' + sl.section + '</td></tr>';
-    }
-    const v = parseInt(getEl(sl.id).value);
-    const left = getEl(sl.id).dataset.left;
-    const right = getEl(sl.id).dataset.right;
-    const label = v <= 50 ? left : right;
-    const val = v <= 50 ? v : 100 - v;
-    const intensity = v <= 50 ? getIntensityLabel(100 - v) : getIntensityLabel(v);
-    sliderRows += '<tr><td style="padding:6px 0;font-size:13px;color:#1A1916">' + label + '</td><td style="padding:6px 0;font-size:12px;color:#8A8780;text-align:right">' + intensity + ' · ' + val + '</td></tr>';
-  });
-
-  const summaryPara = summaryEl && summaryEl.querySelector('.summary-text') ? summaryEl.querySelector('.summary-text').textContent : '';
-  const refNames = refsEl ? Array.from(refsEl.querySelectorAll('.ref-name')).map(n => '<span style="font-size:12px;color:#1A1916;padding:4px 10px;background:#F7F5F0;border-radius:6px;display:inline-block">' + n.textContent + '</span>').join('') : '';
-  const hintRows = visualEl ? Array.from(visualEl.querySelectorAll('.hint-row')).map(h => {
-    const label = h.querySelector('.hint-label') ? h.querySelector('.hint-label').textContent : '';
-    const text = h.querySelector('.hint-text') ? h.querySelector('.hint-text').textContent : '';
-    return '<div style="padding:10px 12px;background:#F7F5F0;border-radius:8px;margin-bottom:8px"><span style="font-size:10px;font-weight:500;letter-spacing:0.08em;text-transform:uppercase;color:#8A8780;display:block;margin-bottom:3px">' + label + '</span><span style="font-size:12px;color:#1A1916">' + text + '</span></div>';
-  }).join('') : '';
-
-  const html = '<!DOCTYPE html><html><head><meta charset="UTF-8"><title>Brand Attributes — Lunte Studio</title>'
-    + '<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=DM+Sans:opsz,wght@9..40,400;9..40,500&display=swap" rel="stylesheet">'
-    + '<style>body{font-family:DM Sans,sans-serif;background:#fff;color:#1A1916;margin:0;padding:48px;font-size:14px;line-height:1.6}'
-    + 'h1{font-family:Instrument Serif,serif;font-weight:400;font-size:28px;margin:0 0 4px;letter-spacing:-0.02em}'
-    + '.date{font-size:12px;color:#8A8780;margin-bottom:40px}'
-    + '.sec{margin-bottom:32px}'
-    + '.sec-title{font-size:10px;font-weight:500;letter-spacing:0.12em;text-transform:uppercase;color:#8A8780;margin-bottom:12px;padding-bottom:6px;border-bottom:0.5px solid #e0ddd8}'
-    + 'table{width:100%;border-collapse:collapse}'
-    + '@media print{body{padding:32px}}</style></head><body>'
-    + '<h1>Brand attribute profile</h1>'
-    + '<p class="date">' + date + ' — Lunte Studio</p>'
-    + '<div class="sec"><p class="sec-title">Attribute values</p><table>' + sliderRows + '</table></div>'
-    + (summaryPara ? '<div class="sec"><p class="sec-title">Brand personality</p><p style="font-size:14px;line-height:1.7">' + summaryPara + '</p></div>' : '')
-    + (refNames ? '<div class="sec"><p class="sec-title">Similar brands</p><div style="display:flex;gap:8px;flex-wrap:wrap">' + refNames + '</div></div>' : '')
-    + (hintRows ? '<div class="sec"><p class="sec-title">Visual resources</p>' + hintRows + '</div>' : '')
-    + '<script>window.onload=function(){window.print();}<' + '/script>'
-    + '</body></html>';
-
-  const blob = new Blob([html], { type: 'text/html' });
-  const url = URL.createObjectURL(blob);
-  const printWin = window.open(url, '_blank');
-  setTimeout(() => URL.revokeObjectURL(url), 10000);
-
-  btn.disabled = false;
-  btn.textContent = 'Download PDF';
 }
 
 function resetSliders() {
   sliders.forEach(sl => {
-    const input = getEl(sl.id);
-    input.value = 50;
-    moved.delete(sl.id);
-    getEl('l-' + sl.id).classList.remove('active');
-    getEl('r-' + sl.id).classList.remove('active');
-    const trackW = input.offsetWidth - 16;
-    getEl('b-' + sl.id).style.left = (8 + 0.5 * trackW) + 'px';
-    getEl('b-' + sl.id).textContent = 50;
+    const input = getEl(sl.id); input.value = 50; moved.delete(sl.id);
+    getEl('l-'+sl.id).classList.remove('active'); getEl('r-'+sl.id).classList.remove('active');
+    getEl('l-'+sl.id).style.color = ''; getEl('r-'+sl.id).style.color = '';
+    getEl('l-'+sl.id).style.fontWeight = ''; getEl('r-'+sl.id).style.fontWeight = '';
   });
-  getEl('summary-body').style.display = 'none';
-  getEl('summary-body').innerHTML = '';
-  getEl('refs-card').style.display = 'none';
-  getEl('visual-card').style.display = 'none';
-  getEl('viewSummaryBtn').textContent = 'View summary';
-  getEl('viewSummaryBtn').disabled = false;
+  getEl('summary-body').style.display='none'; getEl('summary-body').innerHTML='';
+  getEl('refs-card').style.display='none'; getEl('visual-card').style.display='none';
+  getEl('viewSummaryBtn').textContent='View summary'; getEl('viewSummaryBtn').disabled=false;
   updateAll();
+}
+
+function getResultsText() {
+  const lines = ['BRAND ATTRIBUTE PROFILE','— Lunte Studio','',new Date().toLocaleDateString('en-US',{year:'numeric',month:'long',day:'numeric'}),''];
+  let sec='';
+  sliders.forEach(sl => {
+    if(sl.section!==sec){sec=sl.section;lines.push('',sec.toUpperCase());}
+    const v=parseInt(getEl(sl.id).value), left=getEl(sl.id).dataset.left, right=getEl(sl.id).dataset.right;
+    lines.push(v<=50?`${left}: ${v}`:`${right}: ${100-v}`);
+  });
+  return lines.join('\n');
+}
+
+function downloadPDF() {
+  const btn=getEl('pdfBtn'); btn.disabled=true; btn.textContent='Preparing…';
+  const date=new Date().toLocaleDateString('en-US',{year:'numeric',month:'long',day:'numeric'});
+  const se=getEl('summary-body'), ve=getEl('visual-body'), re=getEl('refs-body');
+  let rows='',cs='';
+  sliders.forEach(sl=>{
+    if(sl.section!==cs){cs=sl.section;rows+=`<tr><td colspan="2" style="padding:12px 0 4px;font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:#8A8780;font-weight:500">${cs}</td></tr>`;}
+    const v=parseInt(getEl(sl.id).value),left=getEl(sl.id).dataset.left,right=getEl(sl.id).dataset.right;
+    const lbl=v<=50?left:right, val=v<=50?v:100-v;
+    rows+=`<tr><td style="padding:6px 0;font-size:13px">${lbl}</td><td style="padding:6px 0;font-size:12px;color:#8A8780;text-align:right">${getIntensityForValue(v)} · ${val}</td></tr>`;
+  });
+  const sp=se&&se.querySelector('.summary-text')?se.querySelector('.summary-text').textContent:'';
+  const rn=re?Array.from(re.querySelectorAll('.ref-name')).map(n=>`<span style="font-size:12px;padding:4px 10px;background:#F7F5F0;border-radius:6px;display:inline-block">${n.textContent}</span>`).join(''):'';
+  const hr=ve?Array.from(ve.querySelectorAll('.hint-row')).map(h=>`<div style="padding:10px;background:#F7F5F0;border-radius:8px;margin-bottom:8px"><span style="font-size:10px;font-weight:500;text-transform:uppercase;color:#8A8780;display:block;margin-bottom:3px">${h.querySelector('.hint-label')?.textContent||''}</span><span style="font-size:12px">${h.querySelector('.hint-text')?.textContent||''}</span></div>`).join(''):'';
+  const html='<!DOCTYPE html><html><head><meta charset="UTF-8"><title>Brand Attributes</title><style>body{font-family:sans-serif;padding:48px;color:#1A1916}table{width:100%;border-collapse:collapse}@media print{body{padding:32px}}</style></head><body>'
+    +`<h1 style="font-size:24px;font-weight:400;margin-bottom:4px">Brand attribute profile</h1><p style="font-size:12px;color:#8A8780;margin-bottom:32px">${date} — Lunte Studio</p>`
+    +`<table>${rows}</table>`
+    +(sp?`<div style="margin-top:24px"><p style="font-size:10px;font-weight:500;text-transform:uppercase;color:#8A8780;margin-bottom:8px">Brand personality</p><p style="font-size:14px;line-height:1.7">${sp}</p></div>`:'')
+    +(rn?`<div style="margin-top:24px"><p style="font-size:10px;font-weight:500;text-transform:uppercase;color:#8A8780;margin-bottom:8px">Similar brands</p><div style="display:flex;gap:8px;flex-wrap:wrap">${rn}</div></div>`:'')
+    +(hr?`<div style="margin-top:24px"><p style="font-size:10px;font-weight:500;text-transform:uppercase;color:#8A8780;margin-bottom:8px">Visual resources</p>${hr}</div>`:'')
+    +'<scr'+'ipt>window.onload=function(){window.print();}</scr'+'ipt></body></html>';
+  const url=URL.createObjectURL(new Blob([html],{type:'text/html'}));
+  window.open(url,'_blank');
+  setTimeout(()=>URL.revokeObjectURL(url),10000);
+  btn.disabled=false; btn.textContent='Download PDF';
 }
 
 updateAll();

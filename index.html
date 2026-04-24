@@ -534,85 +534,85 @@ function getResultsText() {
 function downloadPDF() {
   const btn=getEl('pdfBtn'); btn.disabled=true; btn.textContent='Preparing…';
   const date=new Date().toLocaleDateString('en-US',{year:'numeric',month:'long',day:'numeric'});
-  const se=getEl('summary-body'), ve=getEl('visual-body'), re=getEl('refs-body');
+  const se=getEl('summary-body'), re=getEl('refs-body');
   const brandName=(getEl('brandName').value||'').trim();
   const businessType=(getEl('businessType').value||'').trim();
 
-  // Slider bars
+  // Summary paragraph
+  const sp=se&&se.querySelector('.summary-text')?se.querySelector('.summary-text').textContent:'';
+
+  // Reference brands (deduplicated)
+  const rn=re?[...new Set(Array.from(re.querySelectorAll('.ref-name')).map(n=>n.textContent))]:[];
+
+  // Slider rows
   let sliderHTML='';
   let currentSection='';
   sliders.forEach(sl=>{
     if(sl.section!==currentSection){
       currentSection=sl.section;
-      sliderHTML+=`<p style="font-size:9px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:#8A8780;margin:20px 0 10px;padding-bottom:6px;border-bottom:0.5px solid #E0DDD8">${currentSection}</p>`;
+      sliderHTML+=`<p style="font-size:8px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:#8A8780;margin:24px 0 10px;padding-bottom:6px;border-bottom:1px solid #E8E5E0">${currentSection}</p>`;
     }
     const v=parseInt(getEl(sl.id).value);
     const left=getEl(sl.id).dataset.left, right=getEl(sl.id).dataset.right;
     const pct=v;
     const intensity=getIntensityForValue(v);
-    const activeLabel=v<=50?left:right;
-    const activeSide=v<=50?'left':'right';
-    // Bar: left label, track, right label
-    sliderHTML+=`<div style="margin-bottom:10px">
-      <div style="display:flex;justify-content:space-between;margin-bottom:4px">
-        <span style="font-size:10px;color:${activeSide==='left'?'#1A1916':'#C0BDBA'};font-weight:${activeSide==='left'?'500':'400'}">${left}</span>
-        <span style="font-size:10px;color:${activeSide==='right'?'#1A1916':'#C0BDBA'};font-weight:${activeSide==='right'?'500':'400'}">${right}</span>
+    const activeSide=v<50?'left':v>50?'right':'center';
+    sliderHTML+=`<div style="margin-bottom:14px;display:grid;grid-template-columns:140px 1fr 140px;gap:12px;align-items:center">
+      <span style="font-size:11px;text-align:right;color:${activeSide==='left'?'#1A1916':'#B8B5B0'};font-weight:${activeSide==='left'?'500':'400'}">${left}</span>
+      <div style="position:relative">
+        <div style="height:1px;background:#D8D5D0;border-radius:1px;position:relative">
+          <div style="position:absolute;left:0;top:-1px;height:3px;width:${pct}%;background:#1A1916;border-radius:2px"></div>
+          <div style="position:absolute;top:50%;transform:translate(-50%,-50%);left:${pct}%;width:10px;height:10px;background:#fff;border:1.5px solid #1A1916;border-radius:50%"></div>
+        </div>
+        <p style="font-size:8px;color:#8A8780;margin:4px 0 0;text-align:${activeSide==='right'?'right':activeSide==='left'?'left':'center'}">${activeSide==='center'?'Balanced':intensity}</p>
       </div>
-      <div style="position:relative;height:3px;background:#E8E5E0;border-radius:2px">
-        <div style="position:absolute;left:0;top:0;height:3px;width:${pct}%;background:#1A1916;border-radius:2px"></div>
-        <div style="position:absolute;top:50%;transform:translate(-50%,-50%);left:${pct}%;width:8px;height:8px;background:#fff;border:1.5px solid #1A1916;border-radius:50%"></div>
-      </div>
-      <p style="font-size:9px;color:#8A8780;margin:3px 0 0;text-align:${activeSide==='left'?'left':'right'}">${intensity}</p>
+      <span style="font-size:11px;text-align:left;color:${activeSide==='right'?'#1A1916':'#B8B5B0'};font-weight:${activeSide==='right'?'500':'400'}">${right}</span>
     </div>`;
   });
 
-  // Summary
-  const sp=se&&se.querySelector('.summary-text')?se.querySelector('.summary-text').textContent:'';
-  const rn=re?Array.from(re.querySelectorAll('.ref-name')).map(n=>n.textContent).filter((v,i,a)=>a.indexOf(v)===i):'';
-  const hints=ve?Array.from(ve.querySelectorAll('.hint-row')).map(h=>{
-    const lbl=h.querySelector('.hint-label')?.textContent||'';
-    const txt=h.querySelector('.hint-text')?.textContent||'';
-    return `<div style="margin-bottom:14px"><p style="font-size:9px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:#8A8780;margin:0 0 4px">${lbl}</p><p style="font-size:12px;color:#1A1916;line-height:1.6;margin:0">${txt}</p></div>`;
-  }).join(''):'';
-
-  const titleBlock=brandName?`<h1 style="font-family:'Georgia',serif;font-size:28px;font-weight:400;letter-spacing:-.02em;margin:0 0 4px;line-height:1.1">${brandName}</h1>`
-    :`<h1 style="font-family:'Georgia',serif;font-size:28px;font-weight:400;letter-spacing:-.02em;margin:0 0 4px;line-height:1.1;color:#8A8780;font-style:italic">Brand personality</h1>`;
-  const subtitleBlock=businessType?`<p style="font-size:13px;color:#8A8780;margin:0 0 24px">${businessType}</p>`:'<p style="font-size:12px;color:#C0BDBA;margin:0 0 24px">'+(date)+'</p>';
-
-  const html=`<!DOCTYPE html><html><head><meta charset="UTF-8"><title>Brand Attributes${brandName?' — '+brandName:''}</title>
+  const html=`<!DOCTYPE html><html><head><meta charset="UTF-8"><title>${brandName||'Brand Attributes'}</title>
 <style>
   *{box-sizing:border-box;margin:0;padding:0}
-  body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;background:#fff;color:#1A1916;font-size:13px;line-height:1.6}
-  @media print{@page{margin:0} body{margin:0}}
-</style>
-</head><body>
-<div style="display:grid;grid-template-columns:1fr 1px 1fr;min-height:100vh">
+  body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;background:#fff;color:#1A1916;font-size:13px;line-height:1.6;padding:56px 64px}
+  @media print{@page{margin:0} body{padding:48px 56px}}
+</style></head><body>
 
-  <!-- LEFT: sliders -->
-  <div style="padding:48px 40px;background:#F7F5F0">
-    <p style="font-size:9px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:#8A8780;margin-bottom:24px">Attribute profile</p>
+  <!-- Header -->
+  <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:40px;padding-bottom:24px;border-bottom:1px solid #E8E5E0">
+    <div>
+      ${brandName?`<h1 style="font-family:'Georgia',serif;font-size:32px;font-weight:400;letter-spacing:-.02em;line-height:1.1;margin-bottom:4px">${brandName}</h1>`:''}
+      ${businessType?`<p style="font-size:14px;color:#8A8780">${businessType}</p>`:''}
+      ${!brandName&&!businessType?`<h1 style="font-family:'Georgia',serif;font-size:32px;font-weight:400;color:#8A8780;font-style:italic">Brand personality</h1>`:''}
+    </div>
+    <div style="text-align:right">
+      <img src="https://cdn.prod.website-files.com/64694fa65443350ff591221a/6490c4036a4c7a992e1610e0_Full%20logo-p-500.png" style="height:14px;opacity:0.35;display:block;margin-bottom:6px;margin-left:auto">
+      <p style="font-size:10px;color:#C0BDBA">${date}</p>
+    </div>
+  </div>
+
+  <!-- Summary -->
+  ${sp?`<div style="margin-bottom:36px">
+    <p style="font-size:18px;line-height:1.75;color:#1A1916">${sp}</p>
+  </div>`:''}
+
+  <!-- Similar brands -->
+  ${rn.length?`<div style="margin-bottom:40px">
+    <p style="font-size:8px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:#8A8780;margin-bottom:10px">Similar brands</p>
+    <div style="display:flex;flex-wrap:wrap;gap:6px">${rn.map(n=>`<span style="font-size:11px;padding:3px 12px;border:1px solid #D8D5D0;border-radius:100px;color:#5F5E5A">${n}</span>`).join('')}</div>
+  </div>`:''}
+
+  <!-- Attribute sliders -->
+  <div>
+    <p style="font-size:8px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:#8A8780;margin-bottom:16px;padding-bottom:6px;border-bottom:1px solid #E8E5E0">Attribute profile</p>
     ${sliderHTML}
   </div>
 
-  <!-- Divider -->
-  <div style="background:#E0DDD8"></div>
-
-  <!-- RIGHT: summary -->
-  <div style="padding:48px 40px">
-    ${titleBlock}
-    ${subtitleBlock}
-    ${sp?`<div style="margin-bottom:32px"><p style="font-size:16px;line-height:1.75;color:#1A1916">${sp}</p></div>`:''}
-    ${hints?`<div style="margin-bottom:32px">${hints}</div>`:''}
-    ${rn&&rn.length?`<div><p style="font-size:9px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:#8A8780;margin-bottom:10px">Similar brands</p><div style="display:flex;flex-wrap:wrap;gap:6px">${rn.map(n=>`<span style="font-size:11px;padding:3px 10px;border:0.5px solid #D3D1C7;border-radius:100px;color:#5F5E5A">${n}</span>`).join('')}</div></div>`:''}
-    <div style="position:absolute;bottom:48px;right:40px"><img src="https://cdn.prod.website-files.com/64694fa65443350ff591221a/6490c4036a4c7a992e1610e0_Full%20logo-p-500.png" style="height:14px;opacity:0.3"></div>
-  </div>
-</div>
 <scr`+'ipt>window.onload=function(){window.print();}</scr'+'ipt>'+`
 </body></html>`;
 
   const url=URL.createObjectURL(new Blob([html],{type:'text/html'}));
   let iframe=document.getElementById('print-frame');
-  if(!iframe){iframe=document.createElement('iframe');iframe.id='print-frame';iframe.style.cssText='position:fixed;top:-9999px;left:-9999px;width:800px;height:1100px;';document.body.appendChild(iframe);}
+  if(!iframe){iframe=document.createElement('iframe');iframe.id='print-frame';iframe.style.cssText='position:fixed;top:-9999px;left:-9999px;width:900px;height:1200px;';document.body.appendChild(iframe);}
   iframe.src=url;
   iframe.onload=()=>{setTimeout(()=>{iframe.contentWindow.print();setTimeout(()=>URL.revokeObjectURL(url),5000);},400)};
   btn.disabled=false; btn.textContent='Download PDF';

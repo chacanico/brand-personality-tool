@@ -43,16 +43,18 @@
   .card { background: var(--surface); border: 0.5px solid var(--border); border-radius: 16px; padding: 24px; margin-bottom: 16px; }
   .card-title { font-size: 10px; font-weight: 500; letter-spacing: 0.12em; text-transform: uppercase; color: var(--muted); margin-bottom: 16px; }
   .tag-cloud { display: flex; flex-wrap: wrap; gap: 6px; min-height: 48px; }
-  .tag { font-size: 12px; height: 26px; padding: 0 10px; border-radius: 100px; background: var(--tag-bg); color: var(--tag-color); border: 0.5px solid var(--tag-border); animation: tagIn 0.2s ease; display: inline-flex; align-items: center; }
-  .tag.neutral { background: #F1EFE8; color: #5F5E5A; border-color: #D3D1C7; }
+  .tag { font-size: 12px; height: 26px; padding: 0 10px; border-radius: 100px; animation: tagIn 0.2s ease; display: inline-flex; align-items: center; gap: 5px; }
+  .tag.t-high  { background: var(--text); color: var(--surface); border: 0.5px solid var(--text); }
+  .tag.t-mid   { background: #E8E6E1; color: #444441; border: 0.5px solid #D3D1C7; }
+  .tag.t-low   { background: var(--surface); color: var(--muted); border: 0.5px solid var(--border); }
   @keyframes tagIn { from { opacity: 0; transform: scale(0.9); } to { opacity: 1; transform: scale(1); } }
   .empty-hint { font-size: 13px; color: var(--muted); font-style: italic; }
   .btn-primary { width: 100%; padding: 12px 20px; background: var(--text); color: var(--surface); border: none; border-radius: 10px; font-family: 'DM Sans', sans-serif; font-size: 13px; font-weight: 500; cursor: pointer; transition: opacity 0.2s, transform 0.1s; letter-spacing: 0.01em; }
   .btn-primary:hover { opacity: 0.85; } .btn-primary:active { transform: scale(0.98); } .btn-primary:disabled { opacity: 0.35; cursor: not-allowed; }
   .btn-secondary { width: 100%; padding: 11px 20px; background: transparent; color: var(--text); border: 0.5px solid rgba(26,25,22,0.2); border-radius: 10px; font-family: 'DM Sans', sans-serif; font-size: 13px; cursor: pointer; transition: background 0.15s; margin-top: 8px; }
   .btn-secondary:hover { background: rgba(26,25,22,0.05); }
-  .btn-reset { width: 100%; margin-top: 12px; padding: 8px 14px; background: transparent; color: var(--muted); border: 0.5px solid var(--border); border-radius: 8px; font-family: 'DM Sans', sans-serif; font-size: 12px; cursor: pointer; transition: color 0.15s, border-color 0.15s; text-align: center; }
-  .btn-reset:hover { color: var(--text); border-color: rgba(26,25,22,0.3); }
+  .btn-link-reset { background: none; border: none; padding: 0; font-family: 'DM Sans', sans-serif; font-size: 11px; color: var(--muted); cursor: pointer; text-decoration: underline; text-underline-offset: 2px; transition: color 0.15s; }
+  .btn-link-reset:hover { color: var(--text); }
   .saved-notice { font-size: 12px; color: #3C3489; text-align: center; margin-top: 8px; opacity: 0; transition: opacity 0.3s; min-height: 18px; }
   .saved-notice.show { opacity: 1; }
   .summary-text { font-size: 16px; color: var(--text); line-height: 1.7; margin-bottom: 14px; }
@@ -224,12 +226,18 @@
   <!-- Sidebar -->
   <div class="sidebar">
     <div class="card" id="personality-card">
-      <p class="card-title">Brand personality</p>
+      <div style="display:flex; justify-content:space-between; align-items:baseline; margin-bottom:16px;">
+        <p class="card-title" style="margin-bottom:0;">Brand personality</p>
+        <button class="btn-link-reset" onclick="resetSliders()">Reset</button>
+      </div>
       <div class="tag-cloud" id="tags" style="margin-bottom: 12px;">
         <span class="empty-hint">Move the sliders…</span>
       </div>
       <div id="summary-body" style="display:none;"></div>
-      <button class="btn-reset" onclick="resetSliders()">Reset sliders</button>
+      <div id="summary-actions" style="display:none;">
+        <button class="btn-primary" id="pdfBtn" onclick="downloadPDF()" style="margin-top:16px;">Download PDF</button>
+        <button class="btn-secondary" id="viewSummaryBtn" onclick="requestSummary()" style="margin-top:8px;">View summary</button>
+      </div>
     </div>
     <div class="card" id="refs-card" style="display:none;">
       <p class="card-title">Similar brands</p>
@@ -239,8 +247,7 @@
       <p class="card-title">Possible visual resources</p>
       <div id="visual-body" class="summary-visual-hints"></div>
     </div>
-    <button class="btn-primary" id="viewSummaryBtn" onclick="requestSummary()">View summary</button>
-    <button class="btn-secondary" id="pdfBtn" onclick="downloadPDF()">Download PDF</button>
+    <button class="btn-primary" id="viewSummaryBtnMain" onclick="requestSummary()">View summary</button>
     <p class="saved-notice" id="saved-notice"></p>
   </div>
 </main>
@@ -281,17 +288,25 @@ function getLabel(sl) {
   const v = parseInt(getEl(sl.id).value);
   const left = getEl(sl.id).dataset.left;
   const right = getEl(sl.id).dataset.right;
-  if (v > 50) return { label: right, emoji: sl.emojiR, intensity: getIntensityForValue(v), strong: v >= 90 };
-  if (v < 50) return { label: left,  emoji: sl.emojiL, intensity: getIntensityForValue(v), strong: v <= 10 };
+  const dist = Math.abs(v - 50); // 0–50, higher = more extreme
+  if (v > 50) return { label: right, emoji: sl.emojiR, intensity: getIntensityForValue(v), dist };
+  if (v < 50) return { label: left,  emoji: sl.emojiL, intensity: getIntensityForValue(v), dist };
   return null;
+}
+
+function tagClass(dist) {
+  if (dist >= 40) return 't-high'; // Totally / Very
+  if (dist >= 20) return 't-mid';  // Moderately / A bit
+  return 't-low';                  // Slightly
 }
 
 function updateAll() {
   const cloud = getEl('tags');
   const items = sliders.map(s => getLabel(s)).filter(Boolean);
+  items.sort((a, b) => b.dist - a.dist);
   cloud.innerHTML = items.length === 0
     ? '<span class="empty-hint">Move the sliders…</span>'
-    : items.map(i => `<span class="tag${i.strong ? '' : ' neutral'}">${i.emoji} <strong style="font-weight:500">${i.intensity}</strong>&nbsp;${i.label}</span>`).join('');
+    : items.map(i => `<span class="tag ${tagClass(i.dist)}">${i.emoji} <strong style="font-weight:500">${i.intensity}</strong> ${i.label}</span>`).join('');
 }
 
 sliders.forEach(sl => {
@@ -386,6 +401,11 @@ const hintIconMap = { 'typography':'🔤','type':'🔤','font':'🔤','color':'�
 function getHintIcon(a) { const l=a.toLowerCase(); for(const [k,i] of Object.entries(hintIconMap)){if(l.includes(k))return i;} return '→'; }
 
 async function requestSummary() {
+  // Hide the main "View summary" button below the card, show inner actions
+  const mainBtn = getEl('viewSummaryBtnMain');
+  if (mainBtn) mainBtn.style.display = 'none';
+  getEl('summary-actions').style.display = 'block';
+
   const btn = getEl('viewSummaryBtn');
   btn.disabled = true; btn.textContent = 'Generating…';
   const sb = getEl('summary-body');
@@ -436,7 +456,10 @@ function resetSliders() {
   });
   getEl('summary-body').style.display='none'; getEl('summary-body').innerHTML='';
   getEl('refs-card').style.display='none'; getEl('visual-card').style.display='none';
+  getEl('summary-actions').style.display='none';
   getEl('viewSummaryBtn').textContent='View summary'; getEl('viewSummaryBtn').disabled=false;
+  const mainBtn = getEl('viewSummaryBtnMain');
+  if (mainBtn) mainBtn.style.display = '';
   updateAll();
 }
 

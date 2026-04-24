@@ -19,7 +19,7 @@
   .intro { padding: 48px 48px 0; max-width: 100%; text-align: center; }
   .intro h1 { font-family: 'Instrument Serif', serif; font-size: 36px; font-weight: 400; line-height: 1.15; letter-spacing: -0.02em; margin-bottom: 12px; text-align: center; }
   .intro h1 em { font-style: italic; color: var(--muted); }
-  main { padding: 48px 48px 0; display: grid; grid-template-columns: 1fr 380px; gap: 32px; align-items: start; max-width: 1200px; margin: 0 auto; }
+  main { padding: 48px 48px 0; display: grid; grid-template-columns: 1fr 380px; gap: 40px; align-items: start; max-width: 1200px; margin: 0 auto; }
   .sliders-panel { display: flex; flex-direction: column; gap: 0; max-width: 680px; }
   .section-label { font-size: 11px; font-weight: 600; letter-spacing: 0.12em; text-transform: uppercase; color: var(--text); margin: 36px 0 8px; padding-bottom: 0; border-bottom: none; text-align: center; }
   .section-label:first-child { margin-top: 0; }
@@ -341,14 +341,48 @@ function updateAll() {
     : items.map(i => `<span class="tag ${tagClass(i.dist)}">${i.emoji} <strong style="font-weight:500">${i.intensity}</strong> ${i.label}</span>`).join('');
 }
 
+
+// ── Audio engine ─────────────────────────────────────────────────────────────
+const _ac = new (window.AudioContext || window.webkitAudioContext)();
+
+function _beep(freq, type, vol, dur, attack=0.005, release=0.08) {
+  try {
+    const osc = _ac.createOscillator();
+    const gain = _ac.createGain();
+    osc.connect(gain); gain.connect(_ac.destination);
+    osc.type = type; osc.frequency.value = freq;
+    const t = _ac.currentTime;
+    gain.gain.setValueAtTime(0, t);
+    gain.gain.linearRampToValueAtTime(vol, t + attack);
+    gain.gain.exponentialRampToValueAtTime(0.0001, t + dur);
+    osc.start(t); osc.stop(t + dur + release);
+  } catch(e) {}
+}
+
+// hover: very soft high sine blip
+function snd_hover()  { _beep(880, 'sine',     0.04, 0.06); }
+// mousedown: soft mid click
+function snd_down()   { _beep(440, 'triangle', 0.07, 0.08); }
+// snap: subtle tick at a slightly higher pitch
+function snd_snap()   { _beep(660, 'sine',     0.05, 0.05); }
+// mouseup: soft low release
+function snd_up()     { _beep(330, 'sine',     0.04, 0.10); }
+
 sliders.forEach(sl => {
   const input = getEl(sl.id);
   const bubble = getEl('b-' + sl.id);
   const labelL = getEl('l-' + sl.id);
   const labelR = getEl('r-' + sl.id);
 
+  let _lastSnap = parseInt(input.value);
+
+  input.addEventListener('mouseenter', () => snd_hover());
+  input.addEventListener('mousedown',  () => snd_down());
+  input.addEventListener('mouseup',    () => snd_up());
+
   input.addEventListener('input', () => {
     const v = parseInt(input.value);
+    if (v !== _lastSnap) { snd_snap(); _lastSnap = v; }
     moved.add(sl.id);
 
     // Bubble — exact original logic
@@ -520,7 +554,34 @@ function toggleAccordion(header) {
 }
 
 function resetSliders() {
-  sliders.forEach(sl => {
+  
+// ── Audio engine ─────────────────────────────────────────────────────────────
+const _ac = new (window.AudioContext || window.webkitAudioContext)();
+
+function _beep(freq, type, vol, dur, attack=0.005, release=0.08) {
+  try {
+    const osc = _ac.createOscillator();
+    const gain = _ac.createGain();
+    osc.connect(gain); gain.connect(_ac.destination);
+    osc.type = type; osc.frequency.value = freq;
+    const t = _ac.currentTime;
+    gain.gain.setValueAtTime(0, t);
+    gain.gain.linearRampToValueAtTime(vol, t + attack);
+    gain.gain.exponentialRampToValueAtTime(0.0001, t + dur);
+    osc.start(t); osc.stop(t + dur + release);
+  } catch(e) {}
+}
+
+// hover: very soft high sine blip
+function snd_hover()  { _beep(880, 'sine',     0.04, 0.06); }
+// mousedown: soft mid click
+function snd_down()   { _beep(440, 'triangle', 0.07, 0.08); }
+// snap: subtle tick at a slightly higher pitch
+function snd_snap()   { _beep(660, 'sine',     0.05, 0.05); }
+// mouseup: soft low release
+function snd_up()     { _beep(330, 'sine',     0.04, 0.10); }
+
+sliders.forEach(sl => {
     const input = getEl(sl.id); input.value = 50; moved.delete(sl.id);
     getEl('l-'+sl.id).classList.remove('active'); getEl('r-'+sl.id).classList.remove('active');
     getEl('l-'+sl.id).style.color = ''; getEl('r-'+sl.id).style.color = '';
@@ -542,7 +603,34 @@ function resetSliders() {
 function getResultsText() {
   const lines = ['BRAND ATTRIBUTE PROFILE','— Lunte Studio','',new Date().toLocaleDateString('en-US',{year:'numeric',month:'long',day:'numeric'}),''];
   let sec='';
-  sliders.forEach(sl => {
+  
+// ── Audio engine ─────────────────────────────────────────────────────────────
+const _ac = new (window.AudioContext || window.webkitAudioContext)();
+
+function _beep(freq, type, vol, dur, attack=0.005, release=0.08) {
+  try {
+    const osc = _ac.createOscillator();
+    const gain = _ac.createGain();
+    osc.connect(gain); gain.connect(_ac.destination);
+    osc.type = type; osc.frequency.value = freq;
+    const t = _ac.currentTime;
+    gain.gain.setValueAtTime(0, t);
+    gain.gain.linearRampToValueAtTime(vol, t + attack);
+    gain.gain.exponentialRampToValueAtTime(0.0001, t + dur);
+    osc.start(t); osc.stop(t + dur + release);
+  } catch(e) {}
+}
+
+// hover: very soft high sine blip
+function snd_hover()  { _beep(880, 'sine',     0.04, 0.06); }
+// mousedown: soft mid click
+function snd_down()   { _beep(440, 'triangle', 0.07, 0.08); }
+// snap: subtle tick at a slightly higher pitch
+function snd_snap()   { _beep(660, 'sine',     0.05, 0.05); }
+// mouseup: soft low release
+function snd_up()     { _beep(330, 'sine',     0.04, 0.10); }
+
+sliders.forEach(sl => {
     if(sl.section!==sec){sec=sl.section;lines.push('',sec.toUpperCase());}
     const v=parseInt(getEl(sl.id).value), left=getEl(sl.id).dataset.left, right=getEl(sl.id).dataset.right;
     lines.push(v<=50?`${left}: ${v}`:`${right}: ${100-v}`);

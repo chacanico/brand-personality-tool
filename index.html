@@ -23,7 +23,7 @@
   .sliders-panel { display: flex; flex-direction: column; gap: 0; max-width: 680px; }
   .section-label { font-size: 10px; font-weight: 500; letter-spacing: 0.12em; text-transform: uppercase; color: var(--muted); margin: 36px 0 8px; padding-bottom: 8px; border-bottom: 0.5px solid var(--border); }
   .section-label:first-child { margin-top: 0; }
-  .section-hint { font-size: 12px; color: var(--muted); line-height: 1.6; margin-bottom: 18px; }
+  .section-hint { font-size: 13px; color: var(--muted); line-height: 1.65; margin-bottom: 20px; }
   .slider-row { display: grid; grid-template-columns: 130px 1fr 130px; align-items: center; gap: 16px; margin-bottom: 22px; }
   .label-l { font-size: 16px; color: var(--muted); text-align: right; line-height: 1.3; transition: color 0.2s; position: relative; cursor: default; }
   .label-r { font-size: 16px; color: var(--muted); text-align: left; line-height: 1.3; transition: color 0.2s; position: relative; cursor: default; }
@@ -58,7 +58,7 @@
   .btn-link-reset:hover { color: var(--text); }
   .saved-notice { font-size: 12px; color: #3C3489; text-align: center; margin-top: 8px; opacity: 0; transition: opacity 0.3s; min-height: 18px; }
   .saved-notice.show { opacity: 1; }
-  .summary-text { font-size: 16px; color: var(--text); line-height: 1.7; margin-bottom: 14px; }
+  .summary-text { font-size: 16px; color: var(--text); line-height: 1.7; margin-bottom: 14px; margin-top: 20px; }
   .refs-carousel-wrap { overflow: hidden; width: 100%; }
   .refs-carousel { display: flex; gap: 12px; width: max-content; animation: scroll-logos 18s linear infinite; }
   .refs-carousel:hover { animation-play-state: paused; }
@@ -245,7 +245,8 @@
         <p class="card-title" style="margin-bottom:0;">Brand personality</p>
         <button class="btn-link-reset" onclick="resetSliders()">Reset</button>
       </div>
-      <input type="text" id="brandName" placeholder="Brand name (optional)" style="width:100%; padding:8px 12px; font-family:'DM Sans',sans-serif; font-size:13px; border:0.5px solid rgba(26,25,22,0.2); border-radius:8px; background:var(--bg); color:var(--text); outline:none; margin-bottom:14px; box-sizing:border-box;">
+      <input type="text" id="brandName" placeholder="Brand name" style="width:100%; height:64px; padding:0 16px; font-family:'DM Sans',sans-serif; font-size:22px; font-weight:400; border:0.5px solid rgba(26,25,22,0.2); border-radius:10px; background:var(--bg); color:var(--text); outline:none; margin-bottom:10px; box-sizing:border-box; letter-spacing:-0.01em;">
+      <input type="text" id="businessType" placeholder="Type of business or product (optional)" style="width:100%; padding:9px 12px; font-family:'DM Sans',sans-serif; font-size:13px; border:0.5px solid rgba(26,25,22,0.2); border-radius:8px; background:var(--bg); color:var(--text); outline:none; margin-bottom:14px; box-sizing:border-box;">
       <div class="tag-cloud" id="tags" style="margin-bottom: 0;">
         <span class="empty-hint">Move the sliders…</span>
       </div>
@@ -436,7 +437,11 @@ async function requestSummary() {
   sb.innerHTML = '';
 
   const brandName = (getEl('brandName').value || '').trim();
-  const brandContext = brandName ? `The brand is called "${brandName}". ` : '';
+  const businessType = (getEl('businessType').value || '').trim();
+  const brandContext = [
+    brandName ? `The brand is called "${brandName}".` : '',
+    businessType ? `It is a ${businessType}.` : ''
+  ].filter(Boolean).join(' ') + (brandName || businessType ? ' ' : '');
 
   const profile = sliders.map(sl => {
     const v = parseInt(getEl(sl.id).value);

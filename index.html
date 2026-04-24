@@ -16,13 +16,16 @@
   header { padding: 48px 48px 32px; border-bottom: 0.5px solid var(--border); display: flex; justify-content: space-between; align-items: flex-end; gap: 24px; flex-wrap: wrap; }
   .logo img { height: 17px; width: auto; display: block; opacity: 0.4; }
   header p { font-size: 13px; color: var(--muted); max-width: 360px; text-align: right; line-height: 1.5; font-weight: 500; letter-spacing: 0.01em; }
-  .intro { padding: 48px 48px 0; max-width: 100%; }
+  .intro { padding: 48px 48px 0; max-width: 100%; text-align: center; }
   .intro h1 { font-family: 'Instrument Serif', serif; font-size: 36px; font-weight: 400; line-height: 1.15; letter-spacing: -0.02em; margin-bottom: 12px; text-align: center; }
   .intro h1 em { font-style: italic; color: var(--muted); }
-  main { padding: 48px 48px 0; display: grid; grid-template-columns: 1fr 380px; gap: 32px; align-items: start; max-width: 1200px; }
+  main { padding: 48px 48px 0; display: grid; grid-template-columns: 1fr 380px; gap: 32px; align-items: start; max-width: 1200px; margin: 0 auto; }
   .sliders-panel { display: flex; flex-direction: column; gap: 0; max-width: 680px; }
-  .section-label { font-size: 11px; font-weight: 500; letter-spacing: 0.12em; text-transform: uppercase; color: var(--muted); margin: 36px 0 8px; padding-bottom: 0; border-bottom: none; text-align: center; }
+  .section-label { font-size: 11px; font-weight: 600; letter-spacing: 0.12em; text-transform: uppercase; color: var(--text); margin: 36px 0 8px; padding-bottom: 0; border-bottom: none; text-align: center; }
   .section-label:first-child { margin-top: 0; }
+  .section-group { border-radius: 20px; padding: 24px; margin: 0 -24px; transition: background 0.25s ease; }
+  .section-group:hover { background: rgba(0,0,0,0.02); }
+  .section-group .section-label { margin-top: 0; }
   .section-hint { font-size: 16px; color: var(--muted); line-height: 1.65; margin-bottom: 32px; text-align: center; padding-bottom: 24px; border-bottom: 0.5px solid var(--border); }
   .slider-row { display: grid; grid-template-columns: 130px 1fr 130px; align-items: center; gap: 16px; margin-bottom: 22px; }
   .label-l { font-size: 16px; color: var(--muted); text-align: right; line-height: 1.3; transition: color 0.2s; position: relative; cursor: default; }
@@ -32,7 +35,8 @@
   .slider-wrap { position: relative; }
   .val-bubble { position: absolute; top: -26px; font-size: 10px; color: var(--muted); transform: translateX(-50%); pointer-events: none; transition: opacity 0.2s; opacity: 0; white-space: nowrap; }
   .slider-wrap:hover .val-bubble, .slider-wrap:focus-within .val-bubble { opacity: 1; }
-  input[type=range] { -webkit-appearance: none; appearance: none; width: 100%; height: 1px; background: var(--track); outline: none; cursor: pointer; display: block; }
+  input[type=range] { -webkit-appearance: none; appearance: none; width: 100%; height: 1px; background: #D8D5D0; outline: none; cursor: pointer; display: block; transition: height 0.2s ease; border-radius: 100px; }
+  input[type=range]:hover { height: 3px; }
   input[type=range]::-webkit-slider-thumb { -webkit-appearance: none; appearance: none; width: 16px; height: 16px; border-radius: 50%; background: var(--surface); border: 1.5px solid var(--text); cursor: pointer; transition: transform 0.15s, background 0.15s; }
   input[type=range]::-webkit-slider-thumb:hover { background: var(--text); transform: scale(1.2); }
   input[type=range]::-moz-range-thumb { width: 16px; height: 16px; border-radius: 50%; background: var(--surface); border: 1.5px solid var(--text); cursor: pointer; }
@@ -56,6 +60,7 @@
   .btn-primary:hover { opacity: 0.85; } .btn-primary:active { transform: scale(0.98); } .btn-primary:disabled { opacity: 0.35; cursor: not-allowed; }
   .btn-secondary { width: 100%; padding: 11px 20px; background: transparent; color: var(--text); border: 0.5px solid rgba(26,25,22,0.2); border-radius: 10px; font-family: 'DM Sans', sans-serif; font-size: 13px; cursor: pointer; transition: background 0.15s; margin-top: 8px; }
   .btn-secondary:hover { background: rgba(26,25,22,0.05); }
+  input[type="text"]:focus { border: 1.5px solid #1A1916 !important; box-shadow: none; }
   .btn-link-reset { background: none; border: none; padding: 0; font-family: 'DM Sans', sans-serif; font-size: 11px; color: var(--muted); cursor: pointer; text-decoration: underline; text-underline-offset: 2px; transition: color 0.15s; }
   .btn-link-reset:hover { color: var(--text); }
   .saved-notice { font-size: 12px; color: #3C3489; text-align: center; margin-top: 8px; opacity: 0; transition: opacity 0.3s; min-height: 18px; }
@@ -66,11 +71,12 @@
   .refs-carousel:hover { animation-play-state: paused; }
   @keyframes scroll-logos { 0% { transform: translateX(0); } 100% { transform: translateX(-50%); } }
   .ref-item { display: flex; flex-direction: column; align-items: center; gap: 6px; flex-shrink: 0; }
-  .ref-logo { width: 64px; height: 64px; border-radius: 10px; background: var(--bg); border: 0.5px solid var(--border); display: flex; align-items: center; justify-content: center; overflow: hidden; }
+  .ref-logo { width: 64px; height: 64px; border-radius: 10px; background: #fff; border: 0.5px solid var(--border); display: flex; align-items: center; justify-content: center; overflow: hidden; }
   .ref-name { font-size: 11px; color: var(--muted); text-align: center; white-space: nowrap; }
   .accordion-header { display: flex; justify-content: space-between; align-items: center; cursor: pointer; user-select: none; }
   .accordion-header .card-title { margin-bottom: 0; }
   .accordion-arrow { font-size: 11px; color: var(--muted); transition: transform 0.2s; }
+  .accordion-header:hover { opacity: 0.7; }
   .accordion-header.open .accordion-arrow { transform: rotate(180deg); }
   .accordion-body { overflow: hidden; max-height: 0; transition: max-height 0.3s ease; }
   .accordion-body.open { max-height: 600px; padding-top: 14px; }
@@ -98,12 +104,12 @@
   <div class="logo"><img src="https://cdn.prod.website-files.com/64694fa65443350ff591221a/6490c4036a4c7a992e1610e0_Full%20logo-p-500.png" alt="Lunte Studio"></div>
   <p>Brand Personality Survey</p>
 </header>
-<div class="intro">
+<div class="intro" style="margin: 0 auto; max-width: 1200px; padding: 48px 48px 0; text-align: center;">
   <h1>Where do you want your<br><em>brand to go?</em></h1>
 </div>
 <main>
   <div class="sliders-panel" id="sliders">
-    <p class="section-label">Tone & personality</p>
+    <div class="section-group"><p class="section-label">Tone & personality</p>
     <p class="section-hint">How your brand sounds and feels in conversation. Think about the relationship you want to build with your audience — is it a peer, an expert, a friend?</p>
     <div class="slider-row">
       <div class="label-l" id="l-r1">Casual<div class="slider-tooltip"><span class="tooltip-title">Casual ←→ Formal</span>Casual brands feel approachable and conversational — like a friend. Formal brands project structure and authority. Leaning formal signals trustworthiness and expertise; leaning casual builds warmth and relatability.</div></div>
@@ -138,15 +144,15 @@
       <div class="label-r" id="r-r4"><div class="slider-tooltip"><span class="tooltip-title">Irreverent ←→ Conservative</span>Irreverent brands break rules and provoke. Conservative brands respect convention and predictability. Irreverence creates cultural relevance; conservatism builds long-term trust.</div>Conservative</div>
     </div>
 
-    <p class="section-label">Market positioning</p>
+    </div><div class="section-group"><p class="section-label">Market positioning</p>
     <p class="section-hint">Where your brand sits in the market. Consider your price point, your audience size, and the kind of desire you want to create — broad appeal or deep loyalty?</p>
     <div class="slider-row">
-      <div class="label-l" id="l-r5">Accessible<div class="slider-tooltip"><span class="tooltip-title">Accessible ←→ Luxury</span>Accessible brands make themselves available to everyone — low barriers, open doors. Luxury brands are selective and aspirational by design. Accessibility drives volume; luxury drives desire.</div></div>
+      <div class="label-l" id="l-r5">Accessible<div class="slider-tooltip"><span class="tooltip-title">Accessible ←→ Luxurious</span>Accessible brands make themselves available to everyone — low barriers, open doors. Luxury brands are selective and aspirational by design. Accessibility drives volume; luxury drives desire.</div></div>
       <div class="slider-wrap">
         <div class="val-bubble" id="b-r5"></div>
-        <input type="range" min="0" max="100" value="50" step="10" id="r5" data-left="Accessible" data-right="Luxury">
+        <input type="range" min="0" max="100" value="50" step="10" id="r5" data-left="Accessible" data-right="Luxurious">
       </div>
-      <div class="label-r" id="r-r5"><div class="slider-tooltip"><span class="tooltip-title">Accessible ←→ Luxury</span>Accessible brands make themselves available to everyone — low barriers, open doors. Luxury brands are selective and aspirational by design. Accessibility drives volume; luxury drives desire.</div>Luxury</div>
+      <div class="label-r" id="r-r5"><div class="slider-tooltip"><span class="tooltip-title">Accessible ←→ Luxurious</span>Accessible brands make themselves available to everyone — low barriers, open doors. Luxury brands are selective and aspirational by design. Accessibility drives volume; luxury drives desire.</div>Luxurious</div>
     </div>
     <div class="slider-row">
       <div class="label-l" id="l-r6">Mass market<div class="slider-tooltip"><span class="tooltip-title">Mass market ←→ Niche</span>Mass market brands speak to everyone broadly. Niche brands go deep for a specific audience. Mass market maximizes reach; niche builds intense community and loyalty.</div></div>
@@ -165,7 +171,7 @@
       <div class="label-r" id="r-r7"><div class="slider-tooltip"><span class="tooltip-title">Affordable ←→ Premium</span>Affordable brands compete on value and remove financial friction. Premium brands charge more and signal superiority. Affordability builds adoption; premium builds perceived status.</div>Premium</div>
     </div>
 
-    <p class="section-label">Value proposition</p>
+    </div><div class="section-group"><p class="section-label">Value proposition</p>
     <p class="section-hint">What your brand ultimately delivers. Are you solving a problem or fulfilling an aspiration? Does your customer buy for what it does, or for what it says about them?</p>
     <div class="slider-row">
       <div class="label-l" id="l-r8">Functional<div class="slider-tooltip"><span class="tooltip-title">Functional ←→ Aspirational</span>Functional brands lead with utility — what they do and how well. Aspirational brands lead with identity — what it means to use them. Functional builds trust; aspirational builds desire.</div></div>
@@ -192,7 +198,7 @@
       <div class="label-r" id="r-r10"><div class="slider-tooltip"><span class="tooltip-title">Safe / Timeless ←→ Bold / Disruptive</span>Safe/timeless brands avoid risk — they look and feel reliable across decades. Bold/disruptive brands court attention and challenge the status quo. Safety builds longevity; disruption builds momentum.</div>Bold / Disruptive</div>
     </div>
 
-    <p class="section-label">Energy & pace</p>
+    </div><div class="section-group"><p class="section-label">Energy & pace</p>
     <p class="section-hint">The rhythm your brand moves at. Fast-paced brands create urgency; calm, restrained brands signal focus and confidence. Both can be premium — the difference is the emotion you trigger.</p>
     <div class="slider-row">
       <div class="label-l" id="l-r11">Calm<div class="slider-tooltip"><span class="tooltip-title">Calm ←→ Energetic</span>Calm brands feel measured, still, and reassuring. Energetic brands feel urgent, dynamic, and exciting. Calm signals focus; energy signals drive and momentum.</div></div>
@@ -211,7 +217,7 @@
       <div class="label-r" id="r-r12"><div class="slider-tooltip"><span class="tooltip-title">Minimalist ←→ Maximalist</span>Minimalist brands use restraint — fewer elements, more impact. Maximalist brands embrace abundance — richness, texture, and detail. Minimalism signals confidence; maximalism signals personality.</div>Maximalist</div>
     </div>
 
-    <p class="section-label">Client relationship</p>
+    </div><div class="section-group"><p class="section-label">Client relationship</p>
     <p class="section-hint">How your brand positions itself relative to the customer. Do you walk alongside them, or lead the way? The answer shapes everything from copy to customer service tone.</p>
     <div class="slider-row">
       <div class="label-l" id="l-r13">Empathetic<div class="slider-tooltip"><span class="tooltip-title">Empathetic ←→ Authoritative</span>Empathetic brands center the customer's feelings and journey. Authoritative brands lead from expertise and conviction. Empathy builds trust; authority builds respect.</div></div>
@@ -350,6 +356,19 @@ sliders.forEach(sl => {
     const trackW = input.offsetWidth - 16;
     bubble.style.left = (8 + pct * trackW) + 'px';
     bubble.textContent = getIntensityForValue(v);
+
+    // Track gradient — flat at 50, grows darker toward active side
+    if (v === 50) {
+      input.style.background = '#D8D5D0';
+    } else if (v < 50) {
+      // Slider left: dark on left, light on right
+      const dark = `rgba(26,25,22,${0.15 + (1 - v/50) * 0.75})`;
+      input.style.background = `linear-gradient(to right, ${dark}, #E8E5E0)`;
+    } else {
+      // Slider right: light on left, dark on right
+      const dark = `rgba(26,25,22,${0.15 + ((v-50)/50) * 0.75})`;
+      input.style.background = `linear-gradient(to right, #E8E5E0, ${dark})`;
+    }
 
     // Labels: color interpolates from muted (#8A8780) to black (#1A1916) as slider approaches
     const distL = Math.max(0, (50 - v) / 50); // 0 at center/right → 1 at far left
@@ -557,16 +576,18 @@ function downloadPDF() {
     const pct=v;
     const intensity=getIntensityForValue(v);
     const activeSide=v<50?'left':v>50?'right':'center';
-    sliderHTML+=`<div style="margin-bottom:14px;display:grid;grid-template-columns:140px 1fr 140px;gap:12px;align-items:center">
-      <span style="font-size:11px;text-align:right;color:${activeSide==='left'?'#1A1916':'#B8B5B0'};font-weight:${activeSide==='left'?'500':'400'}">${left}</span>
-      <div style="position:relative">
-        <div style="height:1px;background:#D8D5D0;border-radius:1px;position:relative">
-          <div style="position:absolute;left:0;top:-1px;height:3px;width:${pct}%;background:#1A1916;border-radius:2px"></div>
-          <div style="position:absolute;top:50%;transform:translate(-50%,-50%);left:${pct}%;width:10px;height:10px;background:#fff;border:1.5px solid #1A1916;border-radius:50%"></div>
+    // Use table layout for reliable print rendering
+    sliderHTML+=`<div style="margin-bottom:16px">
+      <div style="display:flex;justify-content:space-between;align-items:center;gap:16px">
+        <span style="font-size:11px;width:130px;text-align:right;flex-shrink:0;color:${activeSide==='left'?'#1A1916':'#B8B5B0'};font-weight:${activeSide==='left'?'500':'400'}">${left}</span>
+        <div style="flex:1;padding:6px 0">
+          <div style="height:1px;background:#D0CEC9;width:100%;position:relative;top:0">
+            <div style="height:1px;background:#1A1916;width:${pct}%;display:inline-block;vertical-align:top"></div>
+          </div>
         </div>
-        <p style="font-size:8px;color:#8A8780;margin:4px 0 0;text-align:${activeSide==='right'?'right':activeSide==='left'?'left':'center'}">${activeSide==='center'?'Balanced':intensity}</p>
+        <span style="font-size:11px;width:130px;text-align:left;flex-shrink:0;color:${activeSide==='right'?'#1A1916':'#B8B5B0'};font-weight:${activeSide==='right'?'500':'400'}">${right}</span>
       </div>
-      <span style="font-size:11px;text-align:left;color:${activeSide==='right'?'#1A1916':'#B8B5B0'};font-weight:${activeSide==='right'?'500':'400'}">${right}</span>
+      <p style="font-size:8px;color:#8A8780;margin:0;padding-left:146px">${activeSide==='center'?'Balanced':intensity}</p>
     </div>`;
   });
 
@@ -622,3 +643,4 @@ updateAll();
 </script>
 </body>
 </html>
+</div>

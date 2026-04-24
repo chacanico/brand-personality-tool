@@ -58,10 +58,19 @@
   .saved-notice { font-size: 12px; color: #3C3489; text-align: center; margin-top: 8px; opacity: 0; transition: opacity 0.3s; min-height: 18px; }
   .saved-notice.show { opacity: 1; }
   .summary-text { font-size: 16px; color: var(--text); line-height: 1.7; margin-bottom: 14px; }
-  .refs-list { display: flex; flex-wrap: wrap; gap: 10px; align-items: center; }
-  .ref-item { display: flex; flex-direction: column; align-items: center; gap: 6px; animation: tagIn 0.2s ease; }
-  .ref-logo { width: 80px; height: 80px; border-radius: 12px; background: var(--bg); border: 0.5px solid var(--border); display: flex; align-items: center; justify-content: center; overflow: hidden; }
-  .ref-name { font-size: 14px; color: var(--muted); text-align: center; white-space: nowrap; }
+  .refs-carousel-wrap { overflow: hidden; width: 100%; }
+  .refs-carousel { display: flex; gap: 12px; width: max-content; animation: scroll-logos 18s linear infinite; }
+  .refs-carousel:hover { animation-play-state: paused; }
+  @keyframes scroll-logos { 0% { transform: translateX(0); } 100% { transform: translateX(-50%); } }
+  .ref-item { display: flex; flex-direction: column; align-items: center; gap: 6px; flex-shrink: 0; }
+  .ref-logo { width: 64px; height: 64px; border-radius: 10px; background: var(--bg); border: 0.5px solid var(--border); display: flex; align-items: center; justify-content: center; overflow: hidden; }
+  .ref-name { font-size: 11px; color: var(--muted); text-align: center; white-space: nowrap; }
+  .accordion-header { display: flex; justify-content: space-between; align-items: center; cursor: pointer; user-select: none; }
+  .accordion-header .card-title { margin-bottom: 0; }
+  .accordion-arrow { font-size: 11px; color: var(--muted); transition: transform 0.2s; }
+  .accordion-header.open .accordion-arrow { transform: rotate(180deg); }
+  .accordion-body { overflow: hidden; max-height: 0; transition: max-height 0.3s ease; }
+  .accordion-body.open { max-height: 600px; padding-top: 14px; }
   .summary-visual-hints { display: flex; flex-direction: column; gap: 10px; }
   .hint-row { background: var(--bg); border-radius: 10px; padding: 12px 14px; line-height: 1.5; display: flex; gap: 10px; align-items: flex-start; }
   .hint-icon { font-size: 16px; flex-shrink: 0; margin-top: 1px; line-height: 1; }
@@ -230,22 +239,30 @@
         <p class="card-title" style="margin-bottom:0;">Brand personality</p>
         <button class="btn-link-reset" onclick="resetSliders()">Reset</button>
       </div>
+      <input type="text" id="brandName" placeholder="Brand name (optional)" style="width:100%; padding:8px 12px; font-family:'DM Sans',sans-serif; font-size:13px; border:0.5px solid rgba(26,25,22,0.2); border-radius:8px; background:var(--bg); color:var(--text); outline:none; margin-bottom:14px; box-sizing:border-box;">
       <div class="tag-cloud" id="tags" style="margin-bottom: 12px;">
         <span class="empty-hint">Move the sliders…</span>
       </div>
       <div id="summary-body" style="display:none;"></div>
       <div id="summary-actions" style="display:none;">
-        <button class="btn-primary" id="pdfBtn" onclick="downloadPDF()" style="margin-top:16px;">Download PDF</button>
-        <button class="btn-secondary" id="viewSummaryBtn" onclick="requestSummary()" style="margin-top:8px;">View summary</button>
+        <button class="btn-primary" id="pdfBtn" onclick="downloadPDF()" style="margin-top:16px; display:none;">Download PDF</button>
+        <button class="btn-secondary" id="viewSummaryBtn" onclick="requestSummary()" style="margin-top:8px;">Regenerate ↺</button>
       </div>
     </div>
     <div class="card" id="refs-card" style="display:none;">
       <p class="card-title">Similar brands</p>
-      <div id="refs-body" class="refs-list"></div>
+      <div class="refs-carousel-wrap">
+        <div id="refs-body" class="refs-carousel"></div>
+      </div>
     </div>
     <div class="card" id="visual-card" style="display:none;">
-      <p class="card-title">Possible visual resources</p>
-      <div id="visual-body" class="summary-visual-hints"></div>
+      <div class="accordion-header" onclick="toggleAccordion(this)">
+        <p class="card-title">Possible visual resources</p>
+        <span class="accordion-arrow">▾</span>
+      </div>
+      <div class="accordion-body">
+        <div id="visual-body" class="summary-visual-hints"></div>
+      </div>
     </div>
     <button class="btn-primary" id="viewSummaryBtnMain" onclick="requestSummary()">View summary</button>
     <p class="saved-notice" id="saved-notice"></p>
@@ -401,16 +418,20 @@ const hintIconMap = { 'typography':'🔤','type':'🔤','font':'🔤','color':'�
 function getHintIcon(a) { const l=a.toLowerCase(); for(const [k,i] of Object.entries(hintIconMap)){if(l.includes(k))return i;} return '→'; }
 
 async function requestSummary() {
-  // Hide the main "View summary" button below the card, show inner actions
   const mainBtn = getEl('viewSummaryBtnMain');
   if (mainBtn) mainBtn.style.display = 'none';
   getEl('summary-actions').style.display = 'block';
+  getEl('pdfBtn').style.display = 'none'; // hidden until complete
 
   const btn = getEl('viewSummaryBtn');
   btn.disabled = true; btn.textContent = 'Generating…';
   const sb = getEl('summary-body');
   sb.style.display = 'block';
   sb.innerHTML = '<p class="summary-loading">Crafting brand personality</p>';
+
+  const brandName = (getEl('brandName').value || '').trim();
+  const brandContext = brandName ? `The brand is called "${brandName}". ` : '';
+
   const profile = sliders.map(sl => {
     const v = parseInt(getEl(sl.id).value);
     const left = getEl(sl.id).dataset.left, right = getEl(sl.id).dataset.right;
@@ -424,27 +445,44 @@ async function requestSummary() {
         system: `You are a brand strategist. Respond ONLY with a valid JSON object — no markdown, no backticks — in this shape:
 {"paragraph":"2-3 sentence brand personality. Plain language.","references":["Brand1","Brand2","Brand3","Brand4"],"visual_hints":[{"attribute":"Typography","hint":"direction"},{"attribute":"Color","hint":"direction"},{"attribute":"Layout","hint":"direction"},{"attribute":"Imagery","hint":"direction"}]}
 References ONLY from: Apple,Google,Nike,Airbnb,Spotify,Netflix,Tesla,Patagonia,Rolex,Gucci,IKEA,Mailchimp,Notion,Figma,Stripe,Slack,Duolingo,Canva,Headspace,Calm,Dropbox,Uber,LinkedIn,Adobe,Shopify,Squarespace,Lego,Red Bull,Oatly,Glossier,Allbirds,Warby Parker,Vercel,HubSpot,Intercom,Asana. Pick 4.`,
-        messages: [{ role: 'user', content: `Brand profile: ${profile}` }]
+        messages: [{ role: 'user', content: `${brandContext}Brand profile: ${profile}` }]
       })
     });
     const data = await res.json();
     const raw = (data.content||[]).filter(b=>b.type==='text').map(b=>b.text).join('');
     const result = JSON.parse(raw.replace(/```json|```/g,'').trim());
-    sb.innerHTML = `<p class="summary-text">${result.paragraph}</p>`;
+
+    const title = brandName ? `<p style="font-size:11px;font-weight:500;letter-spacing:0.08em;text-transform:uppercase;color:var(--muted);margin-bottom:8px;">${brandName}</p>` : '';
+    sb.innerHTML = `${title}<p class="summary-text">${result.paragraph}</p>`;
+
+    // Refs carousel — duplicate items for seamless loop
     getEl('refs-card').style.display = 'block';
-    getEl('refs-body').innerHTML = result.references.map(brand => {
+    const refItems = result.references.map(brand => {
       const svg = getBrandSVG(brand);
       const initials = brand.split(' ').map(w=>w[0]).join('').slice(0,2).toUpperCase();
-      const inner = svg ? `<div style="width:44px;height:44px;display:flex;align-items:center;justify-content:center">${svg}</div>` : `<span style="font-size:14px;font-weight:600;color:var(--muted)">${initials}</span>`;
+      const inner = svg ? `<div style="width:40px;height:40px;display:flex;align-items:center;justify-content:center">${svg}</div>` : `<span style="font-size:13px;font-weight:600;color:var(--muted)">${initials}</span>`;
       return `<div class="ref-item"><div class="ref-logo">${inner}</div><span class="ref-name">${brand}</span></div>`;
     }).join('');
+    // Duplicate for seamless infinite scroll
+    getEl('refs-body').innerHTML = refItems + refItems;
+
+    // Visual accordion — collapsed by default
     getEl('visual-card').style.display = 'block';
     getEl('visual-body').innerHTML = result.visual_hints.map(h => `<div class="hint-row"><div class="hint-icon">${getHintIcon(h.attribute)}</div><div class="hint-content"><span class="hint-label">${h.attribute}</span><span class="hint-text">${h.hint}</span></div></div>`).join('');
+
+    // Show PDF button only now
+    getEl('pdfBtn').style.display = 'block';
+
     btn.textContent = 'Regenerate ↺'; btn.disabled = false;
   } catch(e) {
     sb.innerHTML = '<span class="empty-hint">Could not generate. Try again.</span>';
-    btn.textContent = 'View summary'; btn.disabled = false;
+    btn.textContent = 'Regenerate ↺'; btn.disabled = false;
   }
+}
+
+function toggleAccordion(header) {
+  header.classList.toggle('open');
+  header.nextElementSibling.classList.toggle('open');
 }
 
 function resetSliders() {
@@ -457,7 +495,11 @@ function resetSliders() {
   getEl('summary-body').style.display='none'; getEl('summary-body').innerHTML='';
   getEl('refs-card').style.display='none'; getEl('visual-card').style.display='none';
   getEl('summary-actions').style.display='none';
-  getEl('viewSummaryBtn').textContent='View summary'; getEl('viewSummaryBtn').disabled=false;
+  getEl('pdfBtn').style.display='none';
+  getEl('viewSummaryBtn').textContent='Regenerate ↺'; getEl('viewSummaryBtn').disabled=false;
+  // Reset accordion
+  const ah = document.querySelector('.accordion-header');
+  if (ah) { ah.classList.remove('open'); ah.nextElementSibling.classList.remove('open'); }
   const mainBtn = getEl('viewSummaryBtnMain');
   if (mainBtn) mainBtn.style.display = '';
   updateAll();

@@ -21,9 +21,9 @@
   .intro h1 em { font-style: italic; color: var(--muted); }
   main { padding: 48px 48px 0; display: grid; grid-template-columns: 1fr 380px; gap: 32px; align-items: start; max-width: 1200px; }
   .sliders-panel { display: flex; flex-direction: column; gap: 0; max-width: 680px; }
-  .section-label { font-size: 11px; font-weight: 500; letter-spacing: 0.12em; text-transform: uppercase; color: var(--muted); margin: 36px 0 8px; padding-bottom: 8px; border-bottom: 0.5px solid var(--border); text-align: center; }
+  .section-label { font-size: 11px; font-weight: 500; letter-spacing: 0.12em; text-transform: uppercase; color: var(--muted); margin: 36px 0 8px; padding-bottom: 0; border-bottom: none; text-align: center; }
   .section-label:first-child { margin-top: 0; }
-  .section-hint { font-size: 16px; color: var(--muted); line-height: 1.65; margin-bottom: 24px; text-align: center; }
+  .section-hint { font-size: 16px; color: var(--muted); line-height: 1.65; margin-bottom: 32px; text-align: center; padding-bottom: 24px; border-bottom: 0.5px solid var(--border); }
   .slider-row { display: grid; grid-template-columns: 130px 1fr 130px; align-items: center; gap: 16px; margin-bottom: 22px; }
   .label-l { font-size: 16px; color: var(--muted); text-align: right; line-height: 1.3; transition: color 0.2s; position: relative; cursor: default; }
   .label-r { font-size: 16px; color: var(--muted); text-align: left; line-height: 1.3; transition: color 0.2s; position: relative; cursor: default; }
@@ -43,13 +43,15 @@
   .sidebar { position: sticky; top: 32px; }
   .card { background: var(--surface); border: 0.5px solid var(--border); border-radius: 16px; padding: 24px; margin-bottom: 16px; }
   .card-title { font-size: 10px; font-weight: 500; letter-spacing: 0.12em; text-transform: uppercase; color: var(--muted); margin-bottom: 16px; }
-  .tag-cloud { display: flex; flex-wrap: wrap; gap: 6px; min-height: 48px; }
+  .tag-cloud { display: flex; flex-wrap: wrap; gap: 6px; }
   .tag { font-size: 12px; height: 26px; padding: 0 10px; border-radius: 100px; animation: tagIn 0.2s ease; display: inline-flex; align-items: center; gap: 5px; }
-  .tag.t-high  { background: var(--text); color: var(--surface); border: 0.5px solid var(--text); }
-  .tag.t-mid   { background: #E8E6E1; color: #444441; border: 0.5px solid #D3D1C7; }
-  .tag.t-low   { background: var(--surface); color: var(--muted); border: 0.5px solid var(--border); }
+  .tag.t-5 { background: #1A1916; color: #fff;     border: 0.5px solid #1A1916; } /* Totally */
+  .tag.t-4 { background: #4A4845; color: #fff;     border: 0.5px solid #4A4845; } /* Very */
+  .tag.t-3 { background: #8A8780; color: #fff;     border: 0.5px solid #8A8780; } /* Moderately */
+  .tag.t-2 { background: #C8C6C1; color: #1A1916;  border: 0.5px solid #C8C6C1; } /* A bit */
+  .tag.t-1 { background: #EEECEA; color: #8A8780;  border: 0.5px solid #D3D1C7; } /* Slightly */
   @keyframes tagIn { from { opacity: 0; transform: scale(0.9); } to { opacity: 1; transform: scale(1); } }
-  .empty-hint { font-size: 13px; color: var(--muted); font-style: italic; }
+
   .btn-primary { width: 100%; padding: 12px 20px; background: var(--text); color: var(--surface); border: none; border-radius: 10px; font-family: 'DM Sans', sans-serif; font-size: 13px; font-weight: 500; cursor: pointer; transition: opacity 0.2s, transform 0.1s; letter-spacing: 0.01em; }
   .btn-primary:hover { opacity: 0.85; } .btn-primary:active { transform: scale(0.98); } .btn-primary:disabled { opacity: 0.35; cursor: not-allowed; }
   .btn-secondary { width: 100%; padding: 11px 20px; background: transparent; color: var(--text); border: 0.5px solid rgba(26,25,22,0.2); border-radius: 10px; font-family: 'DM Sans', sans-serif; font-size: 13px; cursor: pointer; transition: background 0.15s; margin-top: 8px; }
@@ -73,7 +75,7 @@
   .accordion-body { overflow: hidden; max-height: 0; transition: max-height 0.3s ease; }
   .accordion-body.open { max-height: 600px; padding-top: 14px; }
   .summary-visual-hints { display: flex; flex-direction: column; gap: 10px; }
-  .hint-row { background: var(--bg); border-radius: 10px; padding: 12px 14px; line-height: 1.5; display: flex; gap: 10px; align-items: flex-start; }
+  .hint-row { background: none; border-radius: 0; padding: 8px 0; line-height: 1.5; display: flex; gap: 10px; align-items: flex-start; border-bottom: 0.5px solid var(--border); }
   .hint-icon { font-size: 16px; flex-shrink: 0; margin-top: 1px; line-height: 1; }
   .hint-content { flex: 1; }
   .hint-label { font-size: 10px; font-weight: 500; letter-spacing: 0.08em; text-transform: uppercase; color: var(--muted); display: block; margin-bottom: 4px; }
@@ -247,9 +249,7 @@
       </div>
       <input type="text" id="brandName" placeholder="Brand name" style="width:100%; height:64px; padding:0 16px; font-family:'DM Sans',sans-serif; font-size:22px; font-weight:400; border:0.5px solid rgba(26,25,22,0.2); border-radius:10px; background:var(--bg); color:var(--text); outline:none; margin-bottom:10px; box-sizing:border-box; letter-spacing:-0.01em;">
       <input type="text" id="businessType" placeholder="Type of business or product (optional)" style="width:100%; padding:9px 12px; font-family:'DM Sans',sans-serif; font-size:13px; border:0.5px solid rgba(26,25,22,0.2); border-radius:8px; background:var(--bg); color:var(--text); outline:none; margin-bottom:14px; box-sizing:border-box;">
-      <div class="tag-cloud" id="tags" style="margin-bottom: 0;">
-        <span class="empty-hint">Move the sliders…</span>
-      </div>
+      <div class="tag-cloud" id="tags"></div>
       <div id="summary-body" style="display:none;"></div>
       <div id="summary-actions" style="display:none;">
         <button class="btn-primary" id="pdfBtn" onclick="downloadPDF()" style="margin-top:16px; display:none;">Download PDF</button>
@@ -319,9 +319,11 @@ function getLabel(sl) {
 }
 
 function tagClass(dist) {
-  if (dist >= 40) return 't-high'; // Totally / Very
-  if (dist >= 20) return 't-mid';  // Moderately / A bit
-  return 't-low';                  // Slightly
+  if (dist >= 50) return 't-5'; // Totally
+  if (dist >= 40) return 't-4'; // Very
+  if (dist >= 30) return 't-3'; // Moderately
+  if (dist >= 20) return 't-2'; // A bit
+  return 't-1';                 // Slightly
 }
 
 function updateAll() {
@@ -329,7 +331,7 @@ function updateAll() {
   const items = sliders.map(s => getLabel(s)).filter(Boolean);
   items.sort((a, b) => b.dist - a.dist);
   cloud.innerHTML = items.length === 0
-    ? '<span class="empty-hint">Move the sliders…</span>'
+    ? ''
     : items.map(i => `<span class="tag ${tagClass(i.dist)}">${i.emoji} <strong style="font-weight:500">${i.intensity}</strong> ${i.label}</span>`).join('');
 }
 
@@ -374,6 +376,7 @@ sliders.forEach(sl => {
   setTimeout(() => {
     const trackW = input.offsetWidth - 16;
     bubble.style.left = (8 + pct * trackW) + 'px';
+    bubble.textContent = getIntensityForValue(v);
   }, 50);
 });
 
@@ -419,7 +422,8 @@ const brandLogoUrls = {
 
 function getBrandSVG(n) {
   const k = Object.keys(brandLogoUrls).find(k => k.toLowerCase() === n.toLowerCase());
-  return k ? `<img src="${{brandLogoUrls[k]}}" alt="${{k}}" style="width:44px;height:44px;object-fit:contain;">` : null;
+  if (!k) return null;
+  return '<img src="' + brandLogoUrls[k] + '" alt="' + k + '" style="width:44px;height:44px;object-fit:contain;">';
 }
 
 const hintIconMap = { 'typography':'🔤','type':'🔤','font':'🔤','color':'🎨','colour':'🎨','palette':'🎨','layout':'⬛','spacing':'⬛','whitespace':'⬛','imagery':'🖼','photography':'🖼','illustration':'🖼','motion':'⚡','animation':'⚡','texture':'🌀','pattern':'🌀','shape':'◯','form':'◯','voice':'💬','tone':'💬' };
@@ -549,8 +553,10 @@ function downloadPDF() {
     +(hr?`<div style="margin-top:24px"><p style="font-size:10px;font-weight:500;text-transform:uppercase;color:#8A8780;margin-bottom:8px">Visual resources</p>${hr}</div>`:'')
     +'<scr'+'ipt>window.onload=function(){window.print();}</scr'+'ipt></body></html>';
   const url=URL.createObjectURL(new Blob([html],{type:'text/html'}));
-  window.open(url,'_blank');
-  setTimeout(()=>URL.revokeObjectURL(url),10000);
+  let iframe=document.getElementById('print-frame');
+  if(!iframe){iframe=document.createElement('iframe');iframe.id='print-frame';iframe.style.cssText='position:fixed;top:-9999px;left:-9999px;width:1px;height:1px;';document.body.appendChild(iframe);}
+  iframe.src=url;
+  iframe.onload=()=>{setTimeout(()=>{iframe.contentWindow.print();setTimeout(()=>URL.revokeObjectURL(url),5000);},300)};
   btn.disabled=false; btn.textContent='Download PDF';
 }
 

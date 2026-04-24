@@ -277,7 +277,7 @@
         <div id="visual-body" class="summary-visual-hints"></div>
       </div>
     </div>
-    <button class="btn-primary" id="viewSummaryBtnMain" onclick="requestSummary()">View summary</button>
+    <button class="btn-primary" id="viewSummaryBtnMain" onclick="snd_cta();requestSummary()">Generate report</button>
     <p class="saved-notice" id="saved-notice"></p>
   </div>
 </main>
@@ -367,6 +367,27 @@ function snd_down()   { _beep(440, 'triangle', 0.07, 0.08); }
 function snd_snap()   { _beep(660, 'sine',     0.05, 0.05); }
 // mouseup: soft low release
 function snd_up()     { _beep(330, 'sine',     0.04, 0.10); }
+
+// CTA click: two-tone chord, feels "submitting"
+function snd_cta() {
+  _beep(440, 'sine', 0.06, 0.18, 0.01, 0.15);
+  _beep(660, 'sine', 0.04, 0.14, 0.01, 0.12);
+}
+
+// Loading ambient: soft repeating pulse while waiting
+let _loadInterval = null;
+function snd_loading_start() {
+  let tick = 0;
+  _loadInterval = setInterval(() => {
+    const freqs = [220, 246, 261, 246];
+    _beep(freqs[tick % 4], 'sine', 0.025, 0.25, 0.02, 0.20);
+    tick++;
+  }, 600);
+}
+function snd_loading_stop() {
+  if (_loadInterval) { clearInterval(_loadInterval); _loadInterval = null; }
+  _beep(523, 'sine', 0.06, 0.30, 0.01, 0.25); // completion chime
+}
 
 sliders.forEach(sl => {
   const input = getEl(sl.id);
@@ -490,6 +511,7 @@ async function requestSummary() {
 
   const btn = getEl('viewSummaryBtn');
   btn.disabled = true; btn.textContent = 'Generating…';
+  snd_loading_start();
   const sb = getEl('summary-body');
   sb.style.display = 'block';
   sb.innerHTML = '';
@@ -538,11 +560,13 @@ References ONLY from: Apple,Google,Nike,Airbnb,Spotify,Netflix,Tesla,Patagonia,R
     getEl('visual-card').style.display = 'block';
     getEl('visual-body').innerHTML = result.visual_hints.map(h => `<div class="hint-row"><div class="hint-icon">${getHintIcon(h.attribute)}</div><div class="hint-content"><span class="hint-label">${h.attribute}</span><span class="hint-text">${h.hint}</span></div></div>`).join('');
 
+    snd_loading_stop();
     // Show PDF button only now
     getEl('pdfBtn').style.display = 'block';
 
     btn.textContent = 'Regenerate ↺'; btn.disabled = false;
   } catch(e) {
+    snd_loading_stop();
     sb.innerHTML = '<span class="empty-hint">Could not generate. Try again.</span>';
     btn.textContent = 'Regenerate ↺'; btn.disabled = false;
   }
@@ -580,6 +604,27 @@ function snd_down()   { _beep(440, 'triangle', 0.07, 0.08); }
 function snd_snap()   { _beep(660, 'sine',     0.05, 0.05); }
 // mouseup: soft low release
 function snd_up()     { _beep(330, 'sine',     0.04, 0.10); }
+
+// CTA click: two-tone chord, feels "submitting"
+function snd_cta() {
+  _beep(440, 'sine', 0.06, 0.18, 0.01, 0.15);
+  _beep(660, 'sine', 0.04, 0.14, 0.01, 0.12);
+}
+
+// Loading ambient: soft repeating pulse while waiting
+let _loadInterval = null;
+function snd_loading_start() {
+  let tick = 0;
+  _loadInterval = setInterval(() => {
+    const freqs = [220, 246, 261, 246];
+    _beep(freqs[tick % 4], 'sine', 0.025, 0.25, 0.02, 0.20);
+    tick++;
+  }, 600);
+}
+function snd_loading_stop() {
+  if (_loadInterval) { clearInterval(_loadInterval); _loadInterval = null; }
+  _beep(523, 'sine', 0.06, 0.30, 0.01, 0.25); // completion chime
+}
 
 sliders.forEach(sl => {
     const input = getEl(sl.id); input.value = 50; moved.delete(sl.id);
@@ -629,6 +674,27 @@ function snd_down()   { _beep(440, 'triangle', 0.07, 0.08); }
 function snd_snap()   { _beep(660, 'sine',     0.05, 0.05); }
 // mouseup: soft low release
 function snd_up()     { _beep(330, 'sine',     0.04, 0.10); }
+
+// CTA click: two-tone chord, feels "submitting"
+function snd_cta() {
+  _beep(440, 'sine', 0.06, 0.18, 0.01, 0.15);
+  _beep(660, 'sine', 0.04, 0.14, 0.01, 0.12);
+}
+
+// Loading ambient: soft repeating pulse while waiting
+let _loadInterval = null;
+function snd_loading_start() {
+  let tick = 0;
+  _loadInterval = setInterval(() => {
+    const freqs = [220, 246, 261, 246];
+    _beep(freqs[tick % 4], 'sine', 0.025, 0.25, 0.02, 0.20);
+    tick++;
+  }, 600);
+}
+function snd_loading_stop() {
+  if (_loadInterval) { clearInterval(_loadInterval); _loadInterval = null; }
+  _beep(523, 'sine', 0.06, 0.30, 0.01, 0.25); // completion chime
+}
 
 sliders.forEach(sl => {
     if(sl.section!==sec){sec=sl.section;lines.push('',sec.toUpperCase());}

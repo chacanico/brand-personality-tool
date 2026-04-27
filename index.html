@@ -316,21 +316,6 @@
 
   <!-- Results cards (shown inline after generate) -->
   <div id="results-area" style="width:100%;display:none;">
-    <div class="card" id="refs-card" style="display:none;margin-bottom:16px;">
-      <p class="card-title">Similar brands</p>
-      <div class="refs-carousel-wrap">
-        <div id="refs-body" class="refs-carousel"></div>
-      </div>
-    </div>
-    <div class="card" id="visual-card" style="display:none;margin-bottom:16px;">
-      <div class="accordion-header" onclick="toggleAccordion(this)">
-        <p class="card-title">Possible visual resources</p>
-        <span class="accordion-arrow">▾</span>
-      </div>
-      <div class="accordion-body">
-        <div id="visual-body" class="summary-visual-hints"></div>
-      </div>
-    </div>
     <div id="summary-actions" style="display:none;margin-bottom:16px;">
       <button class="btn-primary" id="pdfBtn" onclick="downloadPDF()" style="display:none;width:100%;">Download PDF</button>
       <button class="btn-secondary" id="viewSummaryBtn" onclick="requestSummary()" style="width:100%;margin-top:8px;">Regenerate ↺</button>
@@ -349,6 +334,19 @@
     <div id="personality-card" style="margin-bottom:10px;display:none;">
       <div class="tag-cloud" id="tags" style="margin-bottom:8px;"></div>
       <div id="summary-body" style="display:none;margin-top:8px;font-size:14px;line-height:1.6;color:var(--text);"></div>
+    </div>
+    <div class="card" id="refs-card" style="display:none;margin-bottom:10px;padding:14px 16px;">
+      <p class="card-title" style="margin-bottom:10px;">Similar brands</p>
+      <div id="refs-body" style="display:flex;flex-wrap:wrap;gap:8px;"></div>
+    </div>
+    <div class="card" id="visual-card" style="display:none;margin-bottom:10px;padding:0;">
+      <div class="accordion-header" onclick="toggleAccordion(this)" style="padding:14px 16px;">
+        <p class="card-title" style="margin-bottom:0;">Possible visual resources</p>
+        <span class="accordion-arrow">▾</span>
+      </div>
+      <div class="accordion-body" style="padding:0 16px;">
+        <div id="visual-body" class="summary-visual-hints"></div>
+      </div>
     </div>
     <div class="fixed-panel-actions">
       <button class="btn-primary" id="viewSummaryBtnMain" onclick="snd_cta();requestSummary()">Generate report</button>
@@ -632,14 +630,12 @@ References ONLY from: Apple,Google,Nike,Airbnb,Spotify,Netflix,Tesla,Patagonia,R
 
     // Refs carousel — duplicate items for seamless loop
     getEl('refs-card').style.display = 'block';
-    const refItems = result.references.map(brand => {
+    getEl('refs-body').innerHTML = result.references.map(brand => {
       const svg = getBrandSVG(brand);
       const initials = brand.split(' ').map(w=>w[0]).join('').slice(0,2).toUpperCase();
       const inner = svg ? `<div style="width:40px;height:40px;display:flex;align-items:center;justify-content:center">${svg}</div>` : `<span style="font-size:13px;font-weight:600;color:var(--muted)">${initials}</span>`;
       return `<div class="ref-item"><div class="ref-logo">${inner}</div><span class="ref-name">${brand}</span></div>`;
     }).join('');
-    // Duplicate for seamless infinite scroll
-    getEl('refs-body').innerHTML = refItems + refItems;
 
     // Visual accordion — collapsed by default
     getEl('visual-card').style.display = 'block';

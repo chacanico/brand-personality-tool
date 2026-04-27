@@ -19,8 +19,8 @@
   .intro { padding: 48px 48px 0; max-width: 100%; text-align: center; }
   .intro h1 { font-family: 'Instrument Serif', serif; font-size: 36px; font-weight: 400; line-height: 1.15; letter-spacing: -0.02em; margin-bottom: 12px; text-align: center; }
   .intro h1 em { font-style: italic; color: var(--muted); }
-  main { padding: 48px 48px 0; display: flex; flex-direction: row; gap: 40px; align-items: start; width: 100%; max-width: 800px; margin: 0 auto; box-sizing: border-box; }
-  .sliders-panel { display: flex; flex-direction: column; gap: 0; flex: 1; min-width: 0;}
+  main { padding: 48px 48px 120px; display: flex; flex-direction: column; align-items: center; width: 100%; max-width: 800px; margin: 0 auto; box-sizing: border-box; }
+  .sliders-panel { display: flex; flex-direction: column; gap: 0; width: 100%; }
   .section-label { font-size: 11px; font-weight: 600; letter-spacing: 0.12em; text-transform: uppercase; color: var(--text); margin: 36px 0 8px; padding-bottom: 0; border-bottom: none; text-align: center; }
   .section-label:first-child { margin-top: 0; }
   .section-group { border-radius: 20px; padding: 20px 24px; margin: 0; transition: background 0.25s ease; }
@@ -44,7 +44,7 @@
   .slider-tooltip::after { content: ''; position: absolute; top: 100%; left: 50%; transform: translateX(-50%); border: 5px solid transparent; border-top-color: var(--text); }
   .tooltip-title { font-weight: 500; font-size: 11px; letter-spacing: 0.05em; text-transform: uppercase; opacity: 0.6; display: block; margin-bottom: 4px; }
   /* Sidebar */
-  .sidebar { position: sticky; top: 32px; flex-shrink: 0; }
+  .sidebar { display: none; }
   .card { background: var(--surface); border: 0.5px solid var(--border); border-radius: 16px; padding: 24px; margin-bottom: 16px; }
   .card-title { font-size: 10px; font-weight: 500; letter-spacing: 0.12em; text-transform: uppercase; color: var(--muted); margin-bottom: 16px; }
   .tag-cloud { display: flex; flex-wrap: wrap; gap: 6px; }
@@ -89,14 +89,81 @@
   .summary-loading { font-size: 13px; color: var(--muted); font-style: italic; }
   .summary-loading::after { content: ''; animation: dots 1.2s infinite; }
   @keyframes dots { 0%{content:''} 33%{content:'.'} 66%{content:'..'} 100%{content:'...'} }
-  @media (max-width: 800px) {
-    header { padding: 32px 24px 24px; } header p { text-align: left; }
-    .intro { padding: 32px 24px 0; }
-    main { padding: 32px 24px 0; flex-direction: column; }
-    .sliders-panel { max-width: 100%; }
-    .sidebar { position: static; width: 100%; }
-    .slider-row { grid-template-columns: 100px 1fr 100px; gap: 10px; }
-    .label-l, .label-r { font-size: 13px; }
+  @media (max-width: 600px) {
+    header { padding: 24px 16px 20px; } header p { text-align: left; }
+    .intro { padding: 24px 16px 0; }
+    main { padding: 24px 16px 120px; }
+    .slider-row { grid-template-columns: 80px 1fr 80px; gap: 8px; }
+    .label-l, .label-r { font-size: 12px; }
+    .fixed-panel-inputs { flex-direction: column; }
+  }
+
+  .fixed-panel {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: rgba(247,245,240,0.92);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border-top: 0.5px solid var(--border);
+    padding: 16px 24px;
+    z-index: 50;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .fixed-panel-inner {
+    width: 100%;
+    max-width: 800px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .fixed-panel-inputs {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+  }
+
+  .fixed-panel-inputs input {
+    flex: 1;
+    padding: 10px 14px;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 14px;
+    border: 0.5px solid rgba(26,25,22,0.2);
+    border-radius: 10px;
+    background: var(--surface);
+    color: var(--text);
+    outline: none;
+    box-sizing: border-box;
+  }
+
+  .fixed-panel-inputs input:focus {
+    border: 1.5px solid #1A1916;
+  }
+
+  .fixed-panel-actions {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+  }
+
+  .fixed-panel-actions .btn-primary {
+    flex: 1;
+  }
+
+  .fixed-panel-actions .btn-secondary {
+    margin-top: 0;
+    flex: 0 0 auto;
+    width: auto;
+    padding: 11px 20px;
+  }
+
+  .fixed-panel-actions .btn-link-reset {
+    margin-left: 4px;
   }
 </style>
 </head>
@@ -247,29 +314,15 @@
 
   </div>
 
-  <!-- Sidebar -->
-  <div class="sidebar">
-    <div class="card" id="personality-card">
-      <div style="display:flex; justify-content:space-between; align-items:baseline; margin-bottom:16px;">
-        <p class="card-title" style="margin-bottom:0;">Brand personality</p>
-        <button class="btn-link-reset" onclick="resetSliders()">Reset</button>
-      </div>
-      <input type="text" id="brandName" placeholder="Brand name" style="width:100%; height:64px; padding:0 16px; font-family:'DM Sans',sans-serif; font-size:22px; font-weight:400; border:0.5px solid rgba(26,25,22,0.2); border-radius:10px; background:var(--bg); color:var(--text); outline:none; margin-bottom:10px; box-sizing:border-box; letter-spacing:-0.01em;">
-      <input type="text" id="businessType" placeholder="Type of business or product (optional)" style="width:100%; padding:9px 12px; font-family:'DM Sans',sans-serif; font-size:13px; border:0.5px solid rgba(26,25,22,0.2); border-radius:8px; background:var(--bg); color:var(--text); outline:none; margin-bottom:14px; box-sizing:border-box;">
-      <div class="tag-cloud" id="tags"></div>
-      <div id="summary-body" style="display:none;"></div>
-      <div id="summary-actions" style="display:none;">
-        <button class="btn-primary" id="pdfBtn" onclick="downloadPDF()" style="margin-top:16px; display:none;">Download PDF</button>
-        <button class="btn-secondary" id="viewSummaryBtn" onclick="requestSummary()" style="margin-top:8px;">Regenerate ↺</button>
-      </div>
-    </div>
-    <div class="card" id="refs-card" style="display:none;">
+  <!-- Results cards (shown inline after generate) -->
+  <div id="results-area" style="width:100%;display:none;">
+    <div class="card" id="refs-card" style="display:none;margin-bottom:16px;">
       <p class="card-title">Similar brands</p>
       <div class="refs-carousel-wrap">
         <div id="refs-body" class="refs-carousel"></div>
       </div>
     </div>
-    <div class="card" id="visual-card" style="display:none;">
+    <div class="card" id="visual-card" style="display:none;margin-bottom:16px;">
       <div class="accordion-header" onclick="toggleAccordion(this)">
         <p class="card-title">Possible visual resources</p>
         <span class="accordion-arrow">▾</span>
@@ -278,10 +331,32 @@
         <div id="visual-body" class="summary-visual-hints"></div>
       </div>
     </div>
-    <button class="btn-primary" id="viewSummaryBtnMain" onclick="snd_cta();requestSummary()">Generate report</button>
-    <p class="saved-notice" id="saved-notice"></p>
+    <div id="summary-actions" style="display:none;margin-bottom:16px;">
+      <button class="btn-primary" id="pdfBtn" onclick="downloadPDF()" style="display:none;width:100%;">Download PDF</button>
+      <button class="btn-secondary" id="viewSummaryBtn" onclick="requestSummary()" style="width:100%;margin-top:8px;">Regenerate ↺</button>
+    </div>
   </div>
+
 </main>
+
+<!-- Fixed bottom panel -->
+<div class="fixed-panel">
+  <div class="fixed-panel-inner">
+    <div class="fixed-panel-inputs">
+      <input type="text" id="brandName" placeholder="Brand name (optional)">
+      <input type="text" id="businessType" placeholder="Type of business (optional)" style="flex:1.5;">
+    </div>
+    <div id="personality-card" style="margin-bottom:10px;display:none;">
+      <div class="tag-cloud" id="tags" style="margin-bottom:8px;"></div>
+      <div id="summary-body" style="display:none;margin-top:8px;font-size:14px;line-height:1.6;color:var(--text);"></div>
+    </div>
+    <div class="fixed-panel-actions">
+      <button class="btn-primary" id="viewSummaryBtnMain" onclick="snd_cta();requestSummary()">Generate report</button>
+      <button class="btn-link-reset" onclick="resetSliders()">Reset</button>
+    </div>
+  </div>
+</div>
+<p class="saved-notice" id="saved-notice" style="position:fixed;bottom:8px;left:0;right:0;text-align:center;z-index:51;"></p>
 
 <script>
 const sliders = [
@@ -337,9 +412,17 @@ function updateAll() {
   const cloud = getEl('tags');
   const items = sliders.map(s => getLabel(s)).filter(Boolean);
   items.sort((a, b) => b.dist - a.dist);
-  cloud.innerHTML = items.length === 0
-    ? ''
-    : items.map(i => `<span class="tag ${tagClass(i.dist)}">${i.emoji} <strong style="font-weight:500">${i.intensity}</strong> ${i.label}</span>`).join('');
+  const hasItems = items.length > 0;
+  cloud.innerHTML = hasItems
+    ? items.map(i => `<span class="tag ${tagClass(i.dist)}">${i.emoji} <strong style="font-weight:500">${i.intensity}</strong> ${i.label}</span>`).join('')
+    : '';
+  if (hasItems) {
+    getEl('results-area').style.display = 'block';
+  getEl('personality-card').style.display = 'block';
+    getEl('personality-card').style.display = 'block';
+  } else {
+    getEl('personality-card').style.display = 'none';
+  }
 }
 
 
@@ -506,7 +589,8 @@ function getHintIcon(a) { const l=a.toLowerCase(); for(const [k,i] of Object.ent
 
 async function requestSummary() {
   const mainBtn = getEl('viewSummaryBtnMain');
-  if (mainBtn) mainBtn.style.display = 'none';
+  getEl('results-area').style.display = 'block';
+  getEl('personality-card').style.display = 'block';
   getEl('summary-actions').style.display = 'block';
   getEl('pdfBtn').style.display = 'none'; // hidden until complete
 
@@ -637,12 +721,11 @@ sliders.forEach(sl => {
   getEl('refs-card').style.display='none'; getEl('visual-card').style.display='none';
   getEl('summary-actions').style.display='none';
   getEl('pdfBtn').style.display='none';
+  getEl('results-area').style.display='none';
+  getEl('personality-card').style.display='none';
   getEl('viewSummaryBtn').textContent='Regenerate ↺'; getEl('viewSummaryBtn').disabled=false;
-  // Reset accordion
   const ah = document.querySelector('.accordion-header');
   if (ah) { ah.classList.remove('open'); ah.nextElementSibling.classList.remove('open'); }
-  const mainBtn = getEl('viewSummaryBtnMain');
-  if (mainBtn) mainBtn.style.display = '';
   updateAll();
 }
 

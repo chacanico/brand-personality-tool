@@ -21,12 +21,6 @@
   .intro h1 em { font-style: italic; color: var(--muted); }
   main { padding: 48px 48px 120px; display: flex; flex-direction: column; align-items: center; width: 100%; max-width: 800px; margin: 0 auto; box-sizing: border-box; }
   .sliders-panel { display: flex; flex-direction: column; gap: 0; width: 100%; }
-  .section-label { font-size: 11px; font-weight: 600; letter-spacing: 0.12em; text-transform: uppercase; color: var(--text); margin: 36px 0 8px; padding-bottom: 0; border-bottom: none; text-align: center; }
-  .section-label:first-child { margin-top: 0; }
-  .section-group { border-radius: 20px; padding: 20px 24px; margin: 0; transition: background 0.25s ease; }
-  .section-group:hover { background: rgba(0,0,0,0.02); }
-  .section-group .section-label { margin-top: 0; }
-  .section-hint { font-size: 16px; color: var(--muted); line-height: 1.65; margin-bottom: 32px; text-align: center; padding-bottom: 24px; border-bottom: 0.5px solid var(--border); }
   .slider-row { display: grid; grid-template-columns: 130px 1fr 130px; align-items: center; gap: 16px; margin-bottom: 22px; }
   .label-l { font-size: 16px; color: var(--muted); text-align: right; line-height: 1.3; transition: color 0.2s; position: relative; cursor: default; }
   .label-r { font-size: 16px; color: var(--muted); text-align: left; line-height: 1.3; transition: color 0.2s; position: relative; cursor: default; }
@@ -172,144 +166,110 @@
   <div class="logo"><img src="https://cdn.prod.website-files.com/64694fa65443350ff591221a/6490c4036a4c7a992e1610e0_Full%20logo-p-500.png" alt="Lunte Studio"></div>
   <p>Brand Personality Survey</p>
 </header>
-<div class="intro" style="margin: 0 auto; max-width: 1200px; padding: 48px 48px 0; text-align: center;">
-  <h1>Where do you want your<br><em>brand to go?</em></h1>
+<div style="margin: 0 auto; max-width: 800px; padding: 48px 48px 0; text-align: center; box-sizing: border-box;">
+  <input type="text" id="brandName"
+    placeholder="Your brand name"
+    style="width:100%;border:none;background:transparent;outline:none;text-align:center;
+           font-family:'Instrument Serif',serif;font-size:42px;font-weight:400;
+           letter-spacing:-0.02em;color:var(--text);cursor:text;
+           font-style:italic;color:var(--muted);caret-color:var(--text);"
+    oninput="this.style.fontStyle=this.value?'normal':'italic';this.style.color=this.value?'var(--text)':'var(--muted)'">
+  <input type="text" id="businessType"
+    placeholder="Type of business or product"
+    style="width:100%;border:none;background:transparent;outline:none;text-align:center;
+           font-family:'DM Sans',sans-serif;font-size:16px;font-weight:400;
+           color:var(--muted);cursor:text;margin-top:8px;display:block;caret-color:var(--text);"
+    oninput="this.style.color=this.value?'var(--text)':'var(--muted)'">
 </div>
 <main>
   <div class="sliders-panel" id="sliders">
-    <div class="section-group"><p class="section-label">Tone & personality</p>
-    <p class="section-hint">How your brand sounds and feels in conversation. Think about the relationship you want to build with your audience — is it a peer, an expert, a friend?</p>
     <div class="slider-row">
-      <div class="label-l" id="l-r1">Casual<div class="slider-tooltip"><span class="tooltip-title">Casual ←→ Formal</span>Casual brands feel approachable and conversational — like a friend. Formal brands project structure and authority. Leaning formal signals trustworthiness and expertise; leaning casual builds warmth and relatability.</div></div>
+      <div class="label-l" id="l-r1">Edgy<div class="slider-tooltip"><span class="tooltip-title">Edgy ←→ Classic</span>Edgy brands feel provocative and boundary-pushing. Classic brands feel timeless and established. Edginess creates buzz; classicism builds lasting trust.</div></div>
       <div class="slider-wrap">
         <div class="val-bubble" id="b-r1"></div>
-        <input type="range" min="0" max="100" value="50" step="10" id="r1" data-left="Casual" data-right="Formal">
+        <input type="range" min="0" max="100" value="50" step="10" id="r1" data-left="Edgy" data-right="Classic">
       </div>
-      <div class="label-r" id="r-r1"><div class="slider-tooltip"><span class="tooltip-title">Casual ←→ Formal</span>Casual brands feel approachable and conversational — like a friend. Formal brands project structure and authority. Leaning formal signals trustworthiness and expertise; leaning casual builds warmth and relatability.</div>Formal</div>
+      <div class="label-r" id="r-r1"><div class="slider-tooltip"><span class="tooltip-title">Edgy ←→ Classic</span>Edgy brands feel provocative and boundary-pushing. Classic brands feel timeless and established. Edginess creates buzz; classicism builds lasting trust.</div>Classic</div>
     </div>
     <div class="slider-row">
-      <div class="label-l" id="l-r2">Playful<div class="slider-tooltip"><span class="tooltip-title">Playful ←→ Serious</span>Playful brands embrace humor, surprise, and fun. Serious brands focus on substance and credibility. Being playful invites engagement and memorability; being serious signals depth and commitment.</div></div>
+      <div class="label-l" id="l-r2">Youthful<div class="slider-tooltip"><span class="tooltip-title">Youthful ←→ Mature</span>Youthful brands feel energetic, optimistic, and fun. Mature brands feel experienced, composed, and authoritative. Youth attracts aspiration; maturity commands respect.</div></div>
       <div class="slider-wrap">
         <div class="val-bubble" id="b-r2"></div>
-        <input type="range" min="0" max="100" value="50" step="10" id="r2" data-left="Playful" data-right="Serious">
+        <input type="range" min="0" max="100" value="50" step="10" id="r2" data-left="Youthful" data-right="Mature">
       </div>
-      <div class="label-r" id="r-r2"><div class="slider-tooltip"><span class="tooltip-title">Playful ←→ Serious</span>Playful brands embrace humor, surprise, and fun. Serious brands focus on substance and credibility. Being playful invites engagement and memorability; being serious signals depth and commitment.</div>Serious</div>
+      <div class="label-r" id="r-r2"><div class="slider-tooltip"><span class="tooltip-title">Youthful ←→ Mature</span>Youthful brands feel energetic, optimistic, and fun. Mature brands feel experienced, composed, and authoritative. Youth attracts aspiration; maturity commands respect.</div>Mature</div>
     </div>
     <div class="slider-row">
-      <div class="label-l" id="l-r3">Warm<div class="slider-tooltip"><span class="tooltip-title">Warm ←→ Cool / Distant</span>Warm brands feel human, emotionally present, and caring. Cool/distant brands feel polished and independent. Warmth builds loyalty; distance can signal exclusivity and confidence.</div></div>
+      <div class="label-l" id="l-r3">Playful<div class="slider-tooltip"><span class="tooltip-title">Playful ←→ Professional</span>Playful brands use humor and lightness to connect. Professional brands signal expertise and reliability. Playfulness builds affinity; professionalism builds confidence.</div></div>
       <div class="slider-wrap">
         <div class="val-bubble" id="b-r3"></div>
-        <input type="range" min="0" max="100" value="50" step="10" id="r3" data-left="Warm" data-right="Cool / Distant">
+        <input type="range" min="0" max="100" value="50" step="10" id="r3" data-left="Playful" data-right="Professional">
       </div>
-      <div class="label-r" id="r-r3"><div class="slider-tooltip"><span class="tooltip-title">Warm ←→ Cool / Distant</span>Warm brands feel human, emotionally present, and caring. Cool/distant brands feel polished and independent. Warmth builds loyalty; distance can signal exclusivity and confidence.</div>Cool / Distant</div>
+      <div class="label-r" id="r-r3"><div class="slider-tooltip"><span class="tooltip-title">Playful ←→ Professional</span>Playful brands use humor and lightness to connect. Professional brands signal expertise and reliability. Playfulness builds affinity; professionalism builds confidence.</div>Professional</div>
     </div>
     <div class="slider-row">
-      <div class="label-l" id="l-r4">Irreverent<div class="slider-tooltip"><span class="tooltip-title">Irreverent ←→ Conservative</span>Irreverent brands break rules and provoke. Conservative brands respect convention and predictability. Irreverence creates cultural relevance; conservatism builds long-term trust.</div></div>
+      <div class="label-l" id="l-r4">Quirky<div class="slider-tooltip"><span class="tooltip-title">Quirky ←→ Traditional</span>Quirky brands embrace the unexpected and unconventional. Traditional brands honour convention and familiarity. Quirkiness creates memorability; tradition creates comfort.</div></div>
       <div class="slider-wrap">
         <div class="val-bubble" id="b-r4"></div>
-        <input type="range" min="0" max="100" value="50" step="10" id="r4" data-left="Irreverent" data-right="Conservative">
+        <input type="range" min="0" max="100" value="50" step="10" id="r4" data-left="Quirky" data-right="Traditional">
       </div>
-      <div class="label-r" id="r-r4"><div class="slider-tooltip"><span class="tooltip-title">Irreverent ←→ Conservative</span>Irreverent brands break rules and provoke. Conservative brands respect convention and predictability. Irreverence creates cultural relevance; conservatism builds long-term trust.</div>Conservative</div>
+      <div class="label-r" id="r-r4"><div class="slider-tooltip"><span class="tooltip-title">Quirky ←→ Traditional</span>Quirky brands embrace the unexpected and unconventional. Traditional brands honour convention and familiarity. Quirkiness creates memorability; tradition creates comfort.</div>Traditional</div>
     </div>
-
-    </div><div class="section-group"><p class="section-label">Market positioning</p>
-    <p class="section-hint">Where your brand sits in the market. Consider your price point, your audience size, and the kind of desire you want to create — broad appeal or deep loyalty?</p>
     <div class="slider-row">
-      <div class="label-l" id="l-r5">Accessible<div class="slider-tooltip"><span class="tooltip-title">Accessible ←→ Luxurious</span>Accessible brands make themselves available to everyone — low barriers, open doors. Luxury brands are selective and aspirational by design. Accessibility drives volume; luxury drives desire.</div></div>
+      <div class="label-l" id="l-r5">Bold<div class="slider-tooltip"><span class="tooltip-title">Bold ←→ Subtle</span>Bold brands make strong, direct statements and stand out visually. Subtle brands communicate through restraint and nuance. Bold grabs attention; subtle rewards it.</div></div>
       <div class="slider-wrap">
         <div class="val-bubble" id="b-r5"></div>
-        <input type="range" min="0" max="100" value="50" step="10" id="r5" data-left="Accessible" data-right="Luxurious">
+        <input type="range" min="0" max="100" value="50" step="10" id="r5" data-left="Bold" data-right="Subtle">
       </div>
-      <div class="label-r" id="r-r5"><div class="slider-tooltip"><span class="tooltip-title">Accessible ←→ Luxurious</span>Accessible brands make themselves available to everyone — low barriers, open doors. Luxury brands are selective and aspirational by design. Accessibility drives volume; luxury drives desire.</div>Luxurious</div>
+      <div class="label-r" id="r-r5"><div class="slider-tooltip"><span class="tooltip-title">Bold ←→ Subtle</span>Bold brands make strong, direct statements and stand out visually. Subtle brands communicate through restraint and nuance. Bold grabs attention; subtle rewards it.</div>Subtle</div>
     </div>
     <div class="slider-row">
-      <div class="label-l" id="l-r6">Mass market<div class="slider-tooltip"><span class="tooltip-title">Mass market ←→ Niche</span>Mass market brands speak to everyone broadly. Niche brands go deep for a specific audience. Mass market maximizes reach; niche builds intense community and loyalty.</div></div>
+      <div class="label-l" id="l-r6">Innovative<div class="slider-tooltip"><span class="tooltip-title">Innovative ←→ Established</span>Innovative brands push forward and signal change. Established brands signal stability and proven track records. Innovation attracts early adopters; establishment attracts risk-averse buyers.</div></div>
       <div class="slider-wrap">
         <div class="val-bubble" id="b-r6"></div>
-        <input type="range" min="0" max="100" value="50" step="10" id="r6" data-left="Mass market" data-right="Niche">
+        <input type="range" min="0" max="100" value="50" step="10" id="r6" data-left="Innovative" data-right="Established">
       </div>
-      <div class="label-r" id="r-r6"><div class="slider-tooltip"><span class="tooltip-title">Mass market ←→ Niche</span>Mass market brands speak to everyone broadly. Niche brands go deep for a specific audience. Mass market maximizes reach; niche builds intense community and loyalty.</div>Niche</div>
+      <div class="label-r" id="r-r6"><div class="slider-tooltip"><span class="tooltip-title">Innovative ←→ Established</span>Innovative brands push forward and signal change. Established brands signal stability and proven track records. Innovation attracts early adopters; establishment attracts risk-averse buyers.</div>Established</div>
     </div>
     <div class="slider-row">
-      <div class="label-l" id="l-r7">Affordable<div class="slider-tooltip"><span class="tooltip-title">Affordable ←→ Premium</span>Affordable brands compete on value and remove financial friction. Premium brands charge more and signal superiority. Affordability builds adoption; premium builds perceived status.</div></div>
+      <div class="label-l" id="l-r7">Confident<div class="slider-tooltip"><span class="tooltip-title">Confident ←→ Humble</span>Confident brands assert their leadership and superiority. Humble brands emphasise listening, learning, and community. Confidence inspires aspiration; humility inspires trust.</div></div>
       <div class="slider-wrap">
         <div class="val-bubble" id="b-r7"></div>
-        <input type="range" min="0" max="100" value="50" step="10" id="r7" data-left="Affordable" data-right="Premium">
+        <input type="range" min="0" max="100" value="50" step="10" id="r7" data-left="Confident" data-right="Humble">
       </div>
-      <div class="label-r" id="r-r7"><div class="slider-tooltip"><span class="tooltip-title">Affordable ←→ Premium</span>Affordable brands compete on value and remove financial friction. Premium brands charge more and signal superiority. Affordability builds adoption; premium builds perceived status.</div>Premium</div>
+      <div class="label-r" id="r-r7"><div class="slider-tooltip"><span class="tooltip-title">Confident ←→ Humble</span>Confident brands assert their leadership and superiority. Humble brands emphasise listening, learning, and community. Confidence inspires aspiration; humility inspires trust.</div>Humble</div>
     </div>
-
-    </div><div class="section-group"><p class="section-label">Value proposition</p>
-    <p class="section-hint">What your brand ultimately delivers. Are you solving a problem or fulfilling an aspiration? Does your customer buy for what it does, or for what it says about them?</p>
     <div class="slider-row">
-      <div class="label-l" id="l-r8">Functional<div class="slider-tooltip"><span class="tooltip-title">Functional ←→ Aspirational</span>Functional brands lead with utility — what they do and how well. Aspirational brands lead with identity — what it means to use them. Functional builds trust; aspirational builds desire.</div></div>
+      <div class="label-l" id="l-r8">Sophisticated<div class="slider-tooltip"><span class="tooltip-title">Sophisticated ←→ Casual</span>Sophisticated brands reward attention with depth, refinement, and nuance. Casual brands feel approachable and easy. Sophistication signals taste; casualness signals accessibility.</div></div>
       <div class="slider-wrap">
         <div class="val-bubble" id="b-r8"></div>
-        <input type="range" min="0" max="100" value="50" step="10" id="r8" data-left="Functional" data-right="Aspirational">
+        <input type="range" min="0" max="100" value="50" step="10" id="r8" data-left="Sophisticated" data-right="Casual">
       </div>
-      <div class="label-r" id="r-r8"><div class="slider-tooltip"><span class="tooltip-title">Functional ←→ Aspirational</span>Functional brands lead with utility — what they do and how well. Aspirational brands lead with identity — what it means to use them. Functional builds trust; aspirational builds desire.</div>Aspirational</div>
+      <div class="label-r" id="r-r8"><div class="slider-tooltip"><span class="tooltip-title">Sophisticated ←→ Casual</span>Sophisticated brands reward attention with depth, refinement, and nuance. Casual brands feel approachable and easy. Sophistication signals taste; casualness signals accessibility.</div>Casual</div>
     </div>
     <div class="slider-row">
-      <div class="label-l" id="l-r9">Simple<div class="slider-tooltip"><span class="tooltip-title">Simple ←→ Sophisticated</span>Simple brands are easy to understand and navigate — no noise. Sophisticated brands reward attention with depth and nuance. Simplicity reduces friction; sophistication signals taste.</div></div>
+      <div class="label-l" id="l-r9">Masculine<div class="slider-tooltip"><span class="tooltip-title">Masculine ←→ Feminine</span>Masculine brands feel strong, direct, and structured. Feminine brands feel nurturing, fluid, and expressive. Both are powerful — the choice signals who you're speaking to and how.</div></div>
       <div class="slider-wrap">
         <div class="val-bubble" id="b-r9"></div>
-        <input type="range" min="0" max="100" value="50" step="10" id="r9" data-left="Simple" data-right="Sophisticated">
+        <input type="range" min="0" max="100" value="50" step="10" id="r9" data-left="Masculine" data-right="Feminine">
       </div>
-      <div class="label-r" id="r-r9"><div class="slider-tooltip"><span class="tooltip-title">Simple ←→ Sophisticated</span>Simple brands are easy to understand and navigate — no noise. Sophisticated brands reward attention with depth and nuance. Simplicity reduces friction; sophistication signals taste.</div>Sophisticated</div>
+      <div class="label-r" id="r-r9"><div class="slider-tooltip"><span class="tooltip-title">Masculine ←→ Feminine</span>Masculine brands feel strong, direct, and structured. Feminine brands feel nurturing, fluid, and expressive. Both are powerful — the choice signals who you're speaking to and how.</div>Feminine</div>
     </div>
     <div class="slider-row">
-      <div class="label-l" id="l-r10">Safe / Timeless<div class="slider-tooltip"><span class="tooltip-title">Safe / Timeless ←→ Bold / Disruptive</span>Safe/timeless brands avoid risk — they look and feel reliable across decades. Bold/disruptive brands court attention and challenge the status quo. Safety builds longevity; disruption builds momentum.</div></div>
+      <div class="label-l" id="l-r10">Loud<div class="slider-tooltip"><span class="tooltip-title">Loud ←→ Quiet</span>Loud brands demand attention — high contrast, strong voice, unavoidable presence. Quiet brands whisper with confidence. Loudness creates impact; quietness creates intimacy.</div></div>
       <div class="slider-wrap">
         <div class="val-bubble" id="b-r10"></div>
-        <input type="range" min="0" max="100" value="50" step="10" id="r10" data-left="Safe / Timeless" data-right="Bold / Disruptive">
+        <input type="range" min="0" max="100" value="50" step="10" id="r10" data-left="Loud" data-right="Quiet">
       </div>
-      <div class="label-r" id="r-r10"><div class="slider-tooltip"><span class="tooltip-title">Safe / Timeless ←→ Bold / Disruptive</span>Safe/timeless brands avoid risk — they look and feel reliable across decades. Bold/disruptive brands court attention and challenge the status quo. Safety builds longevity; disruption builds momentum.</div>Bold / Disruptive</div>
+      <div class="label-r" id="r-r10"><div class="slider-tooltip"><span class="tooltip-title">Loud ←→ Quiet</span>Loud brands demand attention — high contrast, strong voice, unavoidable presence. Quiet brands whisper with confidence. Loudness creates impact; quietness creates intimacy.</div>Quiet</div>
     </div>
-
-    </div><div class="section-group"><p class="section-label">Energy & pace</p>
-    <p class="section-hint">The rhythm your brand moves at. Fast-paced brands create urgency; calm, restrained brands signal focus and confidence. Both can be premium — the difference is the emotion you trigger.</p>
     <div class="slider-row">
-      <div class="label-l" id="l-r11">Calm<div class="slider-tooltip"><span class="tooltip-title">Calm ←→ Energetic</span>Calm brands feel measured, still, and reassuring. Energetic brands feel urgent, dynamic, and exciting. Calm signals focus; energy signals drive and momentum.</div></div>
+      <div class="label-l" id="l-r11">Rebellious<div class="slider-tooltip"><span class="tooltip-title">Rebellious ←→ Conventional</span>Rebellious brands challenge the status quo and appeal to the anti-establishment. Conventional brands feel safe, familiar, and broadly accepted. Rebellion creates cultural relevance; convention creates mass appeal.</div></div>
       <div class="slider-wrap">
         <div class="val-bubble" id="b-r11"></div>
-        <input type="range" min="0" max="100" value="50" step="10" id="r11" data-left="Calm" data-right="Energetic">
+        <input type="range" min="0" max="100" value="50" step="10" id="r11" data-left="Rebellious" data-right="Conventional">
       </div>
-      <div class="label-r" id="r-r11"><div class="slider-tooltip"><span class="tooltip-title">Calm ←→ Energetic</span>Calm brands feel measured, still, and reassuring. Energetic brands feel urgent, dynamic, and exciting. Calm signals focus; energy signals drive and momentum.</div>Energetic</div>
-    </div>
-    <div class="slider-row">
-      <div class="label-l" id="l-r12">Minimalist<div class="slider-tooltip"><span class="tooltip-title">Minimalist ←→ Maximalist</span>Minimalist brands use restraint — fewer elements, more impact. Maximalist brands embrace abundance — richness, texture, and detail. Minimalism signals confidence; maximalism signals personality.</div></div>
-      <div class="slider-wrap">
-        <div class="val-bubble" id="b-r12"></div>
-        <input type="range" min="0" max="100" value="50" step="10" id="r12" data-left="Minimalist" data-right="Maximalist">
-      </div>
-      <div class="label-r" id="r-r12"><div class="slider-tooltip"><span class="tooltip-title">Minimalist ←→ Maximalist</span>Minimalist brands use restraint — fewer elements, more impact. Maximalist brands embrace abundance — richness, texture, and detail. Minimalism signals confidence; maximalism signals personality.</div>Maximalist</div>
-    </div>
-
-    </div><div class="section-group"><p class="section-label">Client relationship</p>
-    <p class="section-hint">How your brand positions itself relative to the customer. Do you walk alongside them, or lead the way? The answer shapes everything from copy to customer service tone.</p>
-    <div class="slider-row">
-      <div class="label-l" id="l-r13">Empathetic<div class="slider-tooltip"><span class="tooltip-title">Empathetic ←→ Authoritative</span>Empathetic brands center the customer's feelings and journey. Authoritative brands lead from expertise and conviction. Empathy builds trust; authority builds respect.</div></div>
-      <div class="slider-wrap">
-        <div class="val-bubble" id="b-r13"></div>
-        <input type="range" min="0" max="100" value="50" step="10" id="r13" data-left="Empathetic" data-right="Authoritative">
-      </div>
-      <div class="label-r" id="r-r13"><div class="slider-tooltip"><span class="tooltip-title">Empathetic ←→ Authoritative</span>Empathetic brands center the customer's feelings and journey. Authoritative brands lead from expertise and conviction. Empathy builds trust; authority builds respect.</div>Authoritative</div>
-    </div>
-    <div class="slider-row">
-      <div class="label-l" id="l-r14">Collaborative<div class="slider-tooltip"><span class="tooltip-title">Collaborative ←→ Expert / Guide</span>Collaborative brands position themselves as a partner — working with you. Expert/guide brands position themselves as the one who knows the way. Collaboration builds partnership; expertise builds credibility.</div></div>
-      <div class="slider-wrap">
-        <div class="val-bubble" id="b-r14"></div>
-        <input type="range" min="0" max="100" value="50" step="10" id="r14" data-left="Collaborative" data-right="Expert / Guide">
-      </div>
-      <div class="label-r" id="r-r14"><div class="slider-tooltip"><span class="tooltip-title">Collaborative ←→ Expert / Guide</span>Collaborative brands position themselves as a partner — working with you. Expert/guide brands position themselves as the one who knows the way. Collaboration builds partnership; expertise builds credibility.</div>Expert / Guide</div>
-    </div>
-    <div class="slider-row">
-      <div class="label-l" id="l-r15">Local / Intimate<div class="slider-tooltip"><span class="tooltip-title">Local / Intimate ←→ Global / Universal</span>Local/intimate brands feel rooted in a specific place or community. Global/universal brands speak to shared human experiences across cultures. Local builds authenticity; global builds scale.</div></div>
-      <div class="slider-wrap">
-        <div class="val-bubble" id="b-r15"></div>
-        <input type="range" min="0" max="100" value="50" step="10" id="r15" data-left="Local / Intimate" data-right="Global / Universal">
-      </div>
-      <div class="label-r" id="r-r15"><div class="slider-tooltip"><span class="tooltip-title">Local / Intimate ←→ Global / Universal</span>Local/intimate brands feel rooted in a specific place or community. Global/universal brands speak to shared human experiences across cultures. Local builds authenticity; global builds scale.</div>Global / Universal</div>
+      <div class="label-r" id="r-r11"><div class="slider-tooltip"><span class="tooltip-title">Rebellious ←→ Conventional</span>Rebellious brands challenge the status quo and appeal to the anti-establishment. Conventional brands feel safe, familiar, and broadly accepted. Rebellion creates cultural relevance; convention creates mass appeal.</div>Conventional</div>
     </div>
 
   </div>
@@ -327,10 +287,6 @@
 <!-- Fixed bottom panel -->
 <div class="fixed-panel">
   <div class="fixed-panel-inner">
-    <div class="fixed-panel-inputs">
-      <input type="text" id="brandName" placeholder="Brand name (optional)">
-      <input type="text" id="businessType" placeholder="Type of business (optional)" style="flex:1.5;">
-    </div>
     <div id="personality-card" style="margin-bottom:10px;display:none;">
       <div class="tag-cloud" id="tags" style="margin-bottom:8px;"></div>
       <div id="summary-body" style="display:none;margin-top:8px;font-size:14px;line-height:1.6;color:var(--text);"></div>
@@ -358,21 +314,17 @@
 
 <script>
 const sliders = [
-  { id: 'r1',  section: 'Tone & personality',   emojiL: '😎', emojiR: '🎩' },
-  { id: 'r2',  section: 'Tone & personality',   emojiL: '🎉', emojiR: '🧠' },
-  { id: 'r3',  section: 'Tone & personality',   emojiL: '🤗', emojiR: '🧊' },
-  { id: 'r4',  section: 'Tone & personality',   emojiL: '🔥', emojiR: '🏛️' },
-  { id: 'r5',  section: 'Market positioning',   emojiL: '🌍', emojiR: '💎' },
-  { id: 'r6',  section: 'Market positioning',   emojiL: '📣', emojiR: '🎯' },
-  { id: 'r7',  section: 'Market positioning',   emojiL: '💸', emojiR: '✨' },
-  { id: 'r8',  section: 'Value proposition',    emojiL: '🔧', emojiR: '🌟' },
-  { id: 'r9',  section: 'Value proposition',    emojiL: '⬜', emojiR: '🔮' },
-  { id: 'r10', section: 'Value proposition',    emojiL: '🏔️', emojiR: '⚡' },
-  { id: 'r11', section: 'Energy & pace',        emojiL: '🌿', emojiR: '🚀' },
-  { id: 'r12', section: 'Energy & pace',        emojiL: '◻️', emojiR: '🎨' },
-  { id: 'r13', section: 'Client relationship',  emojiL: '💛', emojiR: '📐' },
-  { id: 'r14', section: 'Client relationship',  emojiL: '🤝', emojiR: '🎓' },
-  { id: 'r15', section: 'Client relationship',  emojiL: '📍', emojiR: '🌐' },
+  { id: 'r1',  section: 'Tone & personality',   emojiL: '⚡', emojiR: '🏛️' },
+  { id: 'r2',  section: 'Tone & personality',   emojiL: '🌱', emojiR: '🎩' },
+  { id: 'r3',  section: 'Tone & personality',   emojiL: '🎉', emojiR: '💼' },
+  { id: 'r4',  section: 'Tone & personality',   emojiL: '🌀', emojiR: '🏺' },
+  { id: 'r5',  section: 'Market positioning',   emojiL: '🔥', emojiR: '🌫️' },
+  { id: 'r6',  section: 'Market positioning',   emojiL: '🚀', emojiR: '⚓' },
+  { id: 'r7',  section: 'Market positioning',   emojiL: '💪', emojiR: '🙏' },
+  { id: 'r8',  section: 'Value proposition',    emojiL: '🔮', emojiR: '😎' },
+  { id: 'r9',  section: 'Value proposition',    emojiL: '⚒️', emojiR: '🌸' },
+  { id: 'r10', section: 'Value proposition',    emojiL: '📣', emojiR: '🤫' },
+  { id: 'r11', section: 'Energy & pace',        emojiL: '✊', emojiR: '🕊️' },
 ];
 
 const moved = new Set();
@@ -659,55 +611,7 @@ function toggleAccordion(header) {
 }
 
 function resetSliders() {
-  
-// ── Audio engine ─────────────────────────────────────────────────────────────
-const _ac = new (window.AudioContext || window.webkitAudioContext)();
-
-function _beep(freq, type, vol, dur, attack=0.005, release=0.08) {
-  try {
-    const osc = _ac.createOscillator();
-    const gain = _ac.createGain();
-    osc.connect(gain); gain.connect(_ac.destination);
-    osc.type = type; osc.frequency.value = freq;
-    const t = _ac.currentTime;
-    gain.gain.setValueAtTime(0, t);
-    gain.gain.linearRampToValueAtTime(vol, t + attack);
-    gain.gain.exponentialRampToValueAtTime(0.0001, t + dur);
-    osc.start(t); osc.stop(t + dur + release);
-  } catch(e) {}
-}
-
-// hover: very soft high sine blip
-function snd_hover()  { _beep(880, 'sine',     0.04, 0.06); }
-// mousedown: soft mid click
-function snd_down()   { _beep(440, 'triangle', 0.07, 0.08); }
-// snap: subtle tick at a slightly higher pitch
-function snd_snap()   { _beep(660, 'sine',     0.05, 0.05); }
-// mouseup: soft low release
-function snd_up()     { _beep(330, 'sine',     0.04, 0.10); }
-
-// CTA click: two-tone chord, feels "submitting"
-function snd_cta() {
-  _beep(440, 'sine', 0.06, 0.18, 0.01, 0.15);
-  _beep(660, 'sine', 0.04, 0.14, 0.01, 0.12);
-}
-
-// Loading ambient: soft repeating pulse while waiting
-let _loadInterval = null;
-function snd_loading_start() {
-  let tick = 0;
-  _loadInterval = setInterval(() => {
-    const freqs = [220, 246, 261, 246];
-    _beep(freqs[tick % 4], 'sine', 0.025, 0.25, 0.02, 0.20);
-    tick++;
-  }, 600);
-}
-function snd_loading_stop() {
-  if (_loadInterval) { clearInterval(_loadInterval); _loadInterval = null; }
-  _beep(523, 'sine', 0.06, 0.30, 0.01, 0.25); // completion chime
-}
-
-sliders.forEach(sl => {
+  sliders.forEach(sl => {
     const input = getEl(sl.id); input.value = 50; moved.delete(sl.id);
     getEl('l-'+sl.id).classList.remove('active'); getEl('r-'+sl.id).classList.remove('active');
     getEl('l-'+sl.id).style.color = ''; getEl('r-'+sl.id).style.color = '';
@@ -729,52 +633,7 @@ function getResultsText() {
   const lines = ['BRAND ATTRIBUTE PROFILE','— Lunte Studio','',new Date().toLocaleDateString('en-US',{year:'numeric',month:'long',day:'numeric'}),''];
   let sec='';
   
-// ── Audio engine ─────────────────────────────────────────────────────────────
-const _ac = new (window.AudioContext || window.webkitAudioContext)();
 
-function _beep(freq, type, vol, dur, attack=0.005, release=0.08) {
-  try {
-    const osc = _ac.createOscillator();
-    const gain = _ac.createGain();
-    osc.connect(gain); gain.connect(_ac.destination);
-    osc.type = type; osc.frequency.value = freq;
-    const t = _ac.currentTime;
-    gain.gain.setValueAtTime(0, t);
-    gain.gain.linearRampToValueAtTime(vol, t + attack);
-    gain.gain.exponentialRampToValueAtTime(0.0001, t + dur);
-    osc.start(t); osc.stop(t + dur + release);
-  } catch(e) {}
-}
-
-// hover: very soft high sine blip
-function snd_hover()  { _beep(880, 'sine',     0.04, 0.06); }
-// mousedown: soft mid click
-function snd_down()   { _beep(440, 'triangle', 0.07, 0.08); }
-// snap: subtle tick at a slightly higher pitch
-function snd_snap()   { _beep(660, 'sine',     0.05, 0.05); }
-// mouseup: soft low release
-function snd_up()     { _beep(330, 'sine',     0.04, 0.10); }
-
-// CTA click: two-tone chord, feels "submitting"
-function snd_cta() {
-  _beep(440, 'sine', 0.06, 0.18, 0.01, 0.15);
-  _beep(660, 'sine', 0.04, 0.14, 0.01, 0.12);
-}
-
-// Loading ambient: soft repeating pulse while waiting
-let _loadInterval = null;
-function snd_loading_start() {
-  let tick = 0;
-  _loadInterval = setInterval(() => {
-    const freqs = [220, 246, 261, 246];
-    _beep(freqs[tick % 4], 'sine', 0.025, 0.25, 0.02, 0.20);
-    tick++;
-  }, 600);
-}
-function snd_loading_stop() {
-  if (_loadInterval) { clearInterval(_loadInterval); _loadInterval = null; }
-  _beep(523, 'sine', 0.06, 0.30, 0.01, 0.25); // completion chime
-}
 
 sliders.forEach(sl => {
     if(sl.section!==sec){sec=sl.section;lines.push('',sec.toUpperCase());}
